@@ -1,0 +1,130 @@
+/***
+ * Styles related to GAME elements: logo, nav, buttons, ...
+ ***/
+
+/*** UI ***/
+.ui {
+	position:absolute;
+	top:-9999px;
+	opacity:0;
+
+	-webkit-transition:opacity 0.3s ease-out;
+	   -moz-transition:opacity 0.3s ease-out;
+	    -ms-transition:opacity 0.3s ease-out;
+	     -o-transition:opacity 0.3s ease-out;
+	        transition:opacity 0.3s ease-out;
+}
+
+.ui-ready .ui {
+	position:static;
+	opacity:1;
+}
+
+/*** LEVEL LIST ***/
+#level-list {
+	position:absolute;
+	left:50%;
+	bottom:100%;
+
+	width:480px;
+	height:480px;
+	padding:40px;
+	margin:0 0 0 -240px;
+	-webkit-box-sizing:border-box;
+	   -moz-box-sizing:border-box;
+	    -ms-box-sizing:border-box;
+	        box-sizing:border-box;
+
+	list-style:none;
+	
+	display:none;
+	opacity:0;
+
+	/* fix bug in webkit with incorect z-index and trigger hardware acceleration */
+	-webkit-transform:translateZ(1px);
+	   -moz-transform:translateZ(1px);
+	    -ms-transform:translateZ(1px);
+	        transform:translateZ(1px);
+
+	-webkit-transition-duration:.3s;
+	-webkit-transition-property:opacity, bottom, margin;
+	-webkit-transition-timing-function:cubic-bezier(0.770, 0.000, 0.175, 1.000);
+
+	-moz-transition-duration:.3s;
+	-moz-transition-property:opacity, bottom, margin;
+	-moz-transition-timing-function:cubic-bezier(0.770, 0.000, 0.175, 1.000);
+	
+	-ms-transition-duration:.3s;
+	-ms-transition-property:opacity, bottom, margin;
+	-ms-transition-timing-function:cubic-bezier(0.770, 0.000, 0.175, 1.000);
+
+	-o-transition-duration:.3s;
+	-o-transition-property:opacity, bottom, margin;
+	-o-transition-timing-function:cubic-bezier(0.770, 0.000, 0.175, 1.000);
+	
+	transition-duration:.3s;
+	transition-property:opacity, bottom, margin;
+	transition-timing-function:cubic-bezier(0.770, 0.000, 0.175, 1.000);
+}
+
+.ready #level-list {
+	display:block;
+}
+
+#level-list.show {
+	opacity:1;
+	bottom:50%;
+	margin-bottom:-240px;
+}
+
+#level-list .level {
+	float:left;
+	width:62px;
+	height:62px;
+	padding:9px;
+}
+
+#level-list .link {
+	display:block;
+	width:62px;
+	height:62px;
+
+	background:url(../img/sprite.png) no-repeat -540px -32px;
+
+	text-align:center;
+	line-height:60px;
+	font-size:32px;
+	color:#8d1738;
+	font-family:Garamond, "Times New Roman", Times, serif;
+	text-decoration:none;
+	letter-spacing:-0.025em;
+	text-shadow:0 1px #fff;
+	text-shadow:0 -1px rgba(0,0,0,.2), 0 1px #fff;
+
+	-webkit-transform:translateZ(1px);
+	   -moz-transform:translateZ(1px);
+	    -ms-transform:translateZ(1px);
+	        transform:translateZ(1px);
+}
+
+#level-list .link:active {
+	background-position:-602px -32px;
+	margin:1px 0 0;
+}
+
+#level-list .disabled {
+	opacity:.7;
+	/* icone de cadenas */
+}
+
+
+
+
+
+
+
+
+
+
+
+

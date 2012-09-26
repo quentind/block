@@ -1,0 +1,36 @@
+{
+  "name": "block",
+  
+  "title": "Block Game",
+  
+  "description": "",
+  
+  "version": "0.1",
+  
+  "homepage": "",
+  
+  "author": {
+    "name": "Quentin De Smedt"
+  },
+  
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  
+  "bugs": {
+    "url": ""
+  },
+  
+  "licenses": [
+  ],
+  
+  "dependencies": {
+   },
+  
+  "devDependencies": {
+  },
+  
+  "keywords": [
+  ]
+}

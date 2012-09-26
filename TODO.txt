@@ -1,0 +1,12 @@
+TODO:
+
+Disable UI when transition between level
+Photoshop UI icons ( mute/unmute, fullscreen, reset level )
+JavaScript UI icons ( mute/unmute )
+Fix fullscreen API avec F11 + event => API + F11 fucked up mais quand même utilisé l'event pour gérer la classe et le ESC
+Sounds when lvl is won + preload sound files
+Clean JS and CSS files
+Hide blocks totaly when transition ends ( http://www.greywyvern.com/?post=337 )
+Alert lvl unlocked
+Proper loading
+Credit screen

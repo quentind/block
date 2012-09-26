@@ -1,0 +1,124 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Block</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+	<link rel="stylesheet" href="_dev/css/reset.css" type="text/css" />
+	<link rel="stylesheet" href="_dev/css/board.css" type="text/css" />
+	<link rel="stylesheet" href="_dev/css/block.css" type="text/css" />
+	<link rel="stylesheet" href="_dev/css/ui.css" type="text/css" />
+
+	<!-- TODO: own font-face ou window.load puis init, ou chargement du css en JS -->
+	<link href="http://fonts.googleapis.com/css?family=Fredericka+the+Great&amp;text=1234657890" rel="stylesheet" type="text/css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+
+</head>
+
+<body>
+	
+	<!--<audio controls>
+		<source src="preview.mp3" />
+	</audio>-->
+
+	<div class="error" id="too-small">
+		<p class="text">Whoops, your screen is too small to play :(</p>
+	</div>
+	
+	<!--[if lt IE 8]>
+	<div class="error">
+		<p class="text">Whoops, it looks like your browser isn't recent enough to play :(</p>
+	</div>
+	<![endif]-->
+	
+	<noscript class="error">
+		<p class="text">Sorry, JavaScript is required to play.</p>
+	</noscript>
+
+	<div id="board">
+		<div class="border right-bottom"></div>
+		<div class="border bottom"></div>
+		<div class="border left"></div>
+		<div class="border top"></div>
+		<div class="border right-top"></div>
+	</div>
+
+	<div id="ui" class="ui">
+
+		<div class="scoreboard">
+			<a class="box level" data-action="toggleLevelList">
+				<div class="field" id="current-level"></div>
+				<div class="txt">Level</div>
+			</a>
+
+			<div class="box moves">
+				<div class="field odd big" id="moves-played">1</div>
+				<div class="field">
+					<span class="label">Par </span>
+					<span class="val" id="moves-par">29</span>
+				</div>
+				<div class="field odd" id="field-moves-best">
+					<span class="label">Best </span>
+					<span class="val" id="moves-best">—</span>
+					<div class="new"></div>
+				</div>
+				<div class="txt">Moves</div>
+			</div>
+		</div>
+
+		<div class="buttons">
+			<a class="button box reset" data-action="resetBoard" data-requires="puzzle"><span class="txt">Reset Board</span></a>
+			<a class="button box mute" data-action="muteUnmute"><span class="txt">Mute</span></a>
+			<a class="button box fullscreen" data-action="toggleFullScreen"><span class="txt">Full Screen</span></a>
+			<a class="button box" data-action="resetLevels">Reset Levels</a>
+		</div>
+
+	</div>
+
+	<div id="play" class="blocks-out-bot"></div>
+	
+	<ul id="level-list">
+		<li class="level"><a class="link r-1 c-1 " id="level-0">1</a></li>
+		<li class="level"><a class="link r-1 c-2 locked" id="level-1">2</a><span class="info"></span></li>
+		<li class="level"><a class="link r-1 c-3 locked" id="level-2">3</a><span class="info"></span></li>
+		<li class="level"><a class="link r-1 c-4 locked" id="level-3">4</a><span class="info"></span></li>
+		<li class="level"><a class="link r-1 c-5 locked" id="level-4">5</a><span class="info"></span></li>
+
+		<li class="level"><a class="link r-2 c-1 locked" id="level-5">6</a><span class="info"></span></li>
+		<li class="level"><a class="link r-2 c-2 locked" id="level-6">7</a><span class="info"></span></li>
+		<li class="level"><a class="link r-2 c-3 locked" id="level-7">8</a><span class="info"></span></li>
+		<li class="level"><a class="link r-2 c-4 locked" id="level-8">9</a><span class="info"></span></li>
+		<li class="level"><a class="link r-2 c-5 locked" id="level-9">10</a><span class="info"></span></li>
+		
+		<li class="level"><a class="link r-3 c-1 locked" id="level-10">11</a><span class="info"></span></li>
+		<li class="level"><a class="link r-3 c-2 locked" id="level-11">12</a><span class="info"></span></li>
+		<li class="level"><a class="link r-3 c-3 locked" id="level-12">13</a><span class="info"></span></li>
+		<li class="level"><a class="link r-3 c-4 locked" id="level-13">14</a><span class="info"></span></li>
+		<li class="level"><a class="link r-3 c-5 locked" id="level-14">15</a><span class="info"></span></li>
+		
+		<li class="level"><a class="link r-4 c-1 locked" id="level-15">16</a><span class="info"></span></li>
+		<li class="level"><a class="link r-4 c-2 locked" id="level-16">17</a><span class="info"></span></li>
+		<li class="level"><a class="link r-4 c-3 locked" id="level-17">18</a><span class="info"></span></li>
+		<li class="level"><a class="link r-4 c-4 locked" id="level-18">19</a><span class="info"></span></li>
+		<li class="level"><a class="link r-4 c-5 locked" id="level-19">20</a><span class="info"></span></li>
+		
+		<li class="level"><a class="link r-5 c-1 locked" id="level-20">21</a><span class="info"></span></li>
+		<li class="level"><a class="link r-5 c-2 locked" id="level-21">22</a><span class="info"></span></li>
+		<li class="level"><a class="link r-5 c-3 locked" id="level-22">23</a><span class="info"></span></li>
+		<li class="level"><a class="link r-5 c-4 locked" id="level-23">24</a><span class="info"></span></li>
+		<li class="level"><a class="link r-5 c-5 locked" id="level-24">25</a><span class="info"></span></li>
+	</ul>
+
+	<script type="text/javascript" src="_dev/js/lib.js"></script>
+	<script type="text/javascript" src="_dev/js/board.js"></script>
+	<script type="text/javascript" src="_dev/js/block.js"></script>
+	<script type="text/javascript" src="_dev/js/puzzle.js"></script>
+	<script type="text/javascript" src="_dev/js/block.move.js"></script>
+	<script type="text/javascript" src="_dev/js/game.js"></script>
+	<script type="text/javascript" src="_dev/js/ui.js"></script>
+	
+</body>
+</html>
