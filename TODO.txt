@@ -1,4 +1,4 @@
-TODO:
+﻿TODO:
 
 Disable UI when transition between level
 Photoshop UI icons ( mute/unmute, fullscreen, reset level )
@@ -10,3 +10,6 @@ Hide blocks totaly when transition ends ( http://www.greywyvern.com/?post=337 )
 Alert lvl unlocked
 Proper loading
 Credit screen
+
+
+test
