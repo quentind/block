@@ -12,7 +12,8 @@
 	 * Store elements to reduce DOM access
 	 ***/
 	UI.$ = {
-		board			: $('#play')
+		ui 				: $('#ui')
+	  , board			: $('#play')
 	  ,	level			: $('#current-level')
 	  , movesPlayed		: $('#moves-played')
 	  , movesPar		: $('#moves-par')
@@ -20,6 +21,7 @@
 	  , toggleMenu		: $('#toggle-menu')
 	  , levelList		: $('#level-list')
 	  , fieldMovesBest	: $('#field-moves-best')
+	  , fullscreenButton: $('#fullscreen-button') 
 	};
 
 	/***
@@ -31,22 +33,51 @@
 	UI.status = {
 
 		puzzle: true,
+		fullscreen: false,
+		muted: false,
 
-		update: function ( key, value ) {
-			UI.status[ key ] = value;
+		update: function ( status, value ) {
+			UI.status[ status ] = value;
 		},
 
 		init: function () {
 
+			/*
+			 * PUZZLE in or out
+			 */
 			$(window).addEvent('puzzleOut' , function () {
-				//console.log('out');
-				UI.status.update( 'puzzle' , false );
+				UI.status.update( 'puzzle', false );
 			}, true, true);
 
 			$(window).addEvent('puzzleIn' , function () {
-				//console.log('in');
-				UI.status.update( 'puzzle' , true );
+				UI.status.update( 'puzzle', true );
 			}, true, true);
+
+			/*
+			 * FULLSCREEN mode on or off
+			 * -
+			 * Firefox doesnt start transition with html:-moz-full-screen selector
+			 * So we have to use JS events and a class
+			 */
+			var isFullScreenOn = function () {
+				
+				var d = document
+				  , isActive = d.fullscreen || d.mozFullScreen || d.webkitIsFullScreen || false
+				;
+
+				UI.status.fullscreen = isActive;
+
+				if ( isActive === true ) {
+					UI.$.fullscreenButton.addClass('enabled');
+				} else {
+					UI.$.fullscreenButton.removeClass('enabled');
+				}
+			};
+
+			$(document).addEvent('fullscreenchange', isFullScreenOn );
+			$(document).addEvent('mozfullscreenchange', isFullScreenOn );
+			$(document).addEvent('webkitfullscreenchange', isFullScreenOn );
+			
 		}
 
 	};
@@ -70,7 +101,6 @@
 			if ( typeof action === 'function' && ( ! requires || UI.status[ requires ] === true ) ) {
 				action.call( this );
 			}
-		
 		},
 
 		/**
@@ -109,12 +139,10 @@
 
 				if ( fs ) {
 
-					if ( ! $(this).hasClass('enabled') ) {
+					if ( UI.status.fullscreen === false ) {
 						fs.enable();
-						$(this).addClass('enabled');
 					} else {
 						fs.cancel();
-						$(this).removeClass('enabled');
 					}
 
 				}
@@ -168,8 +196,8 @@
 		 * Init all buttons
 		 */
 		init: function () {
-			var ui = $('#ui')[0];
-			$('a', ui ).addEvent( 'click', this.dispatchAction, true );
+			$('a', UI.$.ui[0] ).addEvent( 'click', this.dispatchAction, true );
+
 		}
 
 	};

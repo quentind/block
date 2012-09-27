@@ -169,24 +169,37 @@
 
 .moves .field .label,
 .moves .field .val {
+	
+	/* Box Model */
 	height:100%;
+
+	/* Visual */
 	line-height:21px;
 }
 
 .moves .field .label {
+
+	/* Box Model */
 	float:left;
-	text-align:left;
 	width:29px;
 
+	/* Text */
+	text-align:left;
 	font-size:9px;
 	text-transform:uppercase;
 }
 
 .moves .field .val {
+
+	/* Position */
+	margin:0 -4px 0 0;
+
+	/* Box Model */
 	float:right;
 	width:23px;
 	padding:0 0 0 2px;
-	margin:0 -4px 0 0;
+	
+	/* Visual */
 	background:rgba(0,0,0,.05);
 }
 
@@ -212,11 +225,13 @@
 	width:32px;
 
 	/* Behaviour */
+	/* Might causes flicker in FF when toggling Fullscreen on (more often with F11 than with fullscreen API it seems) */
 	-webkit-transform:translateZ(1px);
-       -moz-transform:translateZ(1px);
+       -moz-transform:translateZ(1px); 
         -ms-transform:translateZ(1px);
          -o-transform:;
             transform:translateZ(1px);
+    
 }
 
 .buttons .button {
@@ -235,21 +250,97 @@
 
 	/* Behaviour */
 	cursor:pointer;
-
-}
-
-
-.button.reset {
-	background-position:-712px -32px;
 }
 
 .button.mute {
 	background-position:-744px -32px;	
 }
 
-.button.fullscreen {
-	background-position:-776px -32px;
+/*** BUTTON ICONS ***/
+.button .i {
+
+	/* Position */
+	position:absolute;
+
+	/* Visual */
+	background:url(../img/sprite.png) no-repeat 0 -9999px;
+
+	/* Behaviour */
+	-webkit-transition:all 0.3s ease-out 0.5s;
+	   -moz-transition:all 0.3s ease-out 0.5s;
+	     -o-transition:all 0.3s ease-out 0.5s;
+	        transition:all 0.3s ease-out 0.5s;
 }
+
+/**
+ * Reset board button
+ */
+.reset .i {
+
+	/* Position */
+	left:4px;
+	top:4px;
+
+	/* Box Model */
+	width:23px;
+	height:23px;
+
+	/* Visual */
+	background-position:-716px -37px;
+}
+
+/**
+ * Fullscreen button
+ */
+.fullscreen .i {
+
+	/* Box Model */
+	width:11px;
+	height:11px;
+}
+
+.fullscreen .t { top:3px; }
+.fullscreen .b { bottom:4px; }
+.fullscreen .l { left:5px; }
+.fullscreen .r { right:4px; }
+
+.fullscreen .t.l { background-position:-781px -36px; }
+.fullscreen .t.r { background-position:-793px -36px; }
+.fullscreen .b.l { background-position:-781px -48px; }
+.fullscreen .b.r { background-position:-793px -48px; }
+
+.fullscreen.enabled .t.l,
+.fullscreen.enabled .b.r {
+	-webkit-transform:rotate(180deg);
+	   -moz-transform:rotate(180deg);
+	    -ms-transform:rotate(180deg);
+	     -o-transform:rotate(180deg);
+	        transform:rotate(180deg);
+}
+
+.fullscreen.enabled .t.r,
+.fullscreen.enabled .b.l {
+	-webkit-transform:rotate(-180deg);
+	   -moz-transform:rotate(-180deg);
+	    -ms-transform:rotate(-180deg);
+	     -o-transform:rotate(-180deg);
+	        transform:rotate(-180deg);
+}
+
+
+/* Cant combine selector ! And doesnt trigger transition if firefox, WTH ! */
+/*
+html:-webkit-full-screen .fullscreen {
+	-webkit-transform:rotate(-45deg);
+}
+
+html:-moz-full-screen .fullscreen {
+	-moz-transform:rotate(-45deg);
+}
+
+html:fullscreen .fullscreen {
+}
+*/
 
 .no-fullscreen .button.fullscreen,
 .no-audio .button.mute {
