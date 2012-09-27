@@ -10,6 +10,3 @@ Hide blocks totaly when transition ends ( http://www.greywyvern.com/?post=337 )
 Alert lvl unlocked
 Proper loading
 Credit screen
-
-
-test2
