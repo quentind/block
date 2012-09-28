@@ -549,6 +549,7 @@ html:fullscreen .fullscreen {
 	position:absolute;
 	left:50%;
 	bottom:100%;
+	z-index:5;
 
 	/* Box Model */
 	width:480px;
