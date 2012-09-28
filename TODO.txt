@@ -1,9 +1,9 @@
 ﻿TODO:
 
-- JS UI icons ( mute/unmute ) + CSS animation
 - Sounds when lvl is won + preload sound files
 - Clean JS and CSS files
 - Hide blocks totaly when transition ends ( http://www.greywyvern.com/?post=337 )
 - Alert lvl unlocked
-- Proper loading
+- Proper pre-loading
 - Credit/end game screen
+- Logo
