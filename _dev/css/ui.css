@@ -296,8 +296,6 @@
 	   -moz-transition:none;
 	     -o-transition:none;
 	        transition:none;
-	        
-	
 }
 
 .reset.anim .i {
@@ -307,11 +305,10 @@
 	     -o-transform:rotate(360deg) ;
 	        transform:rotate(360deg) translateZ(1px);
 
-	-webkit-transition:all 1.7s ease-out;
-	   -moz-transition:all 1.7s ease-out;
-	     -o-transition:all 1.7s ease-out;
-	        transition:all 1.7s ease-out;
-	
+	-webkit-transition:all 1.4s ease-in;
+	   -moz-transition:all 1.4s ease-in;
+	     -o-transition:all 1.4s ease-in;
+	        transition:all 1.4s ease-in;
 }
 
 /**
@@ -367,6 +364,93 @@ html:fullscreen .fullscreen {
 }
 */
 
+/**
+ * Mute / Unmute button
+ */
+.mute .body {
+
+	/* Position */
+	top:4px;
+	left:4px;
+	z-index:2;
+
+	/* Box Model */
+	width:15px;
+	height:22px;
+
+	/* Visual */
+	background-position:-749px -37px;
+}
+
+.mute .wave-1 {
+
+	/* Position */
+	top:9px;
+	left:20px;
+	z-index:1;
+
+	/* Box Model */
+	width:6px;
+	height:12px;
+
+	/* Visual */
+	background-position:-765px -42px;
+
+}
+
+.mute .wave-2 {
+
+	/* Position */
+	top:8px;
+	left:25px;
+	z-index:1;
+	
+	/* Box Model */
+	width:6px;
+	height:14px;
+
+	/* Visual */
+	background-position:-771px -41px;
+}
+
+.mute .wave-1,
+.mute .wave-2 {
+
+	/* Behaviour */
+	opacity:0;
+	-webkit-transition:all 0.3s ease-in;
+	   -moz-transition:all 0.3s ease-in;
+	     -o-transition:all 0.3s ease-in;
+	        transition:all 0.3s ease-in;
+}
+
+.mute .wave-1 {
+	-webkit-transform:translateX(-10px) scale(.5);
+	   -moz-transform:translateX(-10px) scale(.5);
+	    -ms-transform:translateX(-10px) scale(.5);
+	     -o-transform:translateX(-10px) scale(.5);
+	        transform:translateX(-10px) scale(.5);
+}
+
+.mute .wave-2 {
+	-webkit-transform:translateX(-13px) scale(.5);
+	   -moz-transform:translateX(-13px) scale(.5);
+	    -ms-transform:translateX(-13px) scale(.5);
+	     -o-transform:translateX(-13px) scale(.5);
+	        transform:translateX(-13px) scale(.5);
+}
+
+.mute.muted .wave-1,
+.mute.muted .wave-2 {
+	opacity:1;
+	-webkit-transform:translateX(0) scale(1);
+	   -moz-transform:translateX(0) scale(1);
+	    -ms-transform:translateX(0) scale(1);
+	     -o-transform:translateX(0) scale(1);
+	        transform:translateX(0) scale(1);
+}
+
+/* No icons when not supported */
 .no-fullscreen .button.fullscreen,
 .no-audio .button.mute {
 	display:none;

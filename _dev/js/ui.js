@@ -152,7 +152,15 @@
 			 * (un)Mute
 			 */
 			muteUnmute: function () {
-				console.log('muteUnmute');
+				
+				if ( UI.status.muted === false ) {
+					UI.status.update('muted', true );
+					$(this).addClass('muted');
+				} else {
+					UI.status.update('muted', false );
+					$(this).removeClass('muted');
+				}
+
 			},
 
 			/**
