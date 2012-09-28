@@ -7,3 +7,4 @@
 - Proper pre-loading
 - Credit/end game screen
 - Logo
+- Design mouse pointer
