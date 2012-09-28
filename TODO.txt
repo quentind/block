@@ -1,6 +1,6 @@
 ﻿TODO:
 
-- JavaScript UI icons ( mute/unmute )
+- JS UI icons ( mute/unmute ) + CSS animation
 - Sounds when lvl is won + preload sound files
 - Clean JS and CSS files
 - Hide blocks totaly when transition ends ( http://www.greywyvern.com/?post=337 )

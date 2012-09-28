@@ -260,10 +260,10 @@
 
 	/* Behaviour */
 	-webkit-transform:translateZ(1px);
-       -moz-transform:translateZ(1px); 
-        -ms-transform:translateZ(1px);
-         -o-transform:;
-            transform:translateZ(1px);
+	   -moz-transform:translateZ(1px); 
+	    -ms-transform:translateZ(1px);
+	     -o-transform:;
+	        transform:translateZ(1px);
 
 	-webkit-transition:all 0.3s ease-out 0.5s;
 	   -moz-transition:all 0.3s ease-out 0.5s;
@@ -286,6 +286,32 @@
 
 	/* Visual */
 	background-position:-716px -37px;
+
+	-webkit-transform:rotate(0deg) translateZ(1px);
+	   -moz-transform:rotate(0deg) translateZ(1px); 
+	    -ms-transform:rotate(0deg) translateZ(1px);
+	     -o-transform:rotate(0deg) ;
+	        transform:rotate(0deg) translateZ(1px);
+	-webkit-transition:none;
+	   -moz-transition:none;
+	     -o-transition:none;
+	        transition:none;
+	        
+	
+}
+
+.reset.anim .i {
+	-webkit-transform:rotate(360deg) translateZ(1px);
+	   -moz-transform:rotate(360deg) translateZ(1px); 
+	    -ms-transform:rotate(360deg) translateZ(1px);
+	     -o-transform:rotate(360deg) ;
+	        transform:rotate(360deg) translateZ(1px);
+
+	-webkit-transition:all 1.7s ease-out;
+	   -moz-transition:all 1.7s ease-out;
+	     -o-transition:all 1.7s ease-out;
+	        transition:all 1.7s ease-out;
+	
 }
 
 /**
@@ -319,7 +345,7 @@
 
 .fullscreen.enabled .t.r,
 .fullscreen.enabled .b.l {
-	/* Doesnt animate counter-clock wise with -180deg, 540deg and -540deg doesnt work either, WTF T_T */
+	/* Doesnt animate counter-clock wise with -180deg. Using 540deg or -540deg doesn't work either, WTF T_T */
 	-webkit-transform:rotate(-179deg);
 	   -moz-transform:rotate(-179deg);
 	    -ms-transform:rotate(-179deg);
@@ -327,8 +353,7 @@
 	        transform:rotate(-179deg);
 }
 
-
-/* Cant combine selector ! And doesnt trigger transition if firefox, WTH ! */
+/* Cant combine selector ! And doesnt trigger transition if Firefox (as of v15), WTH ! */
 /*
 html:-webkit-full-screen .fullscreen {
 	-webkit-transform:rotate(-45deg);

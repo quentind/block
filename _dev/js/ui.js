@@ -160,7 +160,9 @@
 			 */
 			resetBoard: function () {
 				
-				//console.log('resetBoard');
+				var $this = $(this);
+
+				$this.addClass('anim');
 
 				game.animate.blocks({
 					where: 'out',
@@ -174,7 +176,10 @@
 						game.animate.blocks({
 							where: 'in',
 							direction: 'bot',
-							force: true
+							force: true,
+							callback: function () {
+								$this.removeClass('anim');
+							}
 						});
 
 					}
