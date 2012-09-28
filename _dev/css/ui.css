@@ -698,7 +698,8 @@ html:fullscreen .fullscreen {
 	/* Behaviour */
 	visibility:hidden;
 	opacity:0;
-	-webkit-transition:visibility 0s linear .7s, opacity 0.5s cubic-bezier(0.770, 0.000, 0.175, 1.000), -webkit-transform 0.5s cubic-bezier(0.77, 0,0.175, 1); /* Hack with transition delay for opacity and not clickable element when opacity is 0 */
+	/* Hack with transition delay for opacity and not clickable element when opacity is 0 */
+	-webkit-transition:visibility 0s linear .7s, opacity 0.5s cubic-bezier(0.770, 0.000, 0.175, 1.000), -webkit-transform 0.5s cubic-bezier(0.77, 0,0.175, 1);
 	   -moz-transition:visibility 0s linear .7s, opacity 0.5s cubic-bezier(0.770, 0.000, 0.175, 1.000),    -moz-transform 0.5s cubic-bezier(0.77, 0,0.175, 1);
 	    -ms-transition:visibility 0s linear .7s, opacity 0.5s cubic-bezier(0.770, 0.000, 0.175, 1.000),     -ms-transform 0.5s cubic-bezier(0.77, 0,0.175, 1);
 	     -o-transition:visibility 0s linear .7s, opacity 0.5s cubic-bezier(0.770, 0.000, 0.175, 1.000),      -o-transform 0.5s cubic-bezier(0.77, 0,0.175, 1);
