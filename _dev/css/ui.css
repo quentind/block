@@ -225,7 +225,7 @@
 	width:32px;
 
 	/* Behaviour */
-	/* Might causes flicker in FF when toggling Fullscreen on (more often with F11 than with fullscreen API it seems) */
+	/* Might causes flicker in FF on XP when toggling Fullscreen on (more often with F11 than with fullscreen API it seems) */
 	-webkit-transform:translateZ(1px);
        -moz-transform:translateZ(1px); 
         -ms-transform:translateZ(1px);
@@ -245,15 +245,8 @@
 	width:32px;
 	padding:0;
 
-	/* Visual */
-	background:url(../img/sprite.png) no-repeat 0 -9999px;
-
 	/* Behaviour */
 	cursor:pointer;
-}
-
-.button.mute {
-	background-position:-744px -32px;	
 }
 
 /*** BUTTON ICONS ***/
@@ -266,6 +259,12 @@
 	background:url(../img/sprite.png) no-repeat 0 -9999px;
 
 	/* Behaviour */
+	-webkit-transform:translateZ(1px);
+       -moz-transform:translateZ(1px); 
+        -ms-transform:translateZ(1px);
+         -o-transform:;
+            transform:translateZ(1px);
+
 	-webkit-transition:all 0.3s ease-out 0.5s;
 	   -moz-transition:all 0.3s ease-out 0.5s;
 	     -o-transition:all 0.3s ease-out 0.5s;
@@ -320,11 +319,12 @@
 
 .fullscreen.enabled .t.r,
 .fullscreen.enabled .b.l {
-	-webkit-transform:rotate(-180deg);
-	   -moz-transform:rotate(-180deg);
-	    -ms-transform:rotate(-180deg);
-	     -o-transform:rotate(-180deg);
-	        transform:rotate(-180deg);
+	/* Doesnt animate counter-clock wise with -180deg, 540deg and -540deg doesnt work either, WTF T_T */
+	-webkit-transform:rotate(-179deg);
+	   -moz-transform:rotate(-179deg);
+	    -ms-transform:rotate(-179deg);
+	     -o-transform:rotate(-179deg);
+	        transform:rotate(-179deg);
 }
 
 
