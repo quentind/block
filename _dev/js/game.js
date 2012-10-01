@@ -33,10 +33,16 @@
 		var preload = new Image();
 		
 		preload.onload = function () {
-			$.delay( game.init.verify, config.loadDelay );
+			$.delay( game.init, config.loadDelay );
 		};
 
 		preload.src = config.spriteURL;
+
+		/*
+		$('#audio').addEvent('canplaythrough', function() {
+			//alert('k');
+		}, false);
+		*/
 
 	};
 	
@@ -147,12 +153,10 @@
 		 */
 		win: function () {
 
-			// TODO ? : when win(), blocks out puis popover avec recap et bouton restart si 'par' pas obtenu (éventuellement système d'étoiles) et boutton next.
-			// ça rêgle le problème des transitions pour ce cas-ci
+			// TODO (?) : when win(), blocks out puis popover avec recap et bouton restart si 'par' pas obtenu (éventuellement système d'étoiles) et boutton next.
 			
-			// audio.play();
-			// http://html5doctor.com/native-audio-in-the-browser/
-
+			$('#audio')[0].play();
+			
 			var inCallback
 			  , outCallback
 			;
@@ -182,8 +186,6 @@
 				} else {
 					// credit
 				}
-
-				// TODO: disable UI when animation is pending
 
 				// play audio
 				// http://remysharp.com/2010/12/23/audio-sprites/
@@ -228,40 +230,65 @@
 			game.puzzle.insert( puzzle[ $.storage.lvl ] );
 			
 			$(window).trigger('levelUpdate');
-
 		}
 	};
 
 	/***
 	 * GAME INIT
-	 * - TODO: rewrite this shit
 	 ***/
-	game.init = {
+	game.init = function () {
 
-		status: false,
+		var initialized = false;
 
-		board: function () {
+		/***
+		 * Update window.board.offset.left and .top
+		 * -
+		 * Called on each window resize
+		 */
+		var updateOffsets = function () {
+			window.board.offset.left = game.$.play[0].offsetLeft;
+			window.board.offset.top  = game.$.play[0].offsetTop;
+		};
+
+		/***
+		 * Resize window event handler
+		 */
+		var onResizeWindow = function () {
+			if ( ! game.screen.isTooSmall() ) {
+				if ( initialized === false ) {
+					init();
+				}
+				updateOffsets();
+			}
+		};
+
+		// 
+		$(window).addEvent('resize', onResizeWindow );
+
+		/***
+		 * Actual init
+		 */
+		var init = function () {
+			//
+			game.puzzle.init();
+			
+			//
 			$(document.documentElement).addClass('ready');
 			game.animate.board();
-		},
 
-		all: function () {
-			game.puzzle.init();
-			game.init.board();
-			game.init.status = true;
-		},
+			// 
+			initialized = true;
 
-		verify: function () {
-			$(window).addEvent('resize', game.onResizeWindow );
-			if ( ! game.screen.isTooSmall() ) {
-				game.init.all();
-			}
+		};
+
+		if ( ! game.screen.isTooSmall()  ) {
+			init();
 		}
 	};
 
 	/***
 	 * Screen enabling and disabling
-	 * TODO: rewrite this shit ?
+	 * TODO: rewrite this 
 	 ***/
 	game.screen = {
 
@@ -294,35 +321,13 @@
 	};
 
 	/***
-	 * Update window.board.offset.left and .top
-	 * -
-	 * Called on each window resize
-	 ***/
-	game.updateOffsets = function () {
-		window.board.offset.left = game.$.play[0].offsetLeft;
-		window.board.offset.top  = game.$.play[0].offsetTop;
-	};
-
-	/***
-	 * Resize window event handler
-	 ***/
-	game.onResizeWindow = function () {
-		if ( ! game.screen.isTooSmall() ) {
-			if ( game.init.status === false ) {
-				game.init.all();
-			}
-			game.updateOffsets();
-		}
-	};
-
-	/***
 	 * ANIMATION OF GAME ELEMENTS - Blocks, board, ...
 	 ***/
 	game.animate = {
 
 		/**
 		 * Bring board in
-		 * TODO: rewrute animate board
+		 * TODO: rewrite animate board
 		 */
 		board: function () {
 			var transition = $.support.transitionEvent;
@@ -375,7 +380,6 @@
 		 *	  force: enable fix for special edge cases	
 		 *	  callback: callback function when transition ends
 		 * }
-		 * TODO: gérer le fait que quand on animate out provisoirement (sans remove), il faut disable le click et hover sur les blocks => technique du transition-delay sur visibility
 		 */
 		blocks: function ( config ) {
 
@@ -429,7 +433,6 @@
 					$(window).trigger('puzzleOut');
 					$board.addClass( className );
 				}
-
 			}
 
 			// No transition callback instantly
@@ -463,7 +466,7 @@
 	};
 	
 	// Game end scene
-	// When player has finished every puzzle
+	// When player has finished last puzzle
 	game.credit = function () {
 
 	};
