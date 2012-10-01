@@ -20,9 +20,12 @@
 
 <body>
 	
-	<!--<audio controls>
+	<!--<audio controls autobuffer="automatic" preload="automatic">-->
+	<audio id="audio" autobuffer preload>
 		<source src="preview.mp3" />
-	</audio>-->
+		<source src="preview.ogg" />
+	</audio>
+
 
 	<div class="error" id="too-small">
 		<p class="text">Whoops, your screen is too small to play :(</p>
