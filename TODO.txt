@@ -7,3 +7,4 @@
 - Credit/end game screen
 - Logo
 - Design mouse pointer
+- Design 'locked' icon for level list
