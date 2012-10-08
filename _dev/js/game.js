@@ -182,7 +182,7 @@
 
 			// TODO (?) : when win(), blocks out puis popover avec recap et bouton restart si 'par' pas obtenu (éventuellement système d'étoiles) et boutton next.
 			
-			$('#audio')[0].play();
+			//$('#audio')[0].play();
 			
 			var inCallback
 			  , outCallback
