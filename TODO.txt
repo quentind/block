@@ -6,5 +6,8 @@
 - Proper pre-loading
 - Credit/end game screen
 - Logo
-- Design mouse pointer
+- Design mouse cursor
 - Design 'locked' icon for level list
+- Meta desc
+- Find name
+- Explanation animation when game starts + "OK i get it button"
