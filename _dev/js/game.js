@@ -66,8 +66,8 @@
 				console.log('k');
 			}, false);
 
-			knock.src = 'knock.' + type;
-			knock.muted = true;
+			//knock.src = 'knock.' + type;
+			//knock.muted = true;
 
 		}
 
