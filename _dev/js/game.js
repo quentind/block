@@ -29,20 +29,47 @@
 	 ***/
 	game.load = function () {
 
-		// TODO: component list loading - img only ?
+		var load = [
+			{
+				src: '../img/sprite.png',
+				type: 'image'
+			},
+			{
+				src: '/files/audio/knock.',
+				type: 'audio'
+			}
+		];
+
+
 		var preload = new Image();
 		
-		preload.onload = function () {
+		$(preload).addEvent('load', function () {
 			$.delay( game.init, config.loadDelay );
-		};
+		}, false);
 
 		preload.src = config.spriteURL;
 
-		/*
-		$('#audio').addEvent('canplaythrough', function() {
-			//alert('k');
-		}, false);
-		*/
+
+		var knock = new Audio()
+		  , type
+		;
+
+		if ( knock.canPlayType('audio/ogg; codecs="vorbis"') ) {
+			type = 'ogg';
+		} else if ( knock.canPlayType('audio/mpeg; codecs="mp3"') ) {
+			type = 'mp3';
+		}
+
+		if ( type ) {
+
+			knock.addEventListener('canplaythrough', function (){
+				console.log('k');
+			}, false);
+
+			knock.src = 'knock.' + type;
+			knock.muted = true;
+
+		}
 
 	};
 	
