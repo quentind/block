@@ -1,6 +1,6 @@
 ﻿# TODO
 
-## Whole new thing
+## Whole new things
 - Alert lvl unlocked
 - Find a name
 - Write a meta desc
