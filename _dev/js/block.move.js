@@ -9,7 +9,6 @@
 
 	/**
 	 * DRAG N DROP
-	 * TODO: doc + rename (?)
 	 **/
 	var dragDrop = {
 		
@@ -17,7 +16,7 @@
 		initialMouseY: undefined,
 		startX: undefined,
 		startY: undefined,
-		n: undefined,
+		n: 0,
 		dir: undefined,
 		noMove: true,
 		isKey: false,
@@ -81,7 +80,6 @@
 				coordLeft = posLeft + window.board.offset.left - 1;
 				coordTop = posTop + window.board.offset.top + 1;
 				
-				// TODO : Coupler les deux boucles en une seule boucle
 				for ( i = 0; i < 5; i++ ) {
 					over = document.elementFromPoint( coordRight , coordTop );
 					
@@ -124,7 +122,6 @@
 				coordLeft = posLeft + window.board.offset.left + 1;
 				coordTop = posTop + window.board.offset.top - 1;
 
-				// TODO : Coupler les deux boucles en une seule boucle
 				for ( i = 0; i < 5; i++ ) {
 					over = document.elementFromPoint( coordLeft, coordBottom );
 					
@@ -256,6 +253,7 @@
 
 			if ( diff * board.blockSize !== n ) {
 				dragDrop.draggedObject.style[ dir ] = diff + 'px';
+				game.playSound.knock();
 			}
 			
 			$(document).removeEvent('mousemove', dragDrop.dragMouse ).removeEvent('mouseup', dragDrop.unBind );

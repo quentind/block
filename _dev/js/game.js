@@ -13,66 +13,16 @@
 	var game = {}
 	  , config = {
 			// Game config
-			inited: false,
-			spriteURL: '_dev/img/sprite.png',
+			//inited: false,
 			loadDelay: 300,
 			screen: {
 				minWidth: 800,
 				minHeight: 600
 			},
-			maxLevel: 24
+			maxLevel: puzzle.length - 1
 		}
 	;
 
-	/***
-	 * PRE-LOAD COMPONENTS before init
-	 ***/
-	game.load = function () {
-
-		var load = [
-			{
-				src: '../img/sprite.png',
-				type: 'image'
-			},
-			{
-				src: '/files/audio/knock.',
-				type: 'audio'
-			}
-		];
-
-
-		var preload = new Image();
-		
-		$(preload).addEvent('load', function () {
-			$.delay( game.init, config.loadDelay );
-		}, false);
-
-		preload.src = config.spriteURL;
-
-
-		var knock = new Audio()
-		  , type
-		;
-
-		if ( knock.canPlayType('audio/ogg; codecs="vorbis"') ) {
-			type = 'ogg';
-		} else if ( knock.canPlayType('audio/mpeg; codecs="mp3"') ) {
-			type = 'mp3';
-		}
-
-		if ( type ) {
-
-			knock.addEventListener('canplaythrough', function (){
-				console.log('k');
-			}, false);
-
-			//knock.src = 'knock.' + type;
-			//knock.muted = true;
-
-		}
-
-	};
-	
 	/***
 	 * GAME DOM ELEMENTS
 	 ***/
@@ -82,6 +32,97 @@
 		'level-list':		$('#level-list'),
 		'toggle-menu':		$('#toggle-menu'),
 		'html':				$(document.documentElement)
+	};
+
+	/***
+	 * GAME SOUNDS
+	 ***/
+	game.playSound = {};
+
+	/***
+	 * PRE-LOAD COMPONENTS before init
+	 ***/
+	game.load = function () {
+
+		var resource = [
+				{
+					src: '/_static/img/sprite.png',
+					type: 'image'
+				},
+				{
+					idname: 'knock',
+					src: '/_files/audio/knock.',
+					type: 'audio'
+				},
+				/*{
+					idname: 'gg',
+					src: '/_files/audio/gg.',
+					type: 'audio'
+				}*/
+			]
+		  , l = resource.length
+		  , i = 0
+		  , preload
+		  , loadedCount = 0
+		  , resourceLoaded
+		;
+
+		resourceLoaded = function () {
+
+			console.log('new resource loaded.');
+			loadedCount++;
+
+			if ( loadedCount === l) {
+				console.log('all resources loaded.')
+				$.delay( game.init, config.loadDelay );
+			}
+		};
+
+		preload = function ( src, type, idname ) {
+
+			if ( type === 'audio' ) {
+
+				// Test compat
+
+				var audio = new Audio()
+				  , ext
+				;
+
+				if ( audio.canPlayType('audio/ogg; codecs="vorbis"') ) {
+					ext = 'ogg';
+				} else if ( audio.canPlayType('audio/mpeg; codecs="mp3"') ) {
+					ext = 'mp3';
+				}
+
+				$(audio).addEvent('canplaythrough', function () {
+					
+					game.playSound[ idname ] = function () {
+						audio.play();
+					}
+					resourceLoaded();
+
+				}, false);
+
+				audio.src = src + ext;
+
+			} else if ( type === 'image' ) {
+
+				var img = new Image();
+
+				$( img ).addEvent('load', function () {
+					resourceLoaded();
+				});
+
+				img.src = src;
+
+			}
+
+		};
+
+		for ( ; i < l; i++ ) {
+			preload( resource[ i ].src, resource[ i ].type, resource[ i ].idname );
+		}
+
 	};
 
 	/***
