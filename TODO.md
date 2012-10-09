@@ -8,16 +8,16 @@
 ## JavaScript
 - Clean JS files
 - Proper pre-loading
-    - => (OKAY-ish)
+    - (OKAY-ish)
 - Sounds when block is released
-    - => (OKAY-ish)
-    - => Adjust volume depending on the distance between block and release
-    - => Chech why canplaythrough event is fired after every audio.play()
+    - (OKAY-ish)
+    - Adjust volume depending on the distance between block and release
+    - Chech why canplaythrough event is fired after every audio.play()
 - Sounds when lvl is won
-    - => Find sound
-    - => Encode
-    - => JS
-    - => Preload
+    - Find sound
+    - Encode
+    - JS
+    - Preload
 
 ## CSS
 - Clean CSS files
