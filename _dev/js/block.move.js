@@ -264,8 +264,13 @@
 
 			// Play sounds only if block position is adjusted
 			if ( diff * board.blockSize !== n ) {
-				if ( n - diff !== 0 ) {
-					game.playSound.knock( 0.1 );
+				var delta = n - diff;
+				if ( delta !== 0 ) {
+					console.log(delta);
+
+					delta = Math.abs( delta ) / 40;
+					console.log( delta );
+					game.playSound.knock( delta );
 				}
 			}
 
