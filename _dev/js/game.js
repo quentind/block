@@ -13,7 +13,6 @@
 	var game = {}
 	  , config = {
 			// Game config
-			//inited: false,
 			loadDelay: 300,
 			screen: {
 				minWidth: 800,
@@ -82,28 +81,32 @@
 
 			if ( type === 'audio' ) {
 
-				// Test compat
+				if ( $.support.audio ) {
 
-				var audio = new Audio()
-				  , ext
-				;
+					var audio = new Audio()
+					  , ext
+					;
 
-				if ( audio.canPlayType('audio/ogg; codecs="vorbis"') ) {
-					ext = 'ogg';
-				} else if ( audio.canPlayType('audio/mpeg; codecs="mp3"') ) {
-					ext = 'mp3';
-				}
-
-				$(audio).addEvent('canplaythrough', function () {
-					
-					game.playSound[ idname ] = function () {
-						audio.play();
+					if ( audio.canPlayType('audio/ogg; codecs="vorbis"') ) {
+						ext = 'ogg';
+					} else if ( audio.canPlayType('audio/mpeg; codecs="mp3"') ) {
+						ext = 'mp3';
 					}
+
+					$(audio).addEvent('canplaythrough', function () {
+						
+						game.playSound[ idname ] = function () {
+							audio.play();
+						}
+						resourceLoaded();
+
+					}, false);
+
+					audio.src = src + ext;
+
+				} else {
 					resourceLoaded();
-
-				}, false);
-
-				audio.src = src + ext;
+				}
 
 			} else if ( type === 'image' ) {
 

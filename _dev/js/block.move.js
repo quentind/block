@@ -253,6 +253,7 @@
 
 			if ( diff * board.blockSize !== n ) {
 				dragDrop.draggedObject.style[ dir ] = diff + 'px';
+				// Needs right condition to move
 				game.playSound.knock();
 			}
 			
