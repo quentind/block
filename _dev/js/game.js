@@ -85,7 +85,20 @@
 
 					var audio = new Audio()
 					  , ext
+					  , onCanPlayThrough
 					;
+
+					onCanPlayThrough = function () {
+						
+						$(this).removeEvent('canplaythrough', onCanPlayThrough);
+
+						game.playSound[ idname ] = function ( vol ) {
+							audio.volume = vol;
+							audio.play();
+						}
+						resourceLoaded();
+
+					};
 
 					if ( audio.canPlayType('audio/ogg; codecs="vorbis"') ) {
 						ext = 'ogg';
@@ -93,14 +106,7 @@
 						ext = 'mp3';
 					}
 
-					$(audio).addEvent('canplaythrough', function () {
-						
-						game.playSound[ idname ] = function () {
-							audio.play();
-						}
-						resourceLoaded();
-
-					}, false);
+					$(audio).addEvent('canplaythrough', onCanPlayThrough, false);
 
 					audio.src = src + ext;
 
@@ -224,10 +230,6 @@
 		 */
 		win: function () {
 
-			// TODO (?) : when win(), blocks out puis popover avec recap et bouton restart si 'par' pas obtenu (éventuellement système d'étoiles) et boutton next.
-			
-			//$('#audio')[0].play();
-			
 			var inCallback
 			  , outCallback
 			;
@@ -255,7 +257,7 @@
 						});
 					}, 200); // => setTimeout to ensure puzzle have been inserted before we animate blocks in
 				} else {
-					// credit
+					// TODO: credit
 				}
 
 			};

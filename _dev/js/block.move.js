@@ -253,20 +253,27 @@
 
 			if ( diff * board.blockSize !== n ) {
 				dragDrop.draggedObject.style[ dir ] = diff + 'px';
-				// Needs right condition to move
-				game.playSound.knock();
+
 			}
 			
+			/*
+			console.log('n', n);
+			console.log('init', initialPosition);
+			console.log('diff', diff);
+			*/
+
+			// Play sounds only if block position is adjusted
+			if ( diff * board.blockSize !== n ) {
+				if ( n - diff !== 0 ) {
+					game.playSound.knock( 0.1 );
+				}
+			}
+
 			$(document).removeEvent('mousemove', dragDrop.dragMouse ).removeEvent('mouseup', dragDrop.unBind );
 			
 			// Remove dragger class on the dragger object
-			// TODO: store $(draggedObject) ds une variable
+			// TODO: store $(draggedObject) in var
 			$(dragDrop.draggedObject).removeClass('dragged');
-
-			// Verifies that if the block has been moved, it hasnt been repositioned at the same place
-			/*if ( dragDrop.n && initialPosition == dragDrop.n ) {
-				dragDrop.noMove = true;
-			}*/
 
 			if ( diff == initialPosition ) {
 				dragDrop.noMove = true;
