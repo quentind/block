@@ -258,17 +258,6 @@
 					// credit
 				}
 
-				// play audio
-				// http://remysharp.com/2010/12/23/audio-sprites/
-				// http://nicolahibbert.com/html5-canvas-breakout-game/
-				/*
-					http://audiojungle.net/item/achieved/2527252?WT.ac=search_item&WT.seg_1=search_item&WT.z_author=NenadSimic
-					http://audiojungle.net/item/level-up-02/90087?WT.ac=search_item&WT.seg_1=search_item&WT.z_author=Paweqq
-					http://audiojungle.net/item/level-complete/2102518?WT.ac=search_item&WT.seg_1=search_item&WT.z_author=R-Mafi
-					http://audiojungle.net/item/level-up/50226?WT.ac=search_item&WT.seg_1=search_item&WT.z_author=Paweqq
-					http://audiojungle.net/item/level-select-sound-4/2717269?WT.ac=category_item&WT.seg_1=category_item&WT.z_author=Sunsvision
-				*/
-
 			};
 
 			game.animate.blocks({
