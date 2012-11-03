@@ -93,8 +93,10 @@
 						$(this).removeEvent('canplaythrough', onCanPlayThrough);
 
 						game.playSound[ idname ] = function ( vol ) {
-							audio.volume = vol;
-							audio.play();
+							if ( UI.status.muted === false ) {
+								audio.volume = vol;
+								audio.play();
+							}
 						}
 						resourceLoaded();
 
