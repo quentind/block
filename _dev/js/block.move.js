@@ -23,6 +23,8 @@
 		_max: null,
 		_min: null,
 		draggedObject: undefined,
+		blockIsAtMaxPosition: false,
+		blockIsAtMinPosition: false,
 
 		startDragMouse: function ( e ) {
 			
@@ -238,6 +240,32 @@
 			}
 			
 			dragDrop.n = n;
+			
+			//console.log('max', maxBlock);
+			//console.log('min', minBlock);
+			//console.log('n', n);
+			//console.log('nomove', dragDrop.noMove);
+			
+			// If block cant move further bottom or right
+			if ( n === maxBlock && ! dragDrop.blockIsAtMaxPosition && ! dragDrop.noMove ) {
+				dragDrop.blockIsAtMaxPosition = true ;
+				game.playSound.knock( 0.6 );
+
+			// If block cant move further top or left
+			} else if ( n === minBlock && ! dragDrop.blockIsAtMinPosition && ! dragDrop.noMove ) {
+				dragDrop.blockIsAtMinPosition = true ;
+				game.playSound.knock( 0.6 );
+			} else {
+
+				if ( n < maxBlock) {
+					dragDrop.blockIsAtMaxPosition = false ;
+				} 
+
+				if ( n > minBlock) {
+					dragDrop.blockIsAtMinPosition = false ;
+				}
+
+			}
 
 			dragDrop.draggedObject.style[ dir ] = n + 'px';
 			
@@ -256,19 +284,17 @@
 
 			}
 			
-			/*
-			console.log('n', n);
-			console.log('init', initialPosition);
-			console.log('diff', diff);
-			*/
+			//console.log('n', n);
+			//console.log('init', initialPosition);
+			//console.log('diff', diff);
 
 			// Play sounds only if block position is adjusted
 			if ( diff * board.blockSize !== n ) {
 				var delta = n - diff;
 				if ( delta !== 0 ) {
-					console.log(delta);
-
-					delta = Math.abs( delta ) / 40;
+					//console.log(delta);
+					// volume = (abs block movement length) / (ratio in block size) * (modifier = 2)
+					delta = Math.abs( delta ) / 80;
 					console.log( delta );
 					game.playSound.knock( delta );
 				}
