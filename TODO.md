@@ -19,6 +19,7 @@
 
 ## CSS
 - Clean CSS files
+- Invert state in css for mute/unmute button
 
 ## Design
 - Credit/end game screen
