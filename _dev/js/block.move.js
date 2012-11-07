@@ -295,7 +295,6 @@
 					//console.log(delta);
 					// volume = (abs block movement length) / (ratio in block size) * (modifier = 2)
 					delta = Math.abs( delta ) / 80;
-					console.log( delta );
 					game.playSound.knock( delta );
 				}
 			}
