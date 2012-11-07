@@ -21,7 +21,7 @@
 	  , toggleMenu		: $('#toggle-menu')
 	  , levelList		: $('#level-list')
 	  , fieldMovesBest	: $('#field-moves-best')
-	  , fullscreenButton: $('#fullscreen-button') 
+	  , fullscreenButton: $('#fullscreen-button')
 	};
 
 	/***
