@@ -533,6 +533,40 @@ html:fullscreen .fullscreen {
 	100% { top:5px; }
 }
 
+/* Animation for lvl 'new' alert */
+.level .new {
+	top:17px;
+	margin-left:2px;
+}
+
+.level.alert .new {
+	-webkit-animation:glow-2 1s infinite;
+	   -moz-animation:glow-2 1s infinite;
+	     -o-animation:glow-2 1s infinite;
+	        animation:glow-2 1s infinite;
+}
+
+@-webkit-keyframes glow-2 {
+	0%   { top:17px; }
+	50%  { top:18px; }
+	100% { top:17px; }
+}
+@-moz-keyframes glow-2 {
+	0%   { top:17px; }
+	50%  { top:18px; }
+	100% { top:17px; }
+}
+@-o-keyframes glow-2 {
+	0%   { top:17px; }
+	50%  { top:18px; }
+	100% { top:17px; }
+}
+@keyframes glow-2 {
+	0%   { top:17px; }
+	50%  { top:18px; }
+	100% { top:17px; }
+}
+
 .no-transition-event .new {
 	display:none;
 }
