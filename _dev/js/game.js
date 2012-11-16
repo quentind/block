@@ -239,11 +239,14 @@
 			inCallback = function () {
 				UI.alert.newRecord.hide();
 				$(window).trigger('levelUpdate');
+				UI.alert.newLevel.show();
+				$.delay( UI.alert.newLevel.hide, 3000);
 			};
 
 			outCallback = function () {
 
 				game.$.play[0].innerHTML = '';
+
 				
 				var nextPuzzle = game.puzzle.next();
 

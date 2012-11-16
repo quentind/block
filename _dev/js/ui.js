@@ -15,6 +15,7 @@
 		ui 				: $('#ui')
 	  , board			: $('#play')
 	  ,	level			: $('#current-level')
+	  , fieldLevel		: $('#box-current-level')
 	  , movesPlayed		: $('#moves-played')
 	  , movesPar		: $('#moves-par')
 	  , movesBest		: $('#moves-best')
@@ -392,7 +393,12 @@
 			}
 		},
 		newLevel: {
-
+			show: function () {
+				UI.$.fieldLevel.addClass('alert');
+			},
+			hide: function () {
+				UI.$.fieldLevel.removeClass('alert');
+			}
 		}
 	};
 
