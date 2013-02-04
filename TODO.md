@@ -1,24 +1,18 @@
 ﻿# TODO
 
 ## Whole new things
-- Alert lvl unlocked
 - Find a name
 - Write a meta desc
 
 ## JavaScript
     - Chech why canplaythrough event is fired after every audio.play()
-- Sounds when lvl is won (http://audiojungle.net/item/the-correct-answer/2250636?sso?WT.ac=search_item&WT.seg_1=search_item&WT.z_author=GGGARO)
+	- Sounds when lvl is won (http://audiojungle.net/item/the-correct-answer/2250636?sso?WT.ac=search_item&WT.seg_1=search_item&WT.z_author=GGGARO)
     - Find sound
     - Encode
     - JS
     - Preload
 
-## CSS
-
-
 ## Design
-- Credit/end game screen
+- Credit/end game screen: list level without perfect score
 - Logo
 - Design mouse cursor
-- Design 'locked' icon for level list
-- Explanation animation when game starts + "OK i get it button"
