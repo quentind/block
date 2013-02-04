@@ -41,7 +41,7 @@
 			  , new Block( 5, 2, 2, 'h', false )
 			]
 		},
-
+		
 		// 3
 		{
 			parMoves: 12,
@@ -56,7 +56,7 @@
 			  , new Block( 1, 5, 3, 'v', false )
 			]
 		},
-
+		
 		// 4
 		{
 			parMoves: 9,
@@ -70,7 +70,7 @@
 			  , new Block( 4, 5, 2, 'v', false )
 			]
 		},
-
+		
 		// 5
 		{
 			parMoves: 9,
@@ -144,40 +144,6 @@
 
 		// 9
 		{
-			parMoves: 0,
-			blocks: [
-				new Block( 2, 0, 2, 'h', true )
-			  , new Block( 0, 0, 2, 'v', false )
-			  , new Block( 0, 1, 3, 'h', false )
-			  , new Block( 1, 2, 2, 'h', false )
-			  , new Block( 1, 4, 2, 'h', false )
-			  , new Block( 2, 2, 2, 'v', false )
-			  , new Block( 3, 0, 2, 'h', false )
-			  , new Block( 3, 3, 3, 'v', false )
-			  , new Block( 4, 0, 3, 'h', false )
-			  , new Block( 4, 4, 2, 'v', false )
-			  , new Block( 4, 5, 2, 'v', false )
-			  , new Block( 5, 0, 3, 'h', false )
-			]
-		},
-
-		// 10
-		{
-			parMoves: 0,
-			blocks: [
-				new Block( 2, 2, 2, 'h', true )
-			  , new Block( 0, 2, 2, 'v', false )
-			  , new Block( 0, 3, 2, 'h', false )
-			  , new Block( 1, 4, 2, 'v', false )
-			  , new Block( 2, 1, 2, 'v', false )
-			  , new Block( 3, 2, 2, 'h', false )
-			  , new Block( 3, 4, 2, 'v', false )
-			  , new Block( 4, 1, 3, 'h', false )
-			]
-		},
-
-		// 11
-		{
 			parMoves: 11,
 			blocks: [
 				new Block( 2, 0, 2, 'h', true )
@@ -195,7 +161,59 @@
 			]
 		},
 
+		// 10
+		{
+			parMoves: 9,
+			blocks: [
+				new Block( 2, 0, 2, 'h', true )
+			  , new Block( 0, 2, 2, 'v', false )
+			  , new Block( 0, 3, 3, 'h', false )
+			  , new Block( 1, 3, 2, 'v', false )
+			  , new Block( 2, 5, 3, 'v', false )
+			  , new Block( 3, 1, 2, 'h', false )
+			  , new Block( 3, 3, 2, 'h', false )
+			  , new Block( 4, 0, 2, 'v', false )
+			  , new Block( 4, 1, 2, 'v', false )
+			  , new Block( 4, 2, 2, 'h', false )
+			  , new Block( 5, 4, 2, 'h', false )
+			]
+		},
+
+		// 11
+		{
+			parMoves: 22,
+			blocks: [
+				new Block( 2, 2, 2, 'h', true )
+			  , new Block( 0, 2, 2, 'v', false )
+			  , new Block( 0, 3, 2, 'h', false )
+			  , new Block( 1, 4, 2, 'v', false )
+			  , new Block( 2, 1, 2, 'v', false )
+			  , new Block( 3, 2, 2, 'h', false )
+			  , new Block( 3, 4, 2, 'v', false )
+			  , new Block( 4, 1, 3, 'h', false )
+			]
+		},
+
 		// 12
+		{
+			parMoves: 24,
+			blocks: [
+				new Block( 2, 0, 2, 'h', true )
+			  , new Block( 0, 0, 2, 'v', false )
+			  , new Block( 0, 1, 3, 'h', false )
+			  , new Block( 1, 2, 2, 'h', false )
+			  , new Block( 1, 4, 2, 'h', false )
+			  , new Block( 2, 2, 2, 'v', false )
+			  , new Block( 3, 0, 2, 'h', false )
+			  , new Block( 3, 3, 3, 'v', false )
+			  , new Block( 4, 0, 3, 'h', false )
+			  , new Block( 4, 4, 2, 'v', false )
+			  , new Block( 4, 5, 2, 'v', false )
+			  , new Block( 5, 0, 3, 'h', false )
+			]
+		},
+
+		// 13
 		{
 			parMoves: 23,
 			blocks: [
@@ -216,9 +234,9 @@
 			]
 		},
 
-		// 13
+		// 14
 		{
-			parMoves: 0,
+			parMoves: 22,
 			blocks: [
 				new Block( 2, 1, 2, 'h', true )
 			  , new Block( 2, 3, 2, 'h', true )
@@ -229,24 +247,6 @@
 			  , new Block( 3, 0, 3, 'h', false )
 			  , new Block( 4, 2, 2, 'v', false )
 			  , new Block( 4, 3, 3, 'h', false )
-			]
-		},
-
-		// 14
-		{
-			parMoves: 0,
-			blocks: [
-				new Block( 2, 0, 2, 'h', true )
-			  , new Block( 0, 2, 2, 'v', false )
-			  , new Block( 0, 3, 3, 'h', false )
-			  , new Block( 1, 3, 2, 'v', false )
-			  , new Block( 2, 5, 3, 'v', false )
-			  , new Block( 3, 0, 2, 'h', false )
-			  , new Block( 3, 3, 2, 'h', false )
-			  , new Block( 4, 0, 2, 'v', false )
-			  , new Block( 4, 1, 2, 'v', false )
-			  , new Block( 4, 2, 2, 'h', false )
-			  , new Block( 5, 2, 2, 'h', false )
 			]
 		},
 
@@ -273,7 +273,7 @@
 
 		// 16
 		{
-			parMoves: 0,
+			parMoves: 25,
 			blocks: [
 				new Block( 2, 0, 2, 'h', true )
 			  , new Block( 2, 2, 2, 'h', true )
@@ -293,7 +293,7 @@
 
 		// 17
 		{
-			parMoves: 0,
+			parMoves: 25,
 			blocks: [
 				new Block( 2, 0, 2, 'h', true )
 			  , new Block( 2, 3, 2, 'h', true )
@@ -333,7 +333,7 @@
 
 		// 19
 		{
-			parMoves: 0,
+			parMoves: 31,
 			blocks: [
 				new Block( 2, 0, 2, 'h', true )
 			  , new Block( 2, 3, 2, 'h', true )
@@ -353,7 +353,7 @@
 
 		// 20
 		{
-			parMoves: 0,
+			parMoves: 32,
 			blocks: [
 				new Block( 2, 0, 2, 'h', true )
 			  , new Block( 2, 3, 2, 'h', true )
@@ -373,7 +373,7 @@
 		// 21
 		// very hard begins
 		{
-			parMoves: 0,
+			parMoves: 34,
 			blocks: [
 				new Block( 2, 0, 2, 'h', true )
 			  , new Block( 0, 0, 2, 'v', false )
@@ -393,7 +393,7 @@
 
 		// 22
 		{
-			parMoves: 0,
+			parMoves: 33,
 			blocks: [
 				new Block( 2, 0, 2, 'h', true )
 			  , new Block( 2, 2, 2, 'h', true )
@@ -414,27 +414,7 @@
 
 		// 23
 		{
-			parMoves: 0,
-			blocks: [
-				new Block( 2, 3, 2, 'h', true )
-			  , new Block( 0, 0, 3, 'v', false )
-			  , new Block( 0, 1, 2, 'h', false )
-			  , new Block( 0, 4, 2, 'v', false )
-			  , new Block( 1, 1, 2, 'v', false )
-			  , new Block( 1, 2, 2, 'v', false )
-			  , new Block( 1, 5, 3, 'v', false )
-			  , new Block( 3, 0, 3, 'h', false )
-			  , new Block( 3, 3, 2, 'v', false )
-			  , new Block( 4, 2, 2, 'v', false )
-			  , new Block( 4, 4, 2, 'h', false )
-			  , new Block( 5, 0, 2, 'h', false )
-			  , new Block( 5, 3, 2, 'h', false )
-			]
-		},
-
-		// 24
-		{
-			parMoves: 0,
+			parMoves: 31, // can prolly be improved
 			blocks: [
 				new Block( 2, 1, 2, 'h', true )
 			  , new Block( 0, 2, 2, 'v', false )
@@ -451,7 +431,7 @@
 			]
 		},
 
-		// 25
+		// 24
 		{
 			parMoves: 0,
 			blocks: [
@@ -467,6 +447,26 @@
 			  , new Block( 4, 0, 2, 'v', false )
 			  , new Block( 4, 1, 2, 'h', false )
 			  , new Block( 5, 1, 2, 'h', false )
+			  , new Block( 5, 3, 2, 'h', false )
+			]
+		},
+
+		// 25
+		{
+			parMoves: 0,
+			blocks: [
+				new Block( 2, 3, 2, 'h', true )
+			  , new Block( 0, 0, 3, 'v', false )
+			  , new Block( 0, 1, 2, 'h', false )
+			  , new Block( 0, 4, 2, 'v', false )
+			  , new Block( 1, 1, 2, 'v', false )
+			  , new Block( 1, 2, 2, 'v', false )
+			  , new Block( 1, 5, 3, 'v', false )
+			  , new Block( 3, 0, 3, 'h', false )
+			  , new Block( 3, 3, 2, 'v', false )
+			  , new Block( 4, 2, 2, 'v', false )
+			  , new Block( 4, 4, 2, 'h', false )
+			  , new Block( 5, 0, 2, 'h', false )
 			  , new Block( 5, 3, 2, 'h', false )
 			]
 		}
