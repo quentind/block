@@ -1,47 +1,6 @@
 /***
  * Styles related to BOARD
  ***/
-html {
-
-	/* Box Model */
-	height:100%;
-
-	/* Visual */
-	background:url(../img/bg.png) #e2e3d8;
-	-webkit-box-shadow:inset 0 0 30px 0 #E2E3D8; /* Soften edges */
-	        box-shadow:inset 0 0 30px 0 #E2E3D8;
-	
-	/* Behaviour */
-	-webkit-user-select:none;
-
-	/* TODO: check in which browser it causes bugs
-	   issue : in FF 11 +, regression bug where ctrl+a select text anyway
-	*/
-	-webkit-user-select:none;
-	 -khtml-user-select:none;
-	   -moz-user-select:none;
-	    -ms-user-select:none;
- 	        user-select:none;
-}
-
-body {
-
-	/* Box Model */
-	height:100%;
-	width:100%;
-	overflow:hidden;
-
-
-	
-	/* Behaviour */
-	/*cursor:url(../img/cursor3.png) 0 0, default;*/
-	/* TODO: add custom pointer sur le body et blocks, doc mdn: https://developer.mozilla.org/en/CSS/Using_URL_values_for_the_cursor_property */
-	/* TODO: encore check les user-select pour moz */
-	
-	/* Text */
-	font-family:Helvetica, Arial, sans-serif;
-}
-
 #board {
 
 	/* Position */
