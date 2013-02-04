@@ -669,12 +669,6 @@
 			}
 		}
 	};
-	
-	// Game end scene
-	// When player has finished last puzzle
-	game.credit = function () {
-
-	};
 
 	window.game = game;
 
