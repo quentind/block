@@ -318,8 +318,23 @@
 			if ( dragDrop.isKey && dragDrop.n >= board.blockSize * 5.5 ) {
 				// Supports for double key block puzzle
 				if ( board.el.querySelectorAll('.block.key').length === 1 ) {
-					game.puzzle.saveMoves();
-					game.animate.keyBlock( dragDrop.draggedObject, game.puzzle.win );
+					// dont save moves if this is tutorial end
+					if ( ! game.tutorial.pending ) {
+						game.puzzle.saveMoves();
+					}
+
+					var lvl  = parseInt( $.storage.lvl,  10);
+					var best = parseInt( $.storage.best, 10);
+
+					//console.log('curr lvl', lvl );
+					//console.log('best lvl', best );
+
+					var isNewLevel = ( lvl >= best ) ? true : false;
+					//console.log('new lvl?:', isNewLevel );
+
+					game.animate.keyBlock( dragDrop.draggedObject, function () {
+						game.puzzle.win( isNewLevel );
+					});
 				} else {
 					game.animate.keyBlock( dragDrop.draggedObject );
 				}
