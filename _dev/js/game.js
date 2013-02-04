@@ -22,9 +22,6 @@
 		}
 	;
 
-	console.log( puzzle.length );
-	console.log( config.maxLevel );
-
 	/***
 	 * GAME DOM ELEMENTS
 	 ***/
@@ -238,7 +235,7 @@
 				lvl = config.maxLevel;
 				return false;
 			}
-			console.log( 'bypass maxlevel', lvl );
+			
 			return lvl;
 		},
 
