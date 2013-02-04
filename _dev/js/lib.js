@@ -348,6 +348,39 @@
 		},
 
 		/**
+		 * Append html or node to each node of the collection
+		 * -
+		 * @param {string|object} content
+		 */
+		append: function ( content ) {
+
+			var frag = doc.createDocumentFragment()
+			  , tmp = doc.createElement('div')
+			  , i = 0
+			  , l
+			;
+
+			if ( typeof content === 'string' ) {
+				tmp.innerHTML = content;
+			} else if ( typeof content === 'object' ) {
+				tmp.appendChild( content );
+			}
+
+			l = tmp.childNodes.length;
+
+			for ( ; i < l; i++ ) {
+				frag.appendChild( tmp.childNodes[i].cloneNode(true) );	
+			}
+			
+			priv.each( this, function () {
+				this.appendChild( frag );
+			});
+
+			return this;
+
+		},
+
+		/**
 		 * Bind an event handler to current collection
 		 * -
 		 * @param {eventType} evt
