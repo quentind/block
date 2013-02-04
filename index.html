@@ -2,11 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Block</title>
+	<title>Block - Sliding block game</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
 	<link rel="stylesheet" href="_dev/css/reset.css" type="text/css" />
+	<link rel="stylesheet" href="_dev/css/base.css" type="text/css" />
 	<link rel="stylesheet" href="_dev/css/board.css" type="text/css" />
 	<link rel="stylesheet" href="_dev/css/block.css" type="text/css" />
 	<link rel="stylesheet" href="_dev/css/ui.css" type="text/css" />
@@ -20,6 +21,10 @@
 
 <body>
 	
+	<div class="prefetch">
+		<img src="/_dev/img/sprite.png" alt="">
+	</div>
+
 	<div class="error" id="too-small">
 		<p class="text">Whoops, your screen is too small to play :(</p>
 	</div>
@@ -80,7 +85,7 @@
 				<i class="i wave-2"></i>
 			</a>
 
-			<a class="button box fullscreen" data-action="toggleFullScreen" data-requires="puzzle" id="fullscreen-button">
+			<a class="button box fullscreen" data-action="toggleFullScreen" id="fullscreen-button">
 				<span class="txt">Full Screen</span>
 				<i class="i t l"></i>
 				<i class="i t r"></i>
@@ -96,10 +101,10 @@
 
 	</div>
 
-	<div id="play" class="blocks-out-bot"></div>
+	<div id="play" class="play blocks-out-bot"></div>
 	
 	<ul id="level-list">
-		<li class="level"><a class="link r-1 c-1 " id="level-0">1</a></li>
+		<li class="level"><a class="link r-1 c-1" id="level-0">1</a></li>
 		<li class="level"><a class="link r-1 c-2 locked" id="level-1">2</a><span class="info"></span></li>
 		<li class="level"><a class="link r-1 c-3 locked" id="level-2">3</a><span class="info"></span></li>
 		<li class="level"><a class="link r-1 c-4 locked" id="level-3">4</a><span class="info"></span></li>
@@ -129,6 +134,13 @@
 		<li class="level"><a class="link r-5 c-4 locked" id="level-23">24</a><span class="info"></span></li>
 		<li class="level"><a class="link r-5 c-5 locked" id="level-24">25</a><span class="info"></span></li>
 	</ul>
+
+	<div class="end-screen" id="end-screen">
+		<p class="txt big">Great job,</p>
+		<p class="txt">You just solved the last puzzle.</p>
+		<p class="txt space">Want more challenge ?</p>
+		<p class="txt">Why not try to solve all puzzle with a perfect score by moving blocks as few time as possible.</p>
+	</div>
 
 	<script type="text/javascript" src="_dev/js/lib.js"></script>
 	<script type="text/javascript" src="_dev/js/board.js"></script>
