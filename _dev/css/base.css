@@ -1,0 +1,105 @@
+/***
+ * BASE CSS
+ */
+html {
+
+	/* Box Model */
+	height:100%;
+
+	/* Visual */
+	-webkit-box-shadow:inset 0 0 30px 0 #E2E3D8; /* Soften edges */
+	        box-shadow:inset 0 0 30px 0 #E2E3D8;
+	
+	/* Behaviour */
+	-webkit-user-select:none;
+
+	/* TODO: check in which browser it causes bugs
+	   issue : in FF 11 +, regression bug where ctrl+a select text anyway
+	*/
+	-webkit-user-select:none;
+	 -khtml-user-select:none;
+	   -moz-user-select:none;
+	    -ms-user-select:none;
+ 	        user-select:none;
+}
+
+body {
+
+	/* Box Model */
+	height:100%;
+	width:100%;
+	overflow:hidden;
+
+	/* Behaviour */
+	/*cursor:url(../img/cursor.png) 0 0, default;*/
+	/* TODO: add custom pointer sur le body et blocks, doc mdn: https://developer.mozilla.org/en/CSS/Using_URL_values_for_the_cursor_property */
+	/* TODO: encore check les user-select pour moz */
+	
+	/* Text */
+	font-family:Helvetica, Arial, sans-serif;
+}
+
+.prefetch {
+	position:absolute;
+	top:-9999px;
+}
+
+html, .error {
+	background:#e2e3d8 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAMAAADzjKfhAAAABlBMVEXi49jd3tP3T+KjAAAAG0lEQVQIW2NgZAABRjACYyABEUNQUGG4MiAJAAGkAA41CCGLAAAAAElFTkSuQmCC);
+}
+
+/***
+ * ERRORS
+ ***/
+.error {
+
+	/* Position */
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	z-index:9999;
+
+	/* Visual */
+	-webkit-box-shadow:inset 0 0 30px 0 #e2e3d8; /* Soften edges */
+	        box-shadow:inset 0 0 30px 0 #e2e3d8;
+}
+
+/* Hide div error, only noscript error is shown */
+div.error {
+	display:none;
+}
+
+.ready div.error {
+	display:block;
+}
+
+.error .text {
+
+	/* Position */
+	position:absolute;
+	left:0;
+	top:50%;
+	margin:-25px 0 0;
+
+	/* Box Model */
+	width:100%;
+	height:50px;
+	
+	/* Text */
+	color:#654439;
+	font-weight:bold;
+	font-size:16px;
+	text-shadow:0 1px #fff;
+	text-align:center;
+	line-height:50px;
+}
+
+/**
+ * Weird: required for IE8 because it make document.elementFromPoint fail, returning [object HTMLNoShowElement]
+ * Noscript seems to be shown and above other elements even when JavaScript is enabled
+ */
+.ready noscript {
+	display:none;
+}
