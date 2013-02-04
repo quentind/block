@@ -18,9 +18,12 @@
 				minWidth: 800,
 				minHeight: 600
 			},
-			maxLevel: puzzle.length - 1
+			maxLevel: puzzle.length
 		}
 	;
+
+	console.log( puzzle.length );
+	console.log( config.maxLevel );
 
 	/***
 	 * GAME DOM ELEMENTS
@@ -68,11 +71,11 @@
 
 		resourceLoaded = function () {
 
-			console.log('new resource loaded.');
+			//console.log('new resource loaded.');
 			loadedCount++;
 
 			if ( loadedCount === l) {
-				console.log('all resources loaded.')
+				//console.log('all resources loaded.')
 				$.delay( game.init, config.loadDelay );
 			}
 		};
@@ -149,17 +152,26 @@
 		insert: function ( puzzleObject ) {
 
 			var frag = document.createDocumentFragment()
-			  , puzzle = puzzleObject.blocks
-			  , len = puzzle.length
+			  , blocks = puzzleObject.blocks
+			  , len = blocks.length
 			  , i = 0
 			  , el
+			  , tut =  {
+					up: '&uarr;',
+					down: '&darr;',
+					left: '&larr;',
+					right: '&rarr;'
+				}
 			;
 
 			for ( ; i < len ; i++ ) {
 			
 				el = document.createElement('div');
-				el.style.cssText = puzzle[i].styles;
-				el.className = puzzle[i].classAttr;
+				el.style.cssText = blocks[i].styles;
+				el.className = blocks[i].classAttr;
+				if ( blocks[i].tutorial ) {
+					el.innerHTML = '<div class="instruction-arrow">' + tut[ blocks[i].tutorial] + '</div>';
+				}
 			
 				frag.appendChild( el );
 
@@ -167,12 +179,14 @@
 			}
 
 			game.$.play[0].appendChild( frag );
+
+			UI.endScreen.disable();
 		},
 
 		/**
 		 * Rebind blocks
 		 * -
-		 * Ugly fix of a fix, retarded but only solution ATM :(
+		 * Ugly fix, retarded but only solution ATM :(
 		 * Rebind blocks after CSS transition fix using innerHTML = ''
 		 * See game.animate.block() for more details
 		 * Could maybe use setImmediate but unsure and not well supported
@@ -183,6 +197,8 @@
 
 		/**
 		 * Save minimum moves played if best perf
+		 * -
+		 * called in block.moves.js (block unbind)
 		 */
 		saveMoves: function () {
 
@@ -211,17 +227,18 @@
 			
 			var lvl = parseInt( $.storage.lvl, 10 ) + 1;
 
-			if ( lvl >= config.maxLevel ) {
-				lvl = config.maxLevel;
-			}
-
 			if ( lvl > parseInt( $.storage.best, 10 ) ) {
 				$.storage.best = lvl;
 				UI.level.unlock( lvl );
 			}
 
 			$.storage.lvl = lvl;
-
+			
+			if ( lvl >= config.maxLevel ) {
+				lvl = config.maxLevel;
+				return false;
+			}
+			console.log( 'bypass maxlevel', lvl );
 			return lvl;
 		},
 
@@ -229,25 +246,34 @@
 		 * Win 
 		 * -
 		 * When a puzzle is achieved
+		 - @param { boolean } newRecord - true should be passed if a new level is unlocked
 		 */
-		win: function () {
+		win: function ( newBestLevel ) {
 
 			var inCallback
 			  , outCallback
 			;
 
 			inCallback = function () {
-				UI.alert.newRecord.hide();
+
+				// TODO: cann only If new record has been set, remove alert
+				if ( 1 ) {
+					UI.alert.newRecord.hide();
+				}
+				
 				$(window).trigger('levelUpdate');
-				UI.alert.newLevel.show();
-				$.delay( UI.alert.newLevel.hide, 3000);
+				
+				// if new level is unlocked, show alert and remove it after 3 sec
+				if ( newBestLevel === true ) {
+					UI.alert.newLevel.show();
+					$.delay( UI.alert.newLevel.hide, 3000);
+				}
 			};
 
 			outCallback = function () {
 
 				game.$.play[0].innerHTML = '';
 
-				
 				var nextPuzzle = game.puzzle.next();
 
 				if ( nextPuzzle ) {
@@ -260,17 +286,27 @@
 							force: true,
 							callback: inCallback
 						});
-					}, 200); // => setTimeout to ensure puzzle have been inserted before we animate blocks in
+					}, 200); // => setTimeout required to ensure puzzle have been inserted before we animate blocks in
 				} else {
-					// TODO: credit
+					
+					/*
+					 * End screen
+					 */
+					UI.endScreen.enable();
+					$.delay( UI.endScreen.show, 200);
+
 				}
 
 			};
 
+			if ( game.tutorial.pending ) {
+				game.tutorial.onComplete();
+			}
+
 			game.animate.blocks({
 				where: 'out',
 				direction: 'far',
-				callback: outCallback
+				callback: game.tutorial.pending ? game.tutorial.onEnd : outCallback
 			});
 
 		},
@@ -293,11 +329,80 @@
 				$.storage.bestMoves = JSON.stringify([]);
 			}
 
+			//console.log( $.storage.lvl );
+			//console.log( lvl );
+
 			// Insert first unachieved puzzle
 			game.puzzle.insert( puzzle[ $.storage.lvl ] );
 			
 			$(window).trigger('levelUpdate');
 		}
+	};
+
+	/***
+	 * TUTORIAL
+	 ***/
+	game.tutorial = {
+
+		pending: true,
+
+		init: function () {
+
+			var play = game.$.play
+			  , html =  '<div id="instructions" class="instructions">Slide blocks forward or backward in order to free the red one.</div>';
+				html += '<div class="instruction-arrow pos-1">&larr;</div><div class="instruction-arrow pos-2">&darr;</div><div class="instruction-arrow pos-3">&rarr;</div>'
+
+			game.puzzle.insert({
+				blocks: [
+					new Block( 2, 1, 2, 'h', true )
+				  , new Block( 1, 3, 3, 'v', false )
+				  , new Block( 4, 2, 3, 'h', false )
+				]
+			});
+
+			play.append( html );
+
+			$(window).addEvent('tutorialReady', this.start, false, true );
+		
+		},
+
+		start: function () {
+
+			var el = $('#instructions')[0];
+			window.getComputedStyle( el ).opacity;
+			$(el).addClass('in');	
+
+		},
+
+		onComplete: function () {
+
+			game.$.play.addClass('tutorial-completed');
+			console.log('tutorial just finished');
+			
+		},
+
+		onEnd: function () {
+			
+			console.log('tutorial ended, block are out');
+			game.tutorial.pending = false;
+			
+			$.delay( function() {
+				
+				game.$.play[0].innerHTML = '';
+				game.puzzle.init();
+
+				game.animate.blocks({
+					where: 'in',
+					direction: 'bot',
+					force: true
+				});
+
+			}, 200);
+			
+			$(window).trigger('uiReady');
+			
+		}
+
 	};
 
 	/***
@@ -329,21 +434,39 @@
 			}
 		};
 
-		// 
 		$(window).addEvent('resize', onResizeWindow );
 
 		/***
 		 * Actual init
 		 */
 		var init = function () {
-			//
-			game.puzzle.init();
-			
-			//
-			$(document.documentElement).addClass('ready');
-			game.animate.board();
 
-			// 
+			$(window).addEvent('boardReady', function () {
+				game.$.html.addClass('board-ready');
+			}, false, true );
+			
+			//console.log ('lvl', $.storage.lvl);
+			//console.log ('lvl', parseInt( $.storage.lvl, 10 ));
+
+			if ( parseInt( $.storage.lvl, 10 ) >= 0 ) {
+
+				// Tutorial already finished
+				game.tutorial.pending = false;
+
+				// Init latest puzzle
+				game.puzzle.init();
+				game.animate.board( true, false );
+			
+			// User has not finished a puzzle yet
+			} else {
+
+				// Init tutorial
+				game.tutorial.init();
+				game.animate.board( false, true );
+			}
+			
+			$(document.documentElement).addClass('ready');
+			
 			initialized = true;
 
 		};
@@ -396,7 +519,7 @@
 		 * Bring board in
 		 * TODO: rewrite animate board
 		 */
-		board: function () {
+		board: function ( triggerUiReady, triggerTutorial ) {
 			var transition = $.support.transitionEvent;
 
 			game.$.board
@@ -408,10 +531,18 @@
 					},
 					function () {
 						$(window).trigger('boardReady');
+						if ( triggerUiReady ) {
+							$(window).trigger('uiReady');
+						}
 						$.delay( function () {
 							game.animate.blocks({
 								where: 'in',
-								direction: 'bot'
+								direction: 'bot',
+								callback: function () {
+									if ( triggerTutorial ) {
+										$(window).trigger('tutorialReady')
+									}
+								}
 							});
 						}, 200 );
 					}
@@ -428,6 +559,12 @@
 					direction: 'bot'
 				});
 				$(window).trigger('boardReady');
+				if ( triggerUiReady ) {
+					$(window).trigger('uiReady');
+				}
+				if ( triggerTutorial ) {
+					$(window).trigger('tutorialReady')
+				}
 			}
 		},
 
@@ -480,6 +617,7 @@
 					html = $board[0].innerHTML;
 					$board[0].innerHTML = '';
 					$board[0].innerHTML = html;
+					// TODO: try with windon.cacl
 					// Ugly fix 2: have to rebind events since innerHTML is used
 					game.puzzle.rebind();
 
