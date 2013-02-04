@@ -23,13 +23,14 @@
 	  , levelList		: $('#level-list')
 	  , fieldMovesBest	: $('#field-moves-best')
 	  , fullscreenButton: $('#fullscreen-button')
+	  , endScreen		: $('#end-screen')
 	};
 
 	/***
 	 * STATUS
 	 * - 
 	 * Handle game status
-	 * Provides status to prevent UI action for specific state (ex, no reset when blocks are out)
+	 * Provides status to prevent UI action for specific state (ie: no reset when blocks are out)
 	 **/
 	UI.status = {
 
@@ -117,12 +118,24 @@
 				var level = UI.$.levelList;
 				
 				if ( level.hasClass('show') ) {
+					
+					// Handle end game screen
+					if ( UI.$.endScreen.hasClass('enabled') ) {
+						UI.endScreen.show();
+					}
+
 					level.removeClass('show');
 					game.animate.blocks({
 						where: 'in',
 						direction: 'top'
 					});
 				} else {
+
+					// Handle end game screen
+					if ( UI.$.endScreen.hasClass('enabled') ) {
+						UI.endScreen.hide();
+					}
+
 					level.addClass('show');
 					game.animate.blocks({
 						where: 'out',
@@ -211,7 +224,6 @@
 		 */
 		init: function () {
 			$('a', UI.$.ui[0] ).addEvent( 'click', this.dispatchAction, true );
-
 		}
 
 	};
@@ -403,6 +415,32 @@
 	};
 
 	/***
+	 * END GAME SCREEN
+	 ***/
+	UI.endScreen = {
+
+		enable: function () {
+			UI.$.endScreen.addClass('enabled');
+			console.log( window.getComputedStyle( UI.$.endScreen[0] ).top );
+			window.getComputedStyle( UI.$.endScreen[0] ).top;
+		},
+
+		disable: function () {
+			UI.$.endScreen.removeClass('enabled');
+		},
+
+		show: function () {
+			UI.$.endScreen.addClass('in');
+			$.delay( UI.alert.newRecord.hide, 750 );
+		},
+
+		hide: function () {
+			UI.$.endScreen.removeClass('in');
+		}
+
+	};
+
+	/***
 	 * ANIMATE UI IN
 	 ***/
 	UI.show = function () {
@@ -417,11 +455,11 @@
 		UI.status.init();
 
 		// Bring UI in when board is ready
-		$(window).addEvent( 'boardReady', UI.show, false, true );
+		$(window).addEvent( 'uiReady', UI.show, false, true );
 		
 	}();
 
-	game.load();
+	$(window).addEvent('load', game.load );
 
 	window.UI = UI;
 
