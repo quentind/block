@@ -317,7 +317,11 @@
 			  , best = parseInt( $.storage.best, 10 )
 				// check if local storage entry exists to fix Webkit bug (Unexpected Token u)
 			  , bestMoves = ($.storage.bestMoves) ? JSON.parse($.storage.bestMoves) : false
+			  , maxPuzzles = window.puzzle.length - 1
 			;
+
+			// Prevent lvl to exceed number of puzzle (minus 1 because zero indexed)
+			lvl = ( lvl <= maxPuzzles ) ? lvl : maxPuzzles ;
 
 			$.storage.lvl  = lvl  || 0;
 			$.storage.best = best || -1;
@@ -325,9 +329,6 @@
 			if ( ! bestMoves ) {
 				$.storage.bestMoves = JSON.stringify([]);
 			}
-
-			//console.log( $.storage.lvl );
-			//console.log( lvl );
 
 			// Insert first unachieved puzzle
 			game.puzzle.insert( puzzle[ $.storage.lvl ] );
