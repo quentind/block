@@ -15,8 +15,8 @@
 			// Game config
 			loadDelay: 300,
 			screen: {
-				minWidth: 600,
-				minHeight: 764
+				minWidth: 553,
+				minHeight: 700
 			},
 			maxLevel: puzzle.length
 		}
