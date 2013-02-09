@@ -321,9 +321,13 @@
 			;
 
 			// Prevent lvl to exceed number of puzzle (minus 1 because zero indexed)
-			lvl = ( lvl <= maxPuzzles ) ? lvl : maxPuzzles ;
+			if ( ! lvl ) {
+				lvl = 0;
+			}
 
-			$.storage.lvl  = lvl  || 0;
+			lvl = Math.min( maxPuzzles, lvl );
+
+			$.storage.lvl = lvl;
 			$.storage.best = best || -1;
 
 			if ( ! bestMoves ) {
