@@ -444,9 +444,19 @@
 	 * ANIMATE UI IN
 	 ***/
 	UI.show = function () {
+		console.log( $.support.transitionEvent );
+		UI.$.ui.addEvent( $.support.transitionEvent, function () {
+			$.delay(function () {
+				$(document.documentElement).addClass('ui-in');
+			}, 500);
+		});
 		$(document.documentElement).addClass('ui-ready');
+
 	};
 
+	/***
+	 * INIT UI
+	 ***/
 	UI.init = function () {
 
 		UI.level.init();
