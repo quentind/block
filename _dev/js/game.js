@@ -14,10 +14,6 @@
 	  , config = {
 			// Game config
 			loadDelay: 300,
-			screen: {
-				minWidth: 553,
-				minHeight: 700
-			},
 			maxLevel: puzzle.length
 		}
 	;
@@ -30,6 +26,7 @@
 		'play':				$('#play'),
 		'level-list':		$('#level-list'),
 		'toggle-menu':		$('#toggle-menu'),
+		'screenToSmall':	$('#too-small'),
 		'html':				$(document.documentElement)
 	};
 
@@ -428,6 +425,12 @@
 		 * Resize window event handler
 		 */
 		var onResizeWindow = function () {
+			document.body.style.width = 'auto';
+
+			var w = document.body.clientWidth + 'px';
+			$('#wrap')[0].style.width = w;
+			document.body.style.width = w;
+			
 			if ( ! game.screen.isTooSmall() ) {
 				if ( initialized === false ) {
 					init();
@@ -480,7 +483,6 @@
 
 	/***
 	 * Screen enabling and disabling
-	 * TODO: rewrite this 
 	 ***/
 	game.screen = {
 
@@ -488,13 +490,12 @@
 		 * Checks if screen is large enough to play
 		 */ 
 		isTooSmall: function () {
-			if ( $.docHeight() < config.screen.minHeight || $.docWidth() < config.screen.minWidth ) {
-				game.screen.disable('too-small');
+
+			if ( window.getComputedStyle( game.$.screenToSmall[0], null).display === 'block' ) {
 				return true;
-			} else {
-				game.screen.enable('too-small');
-				return false;
 			}
+
+			return false;
 		},
 
 		/**

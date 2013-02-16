@@ -163,12 +163,12 @@
 				dx = evt.clientX - dragDrop.initialMouseX,
 				dy = evt.clientY - dragDrop.initialMouseY;
 			
-			dragDrop.setPosition( dx , dy );
+			dragDrop.setPosition( dx , dy, evt );
 			
 			return false;
 		},
 		
-		setPosition: function ( dx, dy ) {
+		setPosition: function ( dx, dy, evt ) {
 
 			var dir = dragDrop.dir
 			  , n
@@ -241,11 +241,6 @@
 			
 			dragDrop.n = n;
 			
-			//console.log('max', maxBlock);
-			//console.log('min', minBlock);
-			//console.log('n', n);
-			//console.log('nomove', dragDrop.noMove);
-			
 			// If block cant move further bottom or right
 			if ( n === maxBlock && ! dragDrop.blockIsAtMaxPosition && ! dragDrop.noMove ) {
 				dragDrop.blockIsAtMaxPosition = true ;
@@ -268,6 +263,12 @@
 			}
 
 			dragDrop.draggedObject.style[ dir ] = n + 'px';
+
+			// Special case for webkit
+			if ( dragDrop.isKey && evt.clientX >= $.docWidth() ) {
+				console.log('unbind');
+				dragDrop.unBind();
+			}
 			
 		},
 
@@ -281,18 +282,12 @@
 
 			if ( diff * board.blockSize !== n ) {
 				dragDrop.draggedObject.style[ dir ] = diff + 'px';
-
 			}
 			
-			//console.log('n', n);
-			//console.log('init', initialPosition);
-			//console.log('diff', diff);
-
 			// Play sounds only if block position is adjusted
 			if ( diff * board.blockSize !== n ) {
 				var delta = n - diff;
 				if ( delta !== 0 ) {
-					//console.log(delta);
 					// volume = (abs block movement length) / (ratio in block size) * (modifier = 2)
 					delta = Math.abs( delta ) / 80;
 					game.playSound.knock( delta );
@@ -315,7 +310,7 @@
 			}
 			
 			// Checks if game is won when mousemove stops
-			if ( dragDrop.isKey && dragDrop.n >= board.blockSize * 5.5 ) {
+			if ( dragDrop.isKey && ( dragDrop.n >= board.blockSize * 5 || diff >= board.blockSize * 5 ) ) {
 				// Supports for double key block puzzle
 				if ( board.el.querySelectorAll('.block.key').length === 1 ) {
 					// dont save moves if this is tutorial end
@@ -325,13 +320,8 @@
 
 					var lvl  = parseInt( $.storage.lvl,  10);
 					var best = parseInt( $.storage.best, 10);
-
-					//console.log('curr lvl', lvl );
-					//console.log('best lvl', best );
-
 					var isNewLevel = ( lvl >= best ) ? true : false;
-					//console.log('new lvl?:', isNewLevel );
-
+					
 					game.animate.keyBlock( dragDrop.draggedObject, function () {
 						game.puzzle.win( isNewLevel );
 					});

@@ -20,6 +20,12 @@ html {
  	        user-select:none;
 }
 
+.wrap {
+	overflow:hidden;
+	height:100%;
+	position:relative;
+}
+
 body {
 
 	/* Box Model */
@@ -27,11 +33,6 @@ body {
 	width:100%;
 	overflow:hidden;
 
-	/* Behaviour */
-	/*cursor:url(../img/cursor.png) 0 0, default;*/
-	/* TODO: add custom pointer sur le body et blocks, doc mdn: https://developer.mozilla.org/en/CSS/Using_URL_values_for_the_cursor_property */
-	/* TODO: encore check les user-select pour moz */
-	
 	/* Text */
 	font-family:Helvetica, Arial, sans-serif;
 }
@@ -92,6 +93,26 @@ div.error {
 	text-align:center;
 	line-height:50px;
 }
+
+#too-small {
+	display:none;
+}
+
+@media all and ( max-width:553px ) {
+	#too-small { display:block; }
+}
+
+@media all and ( max-width:553px ) and ( max-height:700px ) {
+	#too-small { display:block; }
+}
+
+@media all and ( max-width:800px ) and ( max-height:660px ) {
+	#too-small { display:block; }
+}
+
+/*@media all and ( max-width:800px ) and ( max-width:800px ) {
+	#too-small { display:block; }
+}*/
 
 /**
  * Weird: required for IE8 because it make document.elementFromPoint fail, returning [object HTMLNoShowElement]
