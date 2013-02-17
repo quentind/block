@@ -266,7 +266,6 @@
 
 			// Special case for webkit
 			if ( dragDrop.isKey && evt.clientX >= $.docWidth() ) {
-				console.log('unbind');
 				dragDrop.unBind();
 			}
 			
