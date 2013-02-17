@@ -15,7 +15,5 @@
 
 ## Design
 - Credit/end game screen: list level without perfect score
-- Logo
 - Design mouse cursor
-- 'New' alert for small screens
 - position level list small screens
