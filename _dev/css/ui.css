@@ -454,94 +454,6 @@
 	display:none;
 }
 
-/***
- * TWEAKS TO UI ELEMENTS FOR SMALL SCREENS
- ***/
-.ui-in .ui {
-	-webkit-transition:none !important;
-	   -moz-transition:none !important;
-	    -ms-transition:none !important;
-	     -o-transition:none !important;
-	        transition:none !important;
-}
-
-@media all and ( max-width:800px ) {
-
-	.ui {
-		right:20px;
-		width:auto;
-
-		-webkit-transform:translateY(-220px) translateZ(1px);
-		   -moz-transform:translateY(-220px) translateZ(1px);
-		    -ms-transform:translateY(-220px) translateZ(1px);
-		     -o-transform:translateY(-220px) ;
-		        transform:translateY(-220px) translateZ(1px);
-	}
-
-	.ui .level {
-		position:absolute;
-		left:80px;
-		top:0;
-		z-index:2;
-	}
-
-	.ui .moves {
-		position:absolute;
-		left:0;
-		top:0;
-		z-index:2;
-	}
-
-	.buttons {
-		position:absolute;
-		right:0;
-		width:auto;
-		text-align:center;
-	}
-
-	.buttons .button {
-		display:inline-block;
-		margin: 0 60px 0 0;
-		width:auto;
-	}
-
-	.buttons .fullscreen {
-		margin-right:0;
-	}
-
-	.button .txt {
-		text-align:left;
-		margin:5px 0 0 35px;
-		padding:5px 0 0;
-		position:static;
-		float:left;
-		width:auto;
-	}
-
-	.button.mute .txt {
-		padding:4px 0 0;
-	}
-
-	.debug {
-		display:none !important;
-	}
-
-	#play {
-		margin-top:-200px;
-	}
-
-	#board {
-		margin-top:-213px;
-	}
-
-	#level-list {
-		margin-top:-200px;
-	}
-
-}
-
-
-
 /*** NEW RECORD Alert ***/
 .new {
 
@@ -1060,5 +972,90 @@
 	margin-top:40px;
 }
 
+/***
+ * TWEAKS TO UI ELEMENTS FOR SMALL SCREENS
+ ***/
+.ui-in .ui {
+	-webkit-transition:none !important;
+	   -moz-transition:none !important;
+	    -ms-transition:none !important;
+	     -o-transition:none !important;
+	        transition:none !important;
+}
+
+@media all and ( max-width:800px ) {
+
+	.ui {
+		right:20px;
+		width:auto;
+
+		-webkit-transform:translateY(-220px) translateZ(1px);
+		   -moz-transform:translateY(-220px) translateZ(1px);
+		    -ms-transform:translateY(-220px) translateZ(1px);
+		     -o-transform:translateY(-220px) ;
+		        transform:translateY(-220px) translateZ(1px);
+	}
+
+	.ui .level {
+		position:absolute;
+		left:98px;
+		top:0;
+		z-index:2;
+	}
+
+	.ui .moves {
+		position:absolute;
+		left:0;
+		top:0;
+		z-index:2;
+	}
+
+	.buttons {
+		position:absolute;
+		right:0;
+		width:auto;
+		text-align:center;
+	}
+
+	.buttons .button {
+		display:inline-block;
+		margin: 0 25px 0 0;
+		width:auto;
+	}
+
+	.buttons .fullscreen {
+		margin-right:0;
+	}
+
+	.button .txt {
+		text-align:left;
+		margin:5px 0 0 35px;
+		padding:5px 0 0;
+		position:static;
+		float:left;
+		width:auto;
+	}
+
+	.button.mute .txt {
+		padding:4px 0 0;
+	}
+
+	.debug {
+		display:none !important;
+	}
+
+	#play {
+		margin-top:-200px;
+	}
+
+	#board {
+		margin-top:-213px;
+	}
+
+	#level-list {
+		margin-top:-200px;
+	}
+
+}
 
 
