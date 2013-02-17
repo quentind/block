@@ -287,8 +287,9 @@
 			// Play sounds only if block position is adjusted
 			if ( diff * board.blockSize !== n ) {
 				var delta = n - diff;
+				
 				// If block was moved and is not key block or is moved towards the left edge
-				if ( delta !== 0 && ( dragDrop.isKey === false || n === 0 ) ) {
+				if ( delta !== 0 && ( dragDrop.isKey === false || n < 320 ) ) {
 					// volume = (abs block movement length) / (ratio in block size) * (modifier = 2)
 					delta = Math.abs( delta ) / 80;
 					game.playSound.knock( delta );
