@@ -49,11 +49,11 @@
 	        transform:scale(1);
 
 	/* Transition only wih .init to prevent chrome bug where board is animated before being fully endered */
-	-webkit-transition:all .3s cubic-bezier(0.770, 0.000, 0.175, 1.000);
-	   -moz-transition:all .3s cubic-bezier(0.770, 0.000, 0.175, 1.000);
-	    -ms-transition:all .3s cubic-bezier(0.770, 0.000, 0.175, 1.000);
-	     -o-transition:all .3s cubic-bezier(0.770, 0.000, 0.175, 1.000);
-	        transition:all .3s cubic-bezier(0.770, 0.000, 0.175, 1.000);
+	-webkit-transition:-webkit-transform .3s cubic-bezier(0.770, 0.000, 0.175, 1.000), opacity .3s cubic-bezier(0.770, 0.000, 0.175, 1.000);
+	   -moz-transition:   -moz-transform .3s cubic-bezier(0.770, 0.000, 0.175, 1.000), opacity .3s cubic-bezier(0.770, 0.000, 0.175, 1.000);
+	    -ms-transition:    -ms-transform .3s cubic-bezier(0.770, 0.000, 0.175, 1.000), opacity .3s cubic-bezier(0.770, 0.000, 0.175, 1.000);
+	     -o-transition:     -o-transform .3s cubic-bezier(0.770, 0.000, 0.175, 1.000), opacity .3s cubic-bezier(0.770, 0.000, 0.175, 1.000);
+	        transition:        transform .3s cubic-bezier(0.770, 0.000, 0.175, 1.000), opacity .3s cubic-bezier(0.770, 0.000, 0.175, 1.000);
 }
 
 .ui-ready #board {
