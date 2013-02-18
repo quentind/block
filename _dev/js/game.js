@@ -373,22 +373,19 @@
 
 		start: function () {
 
-			var el = $('#instructions')[0];
-			window.getComputedStyle( el ).opacity;
-			$(el).addClass('in');	
+			window.getComputedStyle( game.$.play[0] ).opacity;
+			game.$.play.addClass('tutorial-ui-in');
 
 		},
 
 		onComplete: function () {
 
 			game.$.play.addClass('tutorial-completed');
-			console.log('tutorial just finished');
-			
+		
 		},
 
 		onEnd: function () {
 			
-			console.log('tutorial ended, block are out');
 			game.tutorial.pending = false;
 			
 			$.delay( function() {
