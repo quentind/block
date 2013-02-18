@@ -61,6 +61,7 @@
 		  , preload
 		  , loadedCount = 0
 		  , resourceLoaded
+		  , iOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false
 		;
 
 		resourceLoaded = function () {
@@ -76,7 +77,12 @@
 
 		preload = function ( src, type, idname ) {
 
-			if ( type === 'audio' ) {
+			// Temporary fix for iOS
+			if ( iOS && type === 'audio' ) {
+			
+				resourceLoaded();
+
+			} else if ( type === 'audio' ) {
 
 				if ( $.support.audio ) {
 
