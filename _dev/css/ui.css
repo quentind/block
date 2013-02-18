@@ -25,12 +25,6 @@
 	    -ms-user-select:none;
 	        user-select:none;
 
-	-webkit-transition:all 0.4s cubic-bezier(0.770, 0.000, 0.175, 1.000) 0.5s;
-	   -moz-transition:all 0.4s cubic-bezier(0.770, 0.000, 0.175, 1.000) 0.5s;
-	    -ms-transition:all 0.4s cubic-bezier(0.770, 0.000, 0.175, 1.000) 0.5s;
-	     -o-transition:all 0.4s cubic-bezier(0.770, 0.000, 0.175, 1.000) 0.5s;
-	        transition:all 0.4s cubic-bezier(0.770, 0.000, 0.175, 1.000) 0.5s;
-
 	-webkit-transform:translateX(-180px) translateZ(1px);
        -moz-transform:translateX(-180px) translateZ(1px);
         -ms-transform:translateX(-180px) translateZ(1px);
@@ -44,6 +38,12 @@
         -ms-transform:translateX(0) translateY(0) translateZ(1px);
          -o-transform:translateX(0) translateY(0) ;
             transform:translateX(0) translateY(0) translateZ(1px);
+
+    -webkit-transition:all 0.4s cubic-bezier(0.770, 0.000, 0.175, 1.000) 0.5s;
+	   -moz-transition:all 0.4s cubic-bezier(0.770, 0.000, 0.175, 1.000) 0.5s;
+	    -ms-transition:all 0.4s cubic-bezier(0.770, 0.000, 0.175, 1.000) 0.5s;
+	     -o-transition:all 0.4s cubic-bezier(0.770, 0.000, 0.175, 1.000) 0.5s;
+	        transition:all 0.4s cubic-bezier(0.770, 0.000, 0.175, 1.000) 0.5s;
 }
 
 .ready .ui {
