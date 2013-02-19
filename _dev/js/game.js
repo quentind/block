@@ -156,12 +156,6 @@
 			  , len = blocks.length
 			  , i = 0
 			  , el
-			  , tut =  {
-					up: '&uarr;',
-					down: '&darr;',
-					left: '&larr;',
-					right: '&rarr;'
-				}
 			;
 
 			for ( ; i < len ; i++ ) {
@@ -169,9 +163,6 @@
 				el = document.createElement('div');
 				el.style.cssText = blocks[i].styles;
 				el.className = blocks[i].classAttr;
-				if ( blocks[i].tutorial ) {
-					el.innerHTML = '<div class="instruction-arrow">' + tut[ blocks[i].tutorial] + '</div>';
-				}
 			
 				frag.appendChild( el );
 
