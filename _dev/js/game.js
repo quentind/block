@@ -166,10 +166,21 @@
 			
 				frag.appendChild( el );
 
-				$(el).addEvent('mousedown', dragDrop.startDragMouse, true );
+				// Temporarily disable mouse
+				// TODO: fix this
+				//$(el).addEvent('mousedown', dragDrop.startDragMouse, true )
+
 			}
 
 			game.$.play[0].appendChild( frag );
+
+			// Temporary event binding for touch
+			var qsa = document.querySelectorAll('.block');
+			var l = qsa.length;
+
+			for (var i=0; i < l ; i++ ) {
+				$(qsa[i]).addEvent('touchstart', dragDrop.startDragMouse, true);
+			}
 
 			UI.endScreen.disable();
 		},
@@ -402,6 +413,13 @@
 	 * GAME INIT
 	 ***/
 	game.init = function () {
+
+		/**
+		 * Prevent elastic scrolling / overscrolling in iOS
+		 */
+		$(document.body).addEvent('touchmove', function(e) {
+			e.preventDefault();
+		});
 
 		var initialized = false;
 

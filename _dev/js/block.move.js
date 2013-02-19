@@ -27,6 +27,8 @@
 		blockIsAtMinPosition: false,
 
 		startDragMouse: function ( e ) {
+
+			//console.log( e.type );
 			
 			dragDrop.startDrag(this);
 			
@@ -37,9 +39,23 @@
 			}
 			
 			var evt = e || window.event;
-			dragDrop.initialMouseX = evt.clientX;
-			dragDrop.initialMouseY = evt.clientY;
-			$(document).addEvent( 'mousemove', dragDrop.dragMouse ).addEvent( 'mouseup', dragDrop.unBind );
+
+			//console.log( evt.touches );
+			//console.log( evt.touches[0].clientX );
+			
+			if (evt.touches && evt.touches.length) {
+				dragDrop.initialMouseX = evt.touches[0].clientX;
+				dragDrop.initialMouseY = evt.touches[0].clientY;
+			} else {
+				dragDrop.initialMouseX = evt.clientX;
+				dragDrop.initialMouseY = evt.clientY;
+			}
+			
+			$(document)
+				//.addEvent( 'mousemove', dragDrop.dragMouse )
+				.addEvent( 'touchmove', dragDrop.dragMouse )
+				//.addEvent( 'mouseup', dragDrop.unBind )
+				.addEvent( 'touchend', dragDrop.unBind );
 			
 			return false;
 		},
@@ -159,10 +175,27 @@
 		},
 
 		dragMouse: function ( e ) {
-			var evt = e || window.event,
-				dx = evt.clientX - dragDrop.initialMouseX,
-				dy = evt.clientY - dragDrop.initialMouseY;
+
+			var evt = e || window.event
+			  , dx
+			  , dy
+			;
+
+			//console.log( dragDrop.initialMouseX );
+			//console.log( evt.touches );
+			//console.log( evt.touches[0].clientX );
 			
+			if (evt.touches && evt.touches.length) {
+				dx = evt.touches[0].clientX - dragDrop.initialMouseX;
+				dy = evt.touches[0].clientY - dragDrop.initialMouseY;
+			} else {
+				dx = evt.clientX - dragDrop.initialMouseX;
+				dy = evt.clientY - dragDrop.initialMouseY;
+			}
+
+			//console.log(dx);
+			//console.log(dy);
+
 			dragDrop.setPosition( dx , dy, evt );
 			
 			return false;
@@ -244,12 +277,12 @@
 			// If block cant move further bottom or right
 			if ( n === maxBlock && ! dragDrop.blockIsAtMaxPosition && ! dragDrop.noMove ) {
 				dragDrop.blockIsAtMaxPosition = true ;
-				game.playSound.knock( 0.6 );
+				//game.playSound.knock( 0.6 );
 
 			// If block cant move further top or left
 			} else if ( n === minBlock && ! dragDrop.blockIsAtMinPosition && ! dragDrop.noMove ) {
 				dragDrop.blockIsAtMinPosition = true ;
-				game.playSound.knock( 0.6 );
+				//game.playSound.knock( 0.6 );
 			} else {
 
 				if ( n < maxBlock) {
@@ -272,7 +305,7 @@
 		},
 
 		unBind: function () {
-			
+			console.log('unBind');
 			var	n = dragDrop.n
 			  ,	dir = dragDrop.dir
 			  ,	diff = Math.round( n / board.blockSize ) * board.blockSize
@@ -291,11 +324,15 @@
 				if ( delta !== 0 && ( dragDrop.isKey === false || n < 320 ) ) {
 					// volume = (abs block movement length) / (ratio in block size) * (modifier = 2)
 					delta = Math.abs( delta ) / 80;
-					game.playSound.knock( delta );
+					//game.playSound.knock( delta );
 				}
 			}
 
-			$(document).removeEvent('mousemove', dragDrop.dragMouse ).removeEvent('mouseup', dragDrop.unBind );
+			$(document)
+				.removeEvent('mousemove', dragDrop.dragMouse )
+				.removeEvent('touchmove', dragDrop.dragMouse )
+				.removeEvent('mouseup', dragDrop.unBind )
+				.removeEvent('touchend', dragDrop.unBind );
 			
 			// Remove dragger class on the dragger object
 			// TODO: store $(draggedObject) in var
