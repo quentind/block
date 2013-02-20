@@ -156,6 +156,7 @@
 			  , len = blocks.length
 			  , i = 0
 			  , el
+			  , startEvent = document.ontouchstart === undefined ? 'mousedown' : 'touchstart'
 			;
 
 			for ( ; i < len ; i++ ) {
@@ -168,19 +169,19 @@
 
 				// Temporarily disable mouse
 				// TODO: fix this
-				//$(el).addEvent('mousedown', dragDrop.startDragMouse, true )
+				$(el).addEvent( startEvent, dragDrop.startDragMouse, true )
 
 			}
 
 			game.$.play[0].appendChild( frag );
 
 			// Temporary event binding for touch
-			var qsa = document.querySelectorAll('.block');
+			/*var qsa = document.querySelectorAll('.block');
 			var l = qsa.length;
 
 			for (var i=0; i < l ; i++ ) {
 				$(qsa[i]).addEvent('touchstart', dragDrop.startDragMouse, true);
-			}
+			}*/
 
 			UI.endScreen.disable();
 		},
@@ -188,13 +189,11 @@
 		/**
 		 * Rebind blocks
 		 * -
-		 * Ugly fix, retarded but only solution ATM :(
-		 * Rebind blocks after CSS transition fix using innerHTML = ''
-		 * See game.animate.block() for more details
-		 * Could maybe use setImmediate but unsure and not well supported
+		 * Ugly fix, stupid but only solution ATM :(
+		 * See game.animate.block()
 		 */
 		rebind: function () {
-			$('div', game.$.play[0]).addEvent('mousedown', dragDrop.startDragMouse, true );
+			$('div', game.$.play[0]).addEvent( document.ontouchstart === undefined ? 'mousedown' : 'touchstart', dragDrop.startDragMouse, true );
 		},
 
 		/**

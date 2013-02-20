@@ -25,6 +25,10 @@
 		draggedObject: undefined,
 		blockIsAtMaxPosition: false,
 		blockIsAtMinPosition: false,
+		event: {
+			move: document.ontouchstart === undefined ? 'mousemove' : 'touchmove',
+			end: document.ontouchstart === undefined ? 'mouseup' : 'touchend'
+		},
 
 		startDragMouse: function ( e ) {
 
@@ -52,10 +56,8 @@
 			}
 			
 			$(document)
-				//.addEvent( 'mousemove', dragDrop.dragMouse )
-				.addEvent( 'touchmove', dragDrop.dragMouse )
-				//.addEvent( 'mouseup', dragDrop.unBind )
-				.addEvent( 'touchend', dragDrop.unBind );
+				.addEvent( dragDrop.event.move, dragDrop.dragMouse )
+				.addEvent( dragDrop.event.end, dragDrop.unBind );
 			
 			return false;
 		},
@@ -329,10 +331,8 @@
 			}
 
 			$(document)
-				.removeEvent('mousemove', dragDrop.dragMouse )
-				.removeEvent('touchmove', dragDrop.dragMouse )
-				.removeEvent('mouseup', dragDrop.unBind )
-				.removeEvent('touchend', dragDrop.unBind );
+				.removeEvent( dragDrop.event.move, dragDrop.dragMouse )
+				.removeEvent( dragDrop.event.end, dragDrop.unBind );
 			
 			// Remove dragger class on the dragger object
 			// TODO: store $(draggedObject) in var
