@@ -163,7 +163,7 @@
 
 		// 10
 		{
-			parMoves: 9,
+			parMoves: 8,
 			blocks: [
 				new Block( 2, 0, 2, 'h', true )
 			  , new Block( 0, 2, 2, 'v', false )
