@@ -484,10 +484,10 @@
 	     -o-transition-duration:.3s;
 	        transition-duration:.3s;
 
-	-webkit-transition-property:opacity, -webkit-transform, transform;
-	   -moz-transition-property:opacity, -moz-transform, transform;
-	    -ms-transition-property:opacity, -ms-transform, transform;
-	     -o-transition-property:opacity, -o-transform, transform;
+	-webkit-transition-property:opacity, -webkit-transform;
+	   -moz-transition-property:opacity, -moz-transform;
+	    -ms-transition-property:opacity, -ms-transform;
+	     -o-transition-property:opacity, -o-transform;
 	        transition-property:opacity, transform;
 
 	-webkit-transition-timing-function:cubic-bezier(0.770, 0.000, 0.175, 1.000);
@@ -495,6 +495,34 @@
 	    -ms-transition-timing-function:cubic-bezier(0.770, 0.000, 0.175, 1.000);
 	     -o-transition-timing-function:cubic-bezier(0.770, 0.000, 0.175, 1.000);
 	        transition-timing-function:cubic-bezier(0.770, 0.000, 0.175, 1.000);
+}
+
+/* Animation for lvl 'new' alert */
+.level .new {
+	top:17px;
+	margin-left:2px;
+}
+
+/* TODO: this only for safari; */
+@-webkit-keyframes glow {
+	0%   { margin-top:-2px; }
+	50% { margin-top:0; }
+	100% { margin-top:-2px; }
+}
+@-moz-keyframes glow {
+	0%   { margin-top:-1px; }
+	50% { margin-top:0px; }
+	100% { margin-top:-1px; }
+}
+@-o-keyframes glow {
+	0%   { margin-top:-1px; }
+	50% { margin-top:0px; }
+	100% { margin-top:-1px; }
+}
+@keyframes glow {
+	0%   { margin-top:-1px; }
+	50% { margin-top:0px; }
+	100% { margin-top:-1px; }
 }
 
 .alert .new {
@@ -509,61 +537,6 @@
 	   -moz-animation:glow 1s infinite;
 	     -o-animation:glow 1s infinite;
 	        animation:glow 1s infinite;
-}
-
-@-webkit-keyframes glow {
-	0%   { top:5px; }
-	50%  { top:6px; }
-	100% { top:5px; }
-}
-@-moz-keyframes glow {
-	0%   { top:5px; }
-	50%  { top:6px; }
-	100% { top:5px; }
-}
-@-o-keyframes glow {
-	0%   { top:5px; }
-	50%  { top:6px; }
-	100% { top:5px; }
-}
-@keyframes glow {
-	0%   { top:5px; }
-	50%  { top:6px; }
-	100% { top:5px; }
-}
-
-/* Animation for lvl 'new' alert */
-.level .new {
-	top:17px;
-	margin-left:2px;
-}
-
-.level.alert .new {
-	-webkit-animation:glow-2 1s infinite;
-	   -moz-animation:glow-2 1s infinite;
-	     -o-animation:glow-2 1s infinite;
-	        animation:glow-2 1s infinite;
-}
-
-@-webkit-keyframes glow-2 {
-	0%   { top:17px; }
-	50%  { top:18px; }
-	100% { top:17px; }
-}
-@-moz-keyframes glow-2 {
-	0%   { top:17px; }
-	50%  { top:18px; }
-	100% { top:17px; }
-}
-@-o-keyframes glow-2 {
-	0%   { top:17px; }
-	50%  { top:18px; }
-	100% { top:17px; }
-}
-@keyframes glow-2 {
-	0%   { top:17px; }
-	50%  { top:18px; }
-	100% { top:17px; }
 }
 
 .no-transition-event .new {
