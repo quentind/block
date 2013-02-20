@@ -420,8 +420,6 @@
 			e.preventDefault();
 		});
 
-		var initialized = false;
-
 		/***
 		 * Update window.board.offset.left and .top
 		 * -
@@ -435,6 +433,7 @@
 		/***
 		 * Resize window event handler
 		 */
+		var initialized = false;
 		var onResizeWindow = function () {
 			document.body.style.width = 'auto';
 
