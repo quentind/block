@@ -76,6 +76,10 @@
 
  	/* Text */
 	text-align:center;
+
+	/* Behaviour */
+	-webkit-touch-callout:none;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
 }
 
 .box .txt {
@@ -249,6 +253,8 @@
 
 	/* Behaviour */
 	cursor:pointer;
+	-webkit-touch-callout:none;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
 }
 
 .button .i,
@@ -646,6 +652,8 @@
 
 	/* Behaviour */
 	cursor:pointer;
+	-webkit-touch-callout:none;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
 
 	/* Text */
 	text-align:center;
