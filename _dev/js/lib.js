@@ -33,6 +33,8 @@
 		  , ctx = context || document
 		;
 
+		//console.log( selector, typeof selector, selector.childNodes );
+
 		// Uses getElementById selector contains '#'
 		if ( typeof selector === 'string' && selector.indexOf('#') > -1 ) {
 			selector = selector.replace('#', '');
@@ -48,7 +50,7 @@
 
 		} else {
 			// Selector is an object
-			if ( typeof selector === 'object' ) {
+			if ( typeof selector === 'object' || typeof selector === 'function' ) {
 				nodes = selector;
 			// Selector is a string without '#', getElementsByTagName (usually better than QSA for speed, intented to be used with a context)
 			} else if ( typeof selector === 'string' ) {
@@ -144,8 +146,21 @@
 		 * @param {boolean} fixed - fix attachEvent, not always wanted
 		 */
 		addEvent: function ( element, evt, fn, fixed ) {
-			if (element.addEventListener) {
-				element.addEventListener( evt, fn, false );
+
+			if ( element.addEventListener ) {
+				// BBOS6 doesn't support handleEvent, catch and polyfill
+				try {
+					element.addEventListener(evt, fn, false);
+				} catch(e) {
+					if (typeof fn == 'object' && fn.handleEvent) {
+						element.addEventListener(evt, function(e){
+							// Bind fn as this and set first arg as event object
+							fn.handleEvent.call(fn,e);
+						}, false);
+					} else {
+						throw e;
+					}
+				}
 			} else if (element.attachEvent) {
 				if ( fixed === true) {
 					var curEl = element;
@@ -166,11 +181,13 @@
 		 * @param {function} fn
 		 */
 		removeEvent: function (element, evt, fn ) {
+
 			if (element.removeEventListener) {
 				element.removeEventListener( evt, fn, false );
 			} else if (element.detachEvent) {
 				element.detachEvent( 'on' + evt, fn );
 			}
+
 		},
 
 		/**
@@ -390,23 +407,213 @@
 		 */
 		addEvent: function ( evt, fn, fixed, isCustomEvent ) {
 
-			// Custom event
-			if ( isCustomEvent ) {
+			/*
+			 * Touch event
+			 * -
+			 * Support for click on touch devices, use fastbutton from H5MBP
+			 * https://github.com/h5bp/mobile-boilerplate/blob/master/js/helper.js
+			 */
+			if ( evt === 'click' && document.ontouchstart !== undefined ) {
+				
+				/*priv.fastButton = function(element, handler, pressedClass) {
+					this.handler = handler;
+					// styling of .pressed is defined in the project's CSS files
+					this.pressedClass = typeof pressedClass === 'undefined' ? 'pressed' : pressedClass;
 
-				priv.each( this, function () {
-					// Create customEvent object only if it hasn't been created yet
-					if ( ! this.customEvent) {
-						this.customEvent = priv.customEvent();
+					if (element.length && element.length > 1) {
+						for (var singleElIdx in element) {
+							this.addClickEvent(element[singleElIdx]);
+						}
+					} else {
+						this.addClickEvent(element);
 					}
-					this.customEvent.add( evt, fn );
-				});
+				};
 
-			// Regular event
-			} else {
+				priv.fastButton.prototype.handleEvent = function(event) {
+				    event = event || window.event;
 
-				priv.each(this, function () {
-					priv.addEvent(this, evt, fn, fixed);
-				});
+				    switch (event.type) {
+				        case 'touchstart': this.onTouchStart(event); break;
+				        case 'touchmove': this.onTouchMove(event); break;
+				        case 'touchend': this.onClick(event); break;
+				        case 'click': this.onClick(event); break;
+				    }
+				};
+
+				priv.fastButton.prototype.onTouchStart = function(event) {
+				    var element = event.target || event.srcElement;
+				    event.stopPropagation();
+				    element.addEventListener('touchend', this, false);
+				    document.body.addEventListener('touchmove', this, false);
+				    this.startX = event.touches[0].clientX;
+				    this.startY = event.touches[0].clientY;
+
+				    element.className+= ' ' + this.pressedClass;
+				};
+
+				priv.fastButton.prototype.onTouchMove = function(event) {
+				    if (Math.abs(event.touches[0].clientX - this.startX) > 10 ||
+				        Math.abs(event.touches[0].clientY - this.startY) > 10) {
+				        this.reset(event);
+				    }
+				};
+
+				priv.fastButton.prototype.onClick = function(event) {
+				    event = event || window.event;
+				    var element = event.target || event.srcElement;
+				    if (event.stopPropagation) {
+				        event.stopPropagation();
+				    }
+				    this.reset(event);
+				    this.handler.apply(event.currentTarget, [event]);
+				    if (event.type == 'touchend') {
+				        priv.preventGhostClick(this.startX, this.startY);
+				    }
+				    var pattern = new RegExp(' ?' + this.pressedClass, 'gi');
+				    element.className = element.className.replace(pattern, '');
+				};
+
+				priv.fastButton.prototype.reset = function(event) {
+				    var element = event.target || event.srcElement;
+				    rmEvt(element, 'touchend', this, false);
+				    rmEvt(document.body, 'touchmove', this, false);
+
+				    var pattern = new RegExp(' ?' + this.pressedClass, 'gi');
+				    element.className = element.className.replace(pattern, '');
+				};
+
+				priv.fastButton.prototype.addClickEvent = function(element) {
+				    addEvt(element, 'touchstart', this, false);
+				    addEvt(element, 'click', this, false);
+				};
+
+				priv.preventGhostClick = function(x, y) {
+				    priv.coords.push(x, y);
+				    window.setTimeout(function() {
+				        priv.coords.splice(0, 2);
+				    }, 2500);
+				};
+
+				priv.ghostClickHandler = function(event) {
+				    if (!priv.hadTouchEvent && priv.dodgyAndroid) {
+				        // This is a bit of fun for Android 2.3...
+				        // If you change window.location via fastButton, a click event will fire
+				        // on the new page, as if the events are continuing from the previous page.
+				        // We pick that event up here, but priv.coords is empty, because it's a new page,
+				        // so we don't prevent it. Here's we're assuming that click events on touch devices
+				        // that occur without a preceding touchStart are to be ignored.
+				        event.stopPropagation();
+				        event.preventDefault();
+				        return;
+				    }
+				    for (var i = 0, len = priv.coords.length; i < len; i += 2) {
+				        var x = priv.coords[i];
+				        var y = priv.coords[i + 1];
+				        if (Math.abs(event.clientX - x) < 25 && Math.abs(event.clientY - y) < 25) {
+				            event.stopPropagation();
+				            event.preventDefault();
+				        }
+				    }
+				};
+
+				// This bug only affects touch Android 2.3 devices, but a simple ontouchstart test creates a false positive on
+				// some Blackberry devices. https://github.com/Modernizr/Modernizr/issues/372
+				// The browser sniffing is to avoid the Blackberry case. Bah
+				priv.dodgyAndroid = ('ontouchstart' in window) && (navigator.userAgent.indexOf('Android 2.3') != -1);
+
+				if (document.addEventListener) {
+				    document.addEventListener('click', priv.ghostClickHandler, true);
+				}
+
+				addEvt(document.documentElement, 'touchstart', function() {
+				    priv.hadTouchEvent = true;
+				}, false);
+
+				priv.coords = [];
+
+				// fn arg can be an object or a function, thanks to handleEvent
+				// read more about the explanation at: http://www.thecssninja.com/javascript/handleevent
+				function addEvt(el, evt, fn, bubble) {
+					if ('addEventListener' in el) {
+				        // BBOS6 doesn't support handleEvent, catch and polyfill
+				        try {
+				        	el.addEventListener(evt, fn, bubble);
+				        } catch(e) {
+				            if (typeof fn == 'object' && fn.handleEvent) {
+				                el.addEventListener(evt, function(e){
+				                    // Bind fn as this and set first arg as event object
+				                    fn.handleEvent.call(fn,e);
+				                }, bubble);
+				            } else {
+				            	throw e;
+				            }
+				        }
+				    } else if ('attachEvent' in el) {
+				    	// check if the callback is an object and contains handleEvent
+				        if (typeof fn == 'object' && fn.handleEvent) {
+				            el.attachEvent('on' + evt, function(){
+				                // Bind fn as this
+				                fn.handleEvent.call(fn);
+				            });
+				        } else {
+				            el.attachEvent('on' + evt, fn);
+				        }
+				    }
+				}
+
+				function rmEvt(el, evt, fn, bubble) {
+					if ('removeEventListener' in el) {
+				        // BBOS6 doesn't support handleEvent, catch and polyfill
+				        try {
+				            el.removeEventListener(evt, fn, bubble);
+				        } catch(e) {
+				            if (typeof fn == 'object' && fn.handleEvent) {
+				                el.removeEventListener(evt, function(e){
+				                    // Bind fn as this and set first arg as event object
+				                    fn.handleEvent.call(fn,e);
+				                }, bubble);
+				            } else {
+				                throw e;
+				            }
+				        }
+				    } else if ('detachEvent' in el) {
+				        // check if the callback is an object and contains handleEvent
+				        if (typeof fn == 'object' && fn.handleEvent) {
+				            el.detachEvent("on" + evt, function() {
+				                // Bind fn as this
+				                fn.handleEvent.call(fn);
+				            });
+				        } else {
+				            el.detachEvent('on' + evt, fn);
+				        }
+				    }
+				}*/
+			}
+
+			/*
+			 * Regular events
+			 */
+			else {
+
+				// Custom event
+				if ( isCustomEvent ) {
+
+					priv.each( this, function () {
+						// Create customEvent object only if it hasn't been created yet
+						if ( ! this.customEvent) {
+							this.customEvent = priv.customEvent();
+						}
+						this.customEvent.add( evt, fn );
+					});
+
+				// Regular event
+				} else {
+
+					priv.each(this, function () {
+						priv.addEvent(this, evt, fn, fixed);
+					});
+
+				}
 
 			}
 			return this;
@@ -731,3 +938,10 @@
 	window.lib = window.$ = lib;
 
 }());
+
+var test= function () {
+	alert('test');
+};
+
+$(document.body).addEvent('click', test);
+//$(document.body).removeEvent('click', test);
