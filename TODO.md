@@ -16,6 +16,7 @@
     - Encode
     - JS
     - Preload
+    - Clean lib.js (use minification var)
 
 ## Design
 - Credit/end game screen: list level without perfect score
