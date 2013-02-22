@@ -167,21 +167,11 @@
 			
 				frag.appendChild( el );
 
-				// Temporarily disable mouse
-				// TODO: fix this
 				$(el).addEvent( startEvent, dragDrop.startDragMouse, true )
 
 			}
 
 			game.$.play[0].appendChild( frag );
-
-			// Temporary event binding for touch
-			/*var qsa = document.querySelectorAll('.block');
-			var l = qsa.length;
-
-			for (var i=0; i < l ; i++ ) {
-				$(qsa[i]).addEvent('touchstart', dragDrop.startDragMouse, true);
-			}*/
 
 			UI.endScreen.disable();
 		},
