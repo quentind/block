@@ -5,7 +5,9 @@
 - Write a meta desc
 
 ## JavaScript
-	- Touch drag and drop
+	- MS Pointer event support:
+	    - http://code.msdn.microsoft.com/windowsapps/Input-DOM-pointer-and-2e5697ed/sourcecode?fileId=50863&pathId=1717074743
+	    - http://blogs.msdn.com/b/ie/archive/2012/04/20/guidelines-for-building-touch-friendly-sites.aspx
     - Chech why canplaythrough event is fired after every audio.play()
 	- Sounds when lvl is won (http://audiojungle.net/item/the-correct-answer/2250636?sso?WT.ac=search_item&WT.seg_1=search_item&WT.z_author=GGGARO)
     - Find sound
