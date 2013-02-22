@@ -5,6 +5,7 @@
 - Write a meta desc
 
 ## JavaScript
+    - Flicker on new lvl/best score alert on Android
 	- MS Pointer event support:
 	    - http://code.msdn.microsoft.com/windowsapps/Input-DOM-pointer-and-2e5697ed/sourcecode?fileId=50863&pathId=1717074743
 	    - http://blogs.msdn.com/b/ie/archive/2012/04/20/guidelines-for-building-touch-friendly-sites.aspx
