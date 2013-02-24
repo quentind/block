@@ -7,6 +7,7 @@
 	 ***/
 	var doc = document
 	  , html = doc.documentElement
+	  , body = doc.body
 	  , lib
 	  , Lib
 	  , priv
@@ -215,47 +216,47 @@
 					this._listeners[ type ].push( listener );
 				},
 
-			    trigger: function ( event ) {
-			        
-			        if ( typeof event == 'string' ) {
-			            event = { type: event };
-			        }
-			        
-			        if ( ! event.target ) {
-			            event.target = this;
-			        }
+				trigger: function ( event ) {
 
-			        if ( ! event.type ) { // falsy
-			            throw new Error('Event object missing "type" property.');
-			        }
+					if ( typeof event == 'string' ) {
+						event = { type: event };
+					}
 
-			        if ( this._listeners[ event.type ] instanceof Array ) {
-			            var listeners = this._listeners[ event.type ]
-			              , l = listeners.length
-			              , i = 0
-			            ;
+					if ( ! event.target ) {
+						event.target = this;
+					}
 
-			            for ( ; i < l ; i++ ) {
-			                listeners[i].call( this, event );
-			            }
-			        }
-			    },
+					if ( ! event.type ) { // falsy
+						throw new Error('Event object missing "type" property.');
+					}
 
-			    remove: function( type, listener ) {
-			        if ( this._listeners[ type ] instanceof Array ) {
-			            var listeners = this._listeners[ type ]
-			              , l = listeners.length
-			              , i = 0
-			            ;
+					if ( this._listeners[ event.type ] instanceof Array ) {
+						var listeners = this._listeners[ event.type ]
+						  , l = listeners.length
+						  , i = 0
+						;
 
-			            for ( ; i < l; i++ ) {
-			                if ( listeners[i] === listener ) {
-			                    listeners.splice( i, 1 );
-			                    break;
-			                }
-			            }
-			        }
-			    }
+						for ( ; i < l ; i++ ) {
+							listeners[i].call( this, event );
+						}
+					}
+				},
+
+				remove: function( type, listener ) {
+					if ( this._listeners[ type ] instanceof Array ) {
+						var listeners = this._listeners[ type ]
+						  , l = listeners.length
+						  , i = 0
+						;
+
+						for ( ; i < l; i++ ) {
+							if ( listeners[i] === listener ) {
+								listeners.splice( i, 1 );
+								break;
+							}
+						}
+					}
+				}
 
 			};
 
@@ -267,64 +268,101 @@
 	/**
 	 * FastClick on touch devices
 	 * -
+	 * @param {node} element
+	 * @param {function} handler
+	 * 
 	 * https://github.com/h5bp/mobile-boilerplate/blob/master/js/helper.js#L93
 	 */
-	priv.fastClick = function(element, handler) {
+	priv.fastClick = function ( element, handler ) {
 		
-		this.handler = handler;
+		// Reference to element and handler
 		this.element = element;
+		this.handler = handler;
 		
-		this.addClickEvent( element );
+		// 
+		priv.addEvent( element, 'touchstart', this, false );
+		priv.addEvent( element, 'click', this, false );
 	};
 
-	priv.fastClick.prototype.handleEvent = function(event) {
-	    event = event || window.event;
 
-	    switch (event.type) {
-	        case 'touchstart': this.onTouchStart(event); break;
-	        case 'touchmove': this.onTouchMove(event); break;
-	        case 'touchend': this.onClick(event); break;
-	        case 'click': this.onClick(event); break;
-	    }
+	/**
+	 * handleEvent to catch any type of event
+	 */
+	priv.fastClick.prototype.handleEvent = function ( event ) {
+
+		this.event = event || window.event;
+		this.touch = +event.touches[0];
+
+		switch ( event.type ) {
+			case
+				'touchstart': this.onTouchStart();
+				break;
+			case 
+				'touchmove': this.onTouchMove();
+				break;
+			case
+				'touchend': this.onClick();
+				break;
+			case 'click': this.onClick();
+				break;
+		}
+
 	};
 
-	priv.fastClick.prototype.onTouchStart = function(event) {
-	    var element = event.target || event.srcElement;
-	    event.stopPropagation();
-	    element.addEventListener('touchend', this, false);
-	    document.body.addEventListener('touchmove', this, false);
-	    this.startX = event.touches[0].clientX;
-	    this.startY = event.touches[0].clientY;
+	/**
+	 * 
+	 */
+	priv.fastClick.prototype.onTouchStart = function () {
+		
+		this.event.stopPropagation();
+		
+		this.element.addEventListener('touchend', this, false);
+		body.addEventListener('touchmove', this, false);
 
-	    element.className+= ' ' + this.pressedClass;
+		this.startX = this.touch.clientX;
+		this.startY = this.touch.clientY;
 	};
 
-	priv.fastClick.prototype.onTouchMove = function(event) {
-	    if (Math.abs(event.touches[0].clientX - this.startX) > 10 ||
-	        Math.abs(event.touches[0].clientY - this.startY) > 10) {
-	        this.reset(event);
-	    }
+	/**
+	 *
+	 */
+	priv.fastClick.prototype.onTouchMove = function () {
+
+		if ( Math.abs( this.touch.clientX - this.startX ) > 10 || Math.abs( this.touch.clientY - this.startY ) > 10 ) {
+			this.reset();
+		}
 	};
 
-	priv.fastClick.prototype.onClick = function(event) {
-	    event = event || window.event;
-	    var element = event.target || event.srcElement;
-	    if (event.stopPropagation) {
-	        event.stopPropagation();
-	    }
-	    this.reset(event);
-	    this.handler.apply(event.currentTarget, [event]);
-	    if (event.type == 'touchend') {
-	        priv.preventGhostClick(this.startX, this.startY);
-	    }
+	/**
+	 *
+	 */
+	priv.fastClick.prototype.onClick = function () {
+		
+		var e = this.event;
+
+		if ( e.stopPropagation ) {
+			event.stopPropagation();
+		}
+
+		this.reset();
+		this.handler.apply(e.currentTarget, [e]);
+
+		if ( e.type === 'touchend' ) {
+			priv.preventGhostClick(this.startX, this.startY);
+		}
 	};
 
-	priv.fastClick.prototype.reset = function(event) {
-	    var element = event.target || event.srcElement;
-	    priv.removeEvent(element, 'touchend', this, false);
-	    priv.removeEvent(document.body, 'touchmove', this, false);
+	/**
+	 *
+	 */
+	priv.fastClick.prototype.reset = function () {
+		priv.removeEvent( this.element, 'touchend', this, false );
+		priv.removeEvent( body, 'touchmove', this, false );
 	};
 
+	/**
+	 *
+	 */
 	priv.fastClick.prototype.unbind = function () {
 		priv.removeEvent( this.element, 'click', this );
 		priv.removeEvent( this.element, 'touchstart', this );
@@ -332,38 +370,48 @@
 		priv.removeEvent( this.element, 'touchmove', this );
 	};
 
-	priv.fastClick.prototype.addClickEvent = function(element) {
-	    priv.addEvent(element, 'touchstart', this, false);
-	    priv.addEvent(element, 'click', this, false);
+	/**
+	 *
+	 */
+	priv.preventGhostClick = function ( x, y ) {
+		priv.coords.push( x, y );
+		window.setTimeout(function() {
+			priv.coords.splice(0, 2);
+		}, 2500);
 	};
 
-	priv.preventGhostClick = function(x, y) {
-	    priv.coords.push(x, y);
-	    window.setTimeout(function() {
-	        priv.coords.splice(0, 2);
-	    }, 2500);
-	};
+	/**
+	 *
+	 */
+	priv.ghostClickHandler = function ( event ) {
 
-	priv.ghostClickHandler = function(event) {
-	    if (!priv.hadTouchEvent && priv.dodgyAndroid) {
-	        // This is a bit of fun for Android 2.3...
-	        // If you change window.location via fastClick, a click event will fire
-	        // on the new page, as if the events are continuing from the previous page.
-	        // We pick that event up here, but priv.coords is empty, because it's a new page,
-	        // so we don't prevent it. Here's we're assuming that click events on touch devices
-	        // that occur without a preceding touchStart are to be ignored.
-	        event.stopPropagation();
-	        event.preventDefault();
-	        return;
-	    }
-	    for (var i = 0, len = priv.coords.length; i < len; i += 2) {
-	        var x = priv.coords[i];
-	        var y = priv.coords[i + 1];
-	        if (Math.abs(event.clientX - x) < 25 && Math.abs(event.clientY - y) < 25) {
-	            event.stopPropagation();
-	            event.preventDefault();
-	        }
-	    }
+		if ( ! priv.hadTouchEvent && priv.dodgyAndroid ) {
+			// This is a bit of fun for Android 2.3...
+			// If you change window.location via fastClick, a click event will fire
+			// on the new page, as if the events are continuing from the previous page.
+			// We pick that event up here, but priv.coords is empty, because it's a new page,
+			// so we don't prevent it. Here's we're assuming that click events on touch devices
+			// that occur without a preceding touchStart are to be ignored.
+			event.stopPropagation();
+			event.preventDefault();
+			return;
+		}
+
+		var i = 0
+		  , l = priv.coords.length
+		;
+
+		for ( ; i < l; i += 2 ) {
+			
+			var x = priv.coords[i]
+			  , y = priv.coords[i + 1]
+			;
+			
+			if ( Math.abs( event.clientX - x ) < 25 && Math.abs( event.clientY - y ) < 25 ) {
+				event.stopPropagation();
+				event.preventDefault();
+			}
+		}
 	};
 
 	// This bug only affects touch Android 2.3 devices, but a simple ontouchstart test creates a false positive on
@@ -372,11 +420,11 @@
 	priv.dodgyAndroid = ('ontouchstart' in window) && (navigator.userAgent.indexOf('Android 2.3') != -1);
 
 	if (document.addEventListener) {
-	    document.addEventListener('click', priv.ghostClickHandler, true);
+		document.addEventListener('click', priv.ghostClickHandler, true);
 	}
 
 	priv.addEvent(document.documentElement, 'touchstart', function() {
-	    priv.hadTouchEvent = true;
+		priv.hadTouchEvent = true;
 	}, false);
 
 	priv.coords = [];
@@ -805,10 +853,9 @@
 		fullscreen: function () {
 
 			// checks for fullscreen support
-			var docEl = doc.documentElement
-			  , API = {
+			var API = {
 					enable: function ( test ) {
-						var fn = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen;
+						var fn = html.requestFullscreen || html.mozRequestFullScreen || html.webkitRequestFullScreen;
 						if ( ! test ) {
 							fn.call( docEl );
 						}
@@ -874,9 +921,8 @@
 	 */
 	lib.docHeight = function () {
 		return Math.max(
-			//Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight),
-			Math.max(doc.body.offsetHeight, doc.documentElement.offsetHeight),
-			Math.max(doc.body.clientHeight, doc.documentElement.clientHeight)
+			Math.max(body.offsetHeight, html.offsetHeight),
+			Math.max(body.clientHeight, html.clientHeight)
 		);
 	};
 	
@@ -887,9 +933,8 @@
 	 */
 	lib.docWidth = function () {
 		return Math.max(
-			//Math.max(doc.body.scrollWidth, doc.documentElement.scrollWidth),
-			Math.max(doc.body.offsetWidth, doc.documentElement.offsetWidth),
-			Math.max(doc.body.clientWidth, doc.documentElement.clientWidth)
+			Math.max(body.offsetWidth, html.offsetWidth),
+			Math.max(body.clientWidth, html.clientWidth)
 		);
 	};
 
