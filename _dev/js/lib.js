@@ -895,7 +895,7 @@
 					enable: function ( test ) {
 						var fn = html.requestFullscreen || html.mozRequestFullScreen || html.webkitRequestFullScreen;
 						if ( ! test ) {
-							fn.call( docEl );
+							fn.call( html );
 						}
 						return fn || false;
 					},
