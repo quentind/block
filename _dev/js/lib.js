@@ -278,6 +278,9 @@
 		// Reference to element and handler
 		this.element = element;
 		this.handler = handler;
+
+		// Number of pixels required in a touch move to cancel the click
+		this.moveThreshold = 10;
 		
 		// 
 		priv.addEvent( element, 'touchstart', this, false );
@@ -286,7 +289,9 @@
 
 
 	/**
-	 * handleEvent to catch any type of event
+	 * HandleEvent to catch any type of event
+	 * -
+	 * @param {event} event
 	 */
 	priv.fastClick.prototype.handleEvent = function ( event ) {
 
@@ -310,7 +315,7 @@
 	};
 
 	/**
-	 * 
+	 * Touchstart handler
 	 */
 	priv.fastClick.prototype.onTouchStart = function () {
 		
@@ -324,17 +329,19 @@
 	};
 
 	/**
-	 *
+	 * Touchmove handler
 	 */
 	priv.fastClick.prototype.onTouchMove = function () {
 
-		if ( Math.abs( this.touch.clientX - this.startX ) > 10 || Math.abs( this.touch.clientY - this.startY ) > 10 ) {
+		if ( Math.abs( this.touch.clientX - this.startX ) > this.moveThreshold || Math.abs( this.touch.clientY - this.startY ) > this.moveThreshold ) {
 			this.reset();
 		}
 	};
 
 	/**
-	 *
+	 * Click handler
+	 * -
+	 * Apply the click handler and prevent ghost clicks if a touch event was fired
 	 */
 	priv.fastClick.prototype.onClick = function () {
 		
@@ -345,15 +352,17 @@
 		}
 
 		this.reset();
-		this.handler.apply(e.currentTarget, [e]);
+		this.handler.apply( e.currentTarget, [e] );
 
 		if ( e.type === 'touchend' ) {
-			priv.preventGhostClick(this.startX, this.startY);
+			priv.preventGhostClick( this.startX, this.startY );
 		}
 	};
 
 	/**
-	 *
+	 * Remove touchend and touche move event listener
+	 * -
+	 * Called when the user touchmove too far away from the initial touchstart
 	 */
 	priv.fastClick.prototype.reset = function () {
 		priv.removeEvent( this.element, 'touchend', this, false );
@@ -361,7 +370,9 @@
 	};
 
 	/**
-	 *
+	 * Remove all event handler related to fastClick from the element
+	 * -
+	 * Used in lib.removeEvent
 	 */
 	priv.fastClick.prototype.unbind = function () {
 		priv.removeEvent( this.element, 'click', this );
@@ -371,7 +382,14 @@
 	};
 
 	/**
-	 *
+	 * Holds coord for preventGhostClick and ghostClickHandler
+	 */
+	priv.coords = [];
+
+	/**
+	 * Bust all 'click' events that were fired within the treshold of the provided x, y coordinates in the next 2.5s
+	 * -
+	 * @param {int} x,y - touch[0].clientX/Y
 	 */
 	priv.preventGhostClick = function ( x, y ) {
 		priv.coords.push( x, y );
@@ -381,30 +399,66 @@
 	};
 
 	/**
-	 *
+	 * Detect Android 2.3 devices
+	 * -
+	 * Doesnt create false positive on Blackvberry devices
+	 * https://github.com/Modernizr/Modernizr/issues/372
+	 */
+	priv.dodgyAndroid = ( 'ontouchstart' in window ) && ( navigator.userAgent.indexOf('Android 2.3') != -1 );
+
+	/**
+	 * Prevent ghostClick from firing
+	 */
+	if ( doc.addEventListener ) {
+		doc.addEventListener('click', priv.ghostClickHandler, true);
+	}
+
+	/**
+	 * Set a flag if a touchstart event has been fired in the page
+	 * -
+	 * Used to prevent event firing from page to page when using fastClick
+	 * to change window.location on Android 2.3 devices
+	 */
+	priv.addEvent(document.documentElement, 'touchstart', function() {
+		priv.hadTouchEvent = true;
+	}, false);
+
+	/**
+	 * Ghost clicks detection
+	 * -
+	 * Prevents ghost clicks form firing and fix Android 2.3 bug
 	 */
 	priv.ghostClickHandler = function ( event ) {
 
+		/*
+		 * Fix Android 2.3 issue
+		 * -
+		 * If window.location is changed via fastClick, a click event will fire
+		 * on the new page, as if the events are continuing from the previous page.
+		 * We pick that event up here, but priv.coords is empty, because it's a new page,
+		 * so we don't prevent it. Here's we're assuming that click events on touch devices
+		 * that occur without a preceding touchStart are to be ignored.
+		 */
 		if ( ! priv.hadTouchEvent && priv.dodgyAndroid ) {
 			// This is a bit of fun for Android 2.3...
-			// If you change window.location via fastClick, a click event will fire
-			// on the new page, as if the events are continuing from the previous page.
-			// We pick that event up here, but priv.coords is empty, because it's a new page,
-			// so we don't prevent it. Here's we're assuming that click events on touch devices
-			// that occur without a preceding touchStart are to be ignored.
+			// 
 			event.stopPropagation();
 			event.preventDefault();
 			return;
 		}
 
+		/*
+		 * If we catch a click event inside a 25px radius and within the time threshold
+		 * then we stopPropagation and preventDefault, preventing the link from being activated
+		 */
 		var i = 0
 		  , l = priv.coords.length
 		;
 
 		for ( ; i < l; i += 2 ) {
 			
-			var x = priv.coords[i]
-			  , y = priv.coords[i + 1]
+			var x = priv.coords[ i ]
+			  , y = priv.coords[ i + 1 ]
 			;
 			
 			if ( Math.abs( event.clientX - x ) < 25 && Math.abs( event.clientY - y ) < 25 ) {
@@ -413,22 +467,6 @@
 			}
 		}
 	};
-
-	// This bug only affects touch Android 2.3 devices, but a simple ontouchstart test creates a false positive on
-	// some Blackberry devices. https://github.com/Modernizr/Modernizr/issues/372
-	// The browser sniffing is to avoid the Blackberry case. Bah
-	priv.dodgyAndroid = ('ontouchstart' in window) && (navigator.userAgent.indexOf('Android 2.3') != -1);
-
-	if (document.addEventListener) {
-		document.addEventListener('click', priv.ghostClickHandler, true);
-	}
-
-	priv.addEvent(document.documentElement, 'touchstart', function() {
-		priv.hadTouchEvent = true;
-	}, false);
-
-	priv.coords = [];
-
 
 	// Expose prototype object
 	Lib.prototype = {
@@ -886,7 +924,7 @@
 	 * -
 	 * @param {function} fn
 	 * @param {array|string|object} args
-	 * @param {number} delay (ms)
+	 * @param {int} delay (ms)
 	 **/
 	lib.delay = function ( fn, args, delay ) {
 
@@ -917,7 +955,7 @@
 	/**
 	 * Return height of the document
 	 * -
-	 * @returns {number}
+	 * @returns {int}
 	 */
 	lib.docHeight = function () {
 		return Math.max(
@@ -929,7 +967,7 @@
 	/**
 	 * Return width of the document
 	 * -
-	 * @returns {number}
+	 * @returns {int}
 	 */
 	lib.docWidth = function () {
 		return Math.max(
