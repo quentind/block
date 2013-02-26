@@ -17,8 +17,14 @@
     - JS
     - Preload
     - Clean lib.js (use minification var)
+    - Vibrate on lvl win (FF OS)
 
 ## Design
 - Credit/end game screen: list level without perfect score
 - Design mouse cursor
 - position level list small screens
+
+## Marketplace
+- Windows 8
+- Firefox Marketplace
+    - https://marketplace.firefox.com/developers/docs/quick_start
