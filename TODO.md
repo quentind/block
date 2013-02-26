@@ -29,3 +29,6 @@
 - Firefox Marketplace
     - https://marketplace.firefox.com/developers/docs/quick_start
     - Install button: https://github.com/mozilla/mortar-app-stub/blob/master/www/js/install-button.js
+    - https://developer.mozilla.org/fr/docs/Applications/Manifeste#Serving_from_GitHub
+    - https://marketplace.firefox.com/developers/docs/hosted
+    - https://developer.mozilla.org/en-US/docs/JavaScript_API?redirectlocale=en-US&redirectslug=Apps%2FApps_JavaScript_API
