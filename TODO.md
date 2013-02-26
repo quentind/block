@@ -28,3 +28,4 @@
 - Windows 8
 - Firefox Marketplace
     - https://marketplace.firefox.com/developers/docs/quick_start
+    - Install button: https://github.com/mozilla/mortar-app-stub/blob/master/www/js/install-button.js
