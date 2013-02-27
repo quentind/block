@@ -257,8 +257,7 @@
 	-webkit-tap-highlight-color:rgba(0,0,0,0);
 }
 
-.button .i,
-.button .txt {
+.button .i {
 	pointer-events:none; /* Fix tap/click on iOS Safari */
 }
 
