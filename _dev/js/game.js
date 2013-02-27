@@ -33,7 +33,68 @@
 	/***
 	 * GAME SOUNDS
 	 ***/
-	game.playSound = {};
+	game.sounds = {};
+
+	game.Sound = function ( src, idname ) {
+
+		this.idname = idname;
+		this.src = src;
+		
+		this.audio = new Audio();
+
+		return this;
+
+	};
+
+	game.Sound.prototype.load = function ( callback ) {
+
+		var self = this
+		  , ext
+		  , iOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false
+		;
+
+		if ( this.audio.canPlayType('audio/ogg; codecs="vorbis"') ) {
+			ext = 'ogg';
+		} else if ( this.audio.canPlayType('audio/mpeg; codecs="mp3"') ) {
+			ext = 'mp3';
+		}
+
+		this.audio.src = this.src + ext;
+
+		if ( iOS ) {
+			callback();
+			self.store();
+			return;
+		}
+
+		var onCanPlayThrough = function () {
+						
+			$(this).removeEvent('canplaythrough', onCanPlayThrough );
+
+			if ( typeof callback === 'function' ) {
+				callback();
+			}
+
+			self.store();
+
+		};
+
+		$( this.audio ).addEvent('canplaythrough', onCanPlayThrough, false);
+
+		return this;
+
+	};
+
+	game.Sound.prototype.store = function () {
+		game.sounds[ this.idname ] = this;
+	};
+
+	game.Sound.prototype.play = function ( volume ) {
+		if ( UI.status.muted === false ) {
+			this.audio.volume = volume;
+			this.audio.play();
+		}
+	};
 
 	/***
 	 * PRE-LOAD COMPONENTS before init
@@ -61,59 +122,26 @@
 		  , preload
 		  , loadedCount = 0
 		  , resourceLoaded
-		  , iOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false
 		;
 
 		resourceLoaded = function () {
 
-			//console.log('new resource loaded.');
+			console.log('new resource loaded.');
 			loadedCount++;
 
-			if ( loadedCount === l) {
-				//console.log('all resources loaded.')
+			if ( loadedCount === l ) {
+				console.log('all resources loaded.')
 				$.delay( game.init, config.loadDelay );
 			}
 		};
 
 		preload = function ( src, type, idname ) {
 
-			// Temporary fix for iOS
-			if ( iOS && type === 'audio' ) {
-			
-				resourceLoaded();
-
-			} else if ( type === 'audio' ) {
+			if ( type === 'audio' ) {
 
 				if ( $.support.audio ) {
 
-					var audio = new Audio()
-					  , ext
-					  , onCanPlayThrough
-					;
-
-					onCanPlayThrough = function () {
-						
-						$(this).removeEvent('canplaythrough', onCanPlayThrough);
-
-						game.playSound[ idname ] = function ( vol ) {
-							if ( UI.status.muted === false ) {
-								audio.volume = vol;
-								audio.play();
-							}
-						}
-						resourceLoaded();
-
-					};
-
-					if ( audio.canPlayType('audio/ogg; codecs="vorbis"') ) {
-						ext = 'ogg';
-					} else if ( audio.canPlayType('audio/mpeg; codecs="mp3"') ) {
-						ext = 'mp3';
-					}
-
-					$(audio).addEvent('canplaythrough', onCanPlayThrough, false);
-
-					audio.src = src + ext;
+					new game.Sound( src, idname ).load( resourceLoaded ).store();
 
 				} else {
 					resourceLoaded();

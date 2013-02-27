@@ -279,12 +279,12 @@
 			// If block cant move further bottom or right
 			if ( n === maxBlock && ! dragDrop.blockIsAtMaxPosition && ! dragDrop.noMove ) {
 				dragDrop.blockIsAtMaxPosition = true ;
-				//game.playSound.knock( 0.6 );
+				game.sounds['knock'].play( 0.6 );
 
 			// If block cant move further top or left
 			} else if ( n === minBlock && ! dragDrop.blockIsAtMinPosition && ! dragDrop.noMove ) {
 				dragDrop.blockIsAtMinPosition = true ;
-				//game.playSound.knock( 0.6 );
+				game.sounds['knock'].play( 0.6 );
 			} else {
 
 				if ( n < maxBlock) {
@@ -326,7 +326,7 @@
 				if ( delta !== 0 && ( dragDrop.isKey === false || n < 320 ) ) {
 					// volume = (abs block movement length) / (ratio in block size) * (modifier = 2)
 					delta = Math.abs( delta ) / 80;
-					//game.playSound.knock( delta );
+					game.sounds['knock'].play( delta );
 				}
 			}
 
