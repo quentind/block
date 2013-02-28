@@ -663,12 +663,6 @@
 	text-decoration:none;
 	text-shadow:0 1px #fff;
 	text-shadow:0 -1px rgba(0,0,0,.2), 0 1px #fff, 0 0 15px #8d1738;
-
-	/* Animation */
-	-webkit-transform:translateZ(1px);
-	   -moz-transform:translateZ(1px);
-	    -ms-transform:translateZ(1px);
-	        transform:translateZ(1px);
 }
 
 #level-list .link:active {
