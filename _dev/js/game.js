@@ -4,7 +4,7 @@
 /**
  * Dependencies : puzzle, dragDrop
  **/
-(function ( puzzle, dragDrop ) {
+(function ( puzzle, dragDrop, AudioSprite ) {
 	'use strict';
 
 	/***
@@ -35,12 +35,20 @@
 	 ***/
 	game.sounds = {};
 
-	game.Sound = function ( src, idname ) {
+	/***
+	 * Sound Constructor
+	 * -
+	 * @param {string} src - path to file without extention
+	 * @param {string} idname 
+	 **/
+	/*game.Sound = function ( src, idname ) {
 
 		this.idname = idname;
 		this.src = src;
-		
-		this.audio = new Audio();
+
+		this.audio = document.createElement('audio');
+		this.audio.autobuffer = true;
+		this.audio.load(); // force the audio to start loading (doesn't work in iOS)
 
 		return this;
 
@@ -62,20 +70,34 @@
 		this.audio.src = this.src + ext;
 
 		if ( iOS ) {
+
+			var body = document.documentElement;
+
+			var preload = function () {
+				
+				body.removeEventListener('touchstart', preload, false);
+
+				self.audio.play();
+				setTimeout(function () {
+					self.audio.pause();
+				}, 1000 );
+				
+			};
+			
+			body.addEventListener('touchstart', preload, false );
+
 			callback();
-			self.store();
+			
 			return;
 		}
 
 		var onCanPlayThrough = function () {
-						
+			
 			$(this).removeEvent('canplaythrough', onCanPlayThrough );
 
 			if ( typeof callback === 'function' ) {
 				callback();
 			}
-
-			self.store();
 
 		};
 
@@ -89,12 +111,29 @@
 		game.sounds[ this.idname ] = this;
 	};
 
-	game.Sound.prototype.play = function ( volume ) {
+	game.Sound.prototype.play = function ( volume, start, end ) {
 		if ( UI.status.muted === false ) {
+
 			this.audio.volume = volume;
+		
+			this.audio.pause();
+			this.audio.currentTime = start;
 			this.audio.play();
+
+			this.timer = null;
+
+			var self = this;
+
+			clearInterval(this.timer);
+			this.timer = setInterval(function () {
+				if ( self.audio.currentTime >= end ) {
+					self.audio.pause();
+					clearInterval(self.timer);
+				}
+			}, 10);
+		
 		}
-	};
+	};*/
 
 	/***
 	 * PRE-LOAD COMPONENTS before init
@@ -108,14 +147,9 @@
 				},
 				{
 					idname: 'knock',
-					src: '/_files/audio/knock.',
+					src: '/_files/audio/sprite.',
 					type: 'audio'
-				},
-				/*{
-					idname: 'gg',
-					src: '/_files/audio/gg.',
-					type: 'audio'
-				}*/
+				}
 			]
 		  , l = resource.length
 		  , i = 0
@@ -141,7 +175,11 @@
 
 				if ( $.support.audio ) {
 
-					new game.Sound( src, idname ).load( resourceLoaded ).store();
+					window.sounds = new AudioSprite( src );
+
+					window.sounds.load( resourceLoaded );
+					window.sounds.register('knock', 2.521, 2.6 );
+					window.sounds.register('win', 3.8, 5.865 );
 
 				} else {
 					resourceLoaded();
@@ -703,4 +741,4 @@
 
 	window.game = game;
 
-}( window.puzzle, window.dragDrop ));
+}( window.puzzle, window.dragDrop, window.AudioSprite ));
