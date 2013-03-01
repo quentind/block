@@ -16,8 +16,9 @@
 - Encode
 - JS
 - Preload
-- Clean lib.js (use minification var)
 - Vibrate on lvl win (FF OS)
+- Bug where knock sounds is played when it shouldnt on red block move.
+- iOS: click/hover on locked lvl create error
 
 ## Design
 - Credit/end game screen: list level without perfect score
