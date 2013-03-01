@@ -731,7 +731,6 @@
 		 * @param {eventType} evt
 		 * @param {array} arrayOfFunctions
 		 * @param {boolean} fireOnce - prevent event from firing multiple time
-		 * TODO: add param to restart to first fn when end of queue is reached
 		 */
 		chainEvents: function ( evt, arrayOfFunctions, fireOnce ) {
 
@@ -988,10 +987,3 @@
 	window.lib = window.$ = lib;
 
 }());
-
-var test = function () {
-	alert('test');
-};
-
-$(document.body).addEvent('click', test);
-$(document.body).removeEvent('click', test);
