@@ -4,6 +4,7 @@
 - Find a name
 - Write a meta desc
 
+
 ## JavaScript
 - Flicker on new lvl/best score alert on Android
 - MS Pointer event support:
@@ -13,10 +14,13 @@
 
 - iOS: currentTime audio bug: need to catch (http://remysharp.com/2010/12/23/audio-sprites/)
 - iOS: click/hover on locked lvl create error
+- Par moves for lvl: 15, 18, 24, 25
 
 ## Design
 - Credit/end game screen: list level without perfect score
 - Design mouse cursor (?)
+- Logo
+- icons
 
 ## Marketplace
 - Windows 8
@@ -27,3 +31,4 @@
     - https://developer.mozilla.org/fr/docs/Applications/Manifeste#Serving_from_GitHub
     - https://marketplace.firefox.com/developers/docs/hosted
     - https://developer.mozilla.org/en-US/docs/JavaScript_API?redirectlocale=en-US&redirectslug=Apps%2FApps_JavaScript_API
+
