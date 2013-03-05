@@ -17,7 +17,6 @@
 - JS
 - Preload
 - Vibrate on lvl win (FF OS)
-- Bug where knock sounds is played when it shouldnt on red block move.
 - iOS: currentTime audio bug: need to catch (http://remysharp.com/2010/12/23/audio-sprites/)
 - iOS: click/hover on locked lvl create error
 

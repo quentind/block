@@ -278,8 +278,13 @@
 			
 			// If block cant move further bottom or right
 			if ( n === maxBlock && ! dragDrop.blockIsAtMaxPosition && ! dragDrop.noMove ) {
-				dragDrop.blockIsAtMaxPosition = true ;
-				sounds.play( 'knock', 0.6 );
+				
+				// Special case for key block which should not trigger 
+				// sound when reaching right edge of the board
+				if ( ! dragDrop.isKey || maxBlock < 4 * board.blockSize ) {
+					dragDrop.blockIsAtMaxPosition = true ;
+					sounds.play( 'knock', 0.6 );
+				}
 
 			// If block cant move further top or left
 			} else if ( n === minBlock && ! dragDrop.blockIsAtMinPosition && ! dragDrop.noMove ) {
