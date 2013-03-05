@@ -421,7 +421,6 @@
 
 		enable: function () {
 			UI.$.endScreen.addClass('enabled');
-			console.log( window.getComputedStyle( UI.$.endScreen[0] ).top );
 			window.getComputedStyle( UI.$.endScreen[0] ).top;
 		},
 
