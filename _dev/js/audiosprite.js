@@ -111,7 +111,7 @@
 		}
 
 		if ( UI.status.muted === false ) {
-
+			
 			this.audio.volume = volume || 1;
 		
 			this.audio.pause();
@@ -122,13 +122,18 @@
 
 			var self = this;
 
-			clearInterval(this.timer);
-			this.timer = setInterval(function () {
+			clearTimeout( this.timer );
+
+			var timerFn = function () {
 				if ( self.audio.currentTime >= self.registry[ trackName ].end ) {
 					self.audio.pause();
-					clearInterval(self.timer);
+					clearTimeout( self.timer );
+				} else {
+					setTimeout( timerFn, 10);	
 				}
-			}, 10);
+			};
+
+			this.timer = setTimeout(timerFn, 10);
 		
 		}
 
