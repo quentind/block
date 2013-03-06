@@ -52,7 +52,7 @@
 
 				var preload = function () {
 					
-					body.removeEventListener('touchstart', preload, false);
+					body.removeEventListener('touchstart', preload, true);
 
 					self.audio.play();
 					setTimeout(function () {
@@ -61,7 +61,7 @@
 					
 				};
 				
-				body.addEventListener('touchstart', preload, false );
+				body.addEventListener('touchstart', preload, true );
 
 				loadedCallback();
 				
