@@ -12,7 +12,7 @@
 	 * Store elements to reduce DOM access
 	 ***/
 	UI.$ = {
-		ui 				: $('#ui')
+		ui				: $('#ui')
 	  , board			: $('#play')
 	  ,	level			: $('#current-level')
 	  , fieldLevel		: $('#box-current-level')

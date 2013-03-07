@@ -59,7 +59,7 @@
 			loadedCount++;
 
 			if ( loadedCount === l ) {
-				console.log('all resources loaded.')
+				console.log('all resources loaded.');
 				$.delay( game.init, config.loadDelay );
 			}
 		};
@@ -128,7 +128,7 @@
 			
 				frag.appendChild( el );
 
-				$(el).addEvent( startEvent, dragDrop.startDragMouse, true )
+				$(el).addEvent( startEvent, dragDrop.startDragMouse, true );
 
 			}
 
@@ -306,8 +306,8 @@
 		init: function () {
 
 			var play = game.$.play
-			  , html =  '<div id="instructions" class="instructions">Slide blocks forward or backward in order to free the red one.</div>';
-				html += '<div class="instruction-arrow pos-1">&larr;</div><div class="instruction-arrow pos-2">&darr;</div><div class="instruction-arrow pos-3">&rarr;</div>'
+			  , html =  '<div id="instructions" class="instructions">Slide blocks forward or backward in order to free the red one.</div><div class="instruction-arrow pos-1">&larr;</div><div class="instruction-arrow pos-2">&darr;</div><div class="instruction-arrow pos-3">&rarr;</div>'
+			;
 
 			game.puzzle.insert({
 				blocks: [
@@ -504,7 +504,7 @@
 								direction: 'bot',
 								callback: function () {
 									if ( triggerTutorial ) {
-										$(window).trigger('tutorialReady')
+										$(window).trigger('tutorialReady');
 									}
 								}
 							});
@@ -527,7 +527,7 @@
 					$(window).trigger('uiReady');
 				}
 				if ( triggerTutorial ) {
-					$(window).trigger('tutorialReady')
+					$(window).trigger('tutorialReady');
 				}
 			}
 		},

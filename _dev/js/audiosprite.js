@@ -1,4 +1,8 @@
+/*jshint smarttabs:true, laxbreak:true, laxcomma:true */
+/*global jQuery:true, $:true, UI:true */
+
 (function () {
+	'use strict';
 
 	/***
 	 * AudioSprite Constructor
