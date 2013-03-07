@@ -37,11 +37,10 @@
 
 		var resource = [
 				{
-					src: '/_static/img/sprite.png',
+					src: '/_dev/img/sprite.png',
 					type: 'image'
 				},
 				{
-					idname: 'knock',
 					src: '/_files/audio/sprite.',
 					type: 'audio'
 				}
@@ -64,7 +63,7 @@
 			}
 		};
 
-		preload = function ( src, type, idname ) {
+		preload = function ( src, type ) {
 
 			if ( type === 'audio' ) {
 
@@ -95,7 +94,7 @@
 		};
 
 		for ( ; i < l; i++ ) {
-			preload( resource[ i ].src, resource[ i ].type, resource[ i ].idname );
+			preload( resource[ i ].src, resource[ i ].type );
 		}
 
 	};
