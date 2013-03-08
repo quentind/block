@@ -453,7 +453,7 @@
 
 		// 25
 		{
-			parMoves: 0,
+			parMoves: 51,
 			blocks: [
 				new Block( 2, 3, 2, 'h', true )
 			  , new Block( 0, 0, 3, 'v', false )
