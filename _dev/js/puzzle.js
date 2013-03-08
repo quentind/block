@@ -313,7 +313,7 @@
 
 		// 18
 		{
-			parMoves: 0,
+			parMoves: 47,
 			blocks: [
 				new Block( 2, 1, 2, 'h', true )
 			  , new Block( 0, 0, 2, 'h', false )
