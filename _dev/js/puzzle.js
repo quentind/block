@@ -433,7 +433,7 @@
 
 		// 24
 		{
-			parMoves: 0,
+			parMoves: 37,
 			blocks: [
 				new Block( 2, 0, 2, 'h', true )
 			  , new Block( 2, 3, 2, 'h', true )
