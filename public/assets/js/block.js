@@ -2071,7 +2071,7 @@
 /*global jQuery:true, $:true, UI:true */
 
 /**
- * Dependencies : puzzle, dragDrop
+ * Dependencies : puzzle, dragDrop, AudioSprite
  **/
 (function ( puzzle, dragDrop, AudioSprite ) {
 	'use strict';
@@ -2110,7 +2110,7 @@
 					type: 'image'
 				},
 				{
-					src: '/_files/audio/sprite.',
+					src: '/_dev/audio/sprite.',
 					type: 'audio'
 				}
 			]
@@ -2123,11 +2123,9 @@
 
 		resourceLoaded = function () {
 
-			console.log('new resource loaded.');
 			loadedCount++;
 
 			if ( loadedCount === l ) {
-				console.log('all resources loaded.');
 				$.delay( game.init, config.loadDelay );
 			}
 		};

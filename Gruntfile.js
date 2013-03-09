@@ -96,13 +96,23 @@ module.exports = function(grunt) {
           src: '_dev/index.html',
           dest: 'public/index.html'
         }]
+      },
+      audio: {
+        files: [{
+          flatten: true,
+          expand: true,
+          src: '_dev/audio/*',
+          dest: 'public/assets/audio/'
+        }]
       }
     },
 
+    // Changes path to assets
     usemin: {
       html: ['public/index.html']
     },
 
+    // Minifies HTML
     htmlmin: {
       public: {
         options: {
@@ -116,8 +126,6 @@ module.exports = function(grunt) {
         }
       }
     },
-
-    
     
     // WATCH
     // https://npmjs.org/package/grunt-contrib-watch
@@ -142,7 +150,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin']);
 
   // Release taks (Default task  + Smushit + minify HTML)
-  grunt.registerTask('release', ['jshint', 'concat', 'uglify', 'cssmin', 'copy:html', 'usemin:html', 'htmlmin', 'smushit']);
+  grunt.registerTask('release', ['jshint', 'concat', 'uglify', 'cssmin', 'copy:html', 'usemin:html', 'htmlmin', 'smushit', 'copy:audio']);
 
   // Deploy (Release task + versioning + ftp deploy)
   grunt.registerTask('deploy', ['jshint' ,'concat', 'uglify', 'cssmin', 'htmlmin', 'smushit', '']);
