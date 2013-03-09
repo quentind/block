@@ -2,7 +2,7 @@
 /*global jQuery:true, $:true, UI:true */
 
 /**
- * Dependencies : puzzle, dragDrop
+ * Dependencies : puzzle, dragDrop, AudioSprite
  **/
 (function ( puzzle, dragDrop, AudioSprite ) {
 	'use strict';
@@ -41,7 +41,7 @@
 					type: 'image'
 				},
 				{
-					src: '/_files/audio/sprite.',
+					src: 'http://block:8888/_files/audio/sprite.',
 					type: 'audio'
 				}
 			]
