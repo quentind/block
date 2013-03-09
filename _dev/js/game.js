@@ -41,7 +41,7 @@
 					type: 'image'
 				},
 				{
-					src: 'http://block:8888/_files/audio/sprite.',
+					src: '/_dev/audio/sprite.',
 					type: 'audio'
 				}
 			]
