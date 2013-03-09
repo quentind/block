@@ -3,6 +3,7 @@
 ## Whole new things
 - Find a name
 - Write a meta desc
+    - ex: The Sliding Block Puzzle is a classic type of puzzle, in which a number of pieces (blocks) must be moved around on the board in order to open up a pathway to enable a special block to exit the board. By moving the blocks either horizontally or vertically, the goal is to move the specially colored piece out through the opening in the edge of the board.
 
 
 ## JavaScript
