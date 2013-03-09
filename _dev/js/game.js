@@ -54,11 +54,9 @@
 
 		resourceLoaded = function () {
 
-			console.log('new resource loaded.');
 			loadedCount++;
 
 			if ( loadedCount === l ) {
-				console.log('all resources loaded.');
 				$.delay( game.init, config.loadDelay );
 			}
 		};
