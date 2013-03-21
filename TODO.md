@@ -15,11 +15,7 @@
 
 - iOS: currentTime audio bug: need to catch (http://remysharp.com/2010/12/23/audio-sprites/)
 - iOS: click/hover on locked lvl create error
-- Special sounds when first of 2 key block is out. Sounds:
-    - http://www.freesound.org/people/toyoto/sounds/93760/
-    - http://www.freesound.org/people/qubodup/sounds/59988/
-    - http://www.freesound.org/people/man/sounds/14609/
-    - http://www.freesound.org/people/damco/sounds/31053/
+- Keyblock issue when unbinding towards left (no sound)
 
 ## Design
 - Credit/end game screen: list level without perfect score
