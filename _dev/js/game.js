@@ -72,6 +72,7 @@
 					window.sounds.load( resourceLoaded );
 					window.sounds.register('knock', 2.521, 2.6 );
 					window.sounds.register('win', 3.8, 5.865 );
+					window.sounds.register('whoosh', 6.75, 8 );
 
 				} else {
 					resourceLoaded();
@@ -624,6 +625,7 @@
 			;
 
 			block.addEvent( transition, removeBlock ).addClass('out');
+			
 
 			if ( ! transition && callback ) {
 				callback();
