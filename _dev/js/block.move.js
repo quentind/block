@@ -373,6 +373,7 @@
 					sounds.play( 'win', 0.7 );
 
 				} else {
+					sounds.play( 'whoosh', 1 );
 					game.animate.keyBlock( dragDrop.draggedObject );
 				}
 			}
