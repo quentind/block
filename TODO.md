@@ -15,7 +15,6 @@
 
 - iOS: currentTime audio bug: need to catch (http://remysharp.com/2010/12/23/audio-sprites/)
 - iOS: click/hover on locked lvl create error
-- Keyblock issue when unbinding towards left (no sound)
 
 ## Design
 - Credit/end game screen: list level without perfect score

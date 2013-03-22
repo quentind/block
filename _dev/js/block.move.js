@@ -329,7 +329,9 @@
 				var delta = n - diff;
 				
 				// If block was moved and is not key block or is moved towards the left edge
-				if ( delta !== 0 && ( dragDrop.isKey === false || n < 320 ) ) {
+				if ( delta !== 0 && ( dragDrop.isKey === false || n < board.blockSize * 4.5 ) ) {
+					// 4,5 -> 360: blocks cant be further than 4 block and a half to emit sounds when unbound backward
+
 					// volume = (abs block movement length) / (ratio in block size) * (modifier = 2)
 					delta = Math.abs( delta ) / 80 * 2;
 					sounds.play( 'knock', delta );
