@@ -20,6 +20,7 @@
 		// Create and init audio element
 		this.audio = document.createElement('audio');
 		this.audio.autobuffer = true;
+		this.audio.preload = "auto"; // Opera needs this to preload the audio
 		this.audio.load(); // force the audio to start loading (doesn't work in iOS)
 
 	};
@@ -73,7 +74,7 @@
 			}
 
 			var onCanPlayThrough = function () {
-				
+
 				$(this).removeEvent('canplaythrough', onCanPlayThrough );
 
 				if ( typeof loadedCallback === 'function' ) {

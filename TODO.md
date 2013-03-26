@@ -1,11 +1,5 @@
 ﻿# TODO
 
-## Whole new things
-- Find a name
-- Write a meta desc
-    - ex: The Sliding Block Puzzle is a classic type of puzzle, in which a number of pieces (blocks) must be moved around on the board in order to open up a pathway to enable a special block to exit the board. By moving the blocks either horizontally or vertically, the goal is to move the specially colored piece out through the opening in the edge of the board.
-
-
 ## JavaScript
 - Flicker on new lvl/best score alert on Android
 - MS Pointer event support:
@@ -15,12 +9,12 @@
 
 - iOS: currentTime audio bug: need to catch (http://remysharp.com/2010/12/23/audio-sprites/)
 - iOS: click/hover on locked lvl create error
+- Smoother transition at the end ot tutorial
 
 ## Design
 - Credit/end game screen: list level without perfect score
-- Design mouse cursor (?)
-- Logo
-- icons
+- Retina graphics + retirna icons
+    - CSS Image Set (http://www.mobilexweb.com/blog/iphone-5-ios-6-html5-developers) new webkit css property
 
 ## Marketplace
 - Windows 8
