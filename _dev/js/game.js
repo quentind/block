@@ -409,9 +409,6 @@
 				game.$.html.addClass('board-ready');
 			}, false, true );
 			
-			//console.log ('lvl', $.storage.lvl);
-			//console.log ('lvl', parseInt( $.storage.lvl, 10 ));
-
 			if ( parseInt( $.storage.lvl, 10 ) >= 0 ) {
 
 				// Tutorial already finished
