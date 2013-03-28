@@ -9,7 +9,6 @@
 
 - iOS: currentTime audio bug: need to catch (http://remysharp.com/2010/12/23/audio-sprites/)
 - iOS: click/hover on locked lvl create error
-- Smoother transition at the end ot tutorial
 
 ## Design
 - Credit/end game screen: list level without perfect score
