@@ -2,5 +2,10 @@
 [Tt]humbs.db
 *.DS_Store
 
+*.crx
+*.pem
+
+*.zip
+
 #node modules folder
 node_modules/*
