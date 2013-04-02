@@ -18,7 +18,7 @@
 
 	<meta name="apple-mobile-web-app-capable" content="yes">
 
-	<!-- build:css assets/css/block.min.css -->
+	<!-- build:css assets/css/block.min-{{version}}.css -->
 	<link rel="stylesheet" href="/_dev/css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="/_dev/css/base.css" type="text/css" />
 	<link rel="stylesheet" href="/_dev/css/board.css" type="text/css" />
@@ -37,7 +37,7 @@
 	<div class="wrap" id="wrap">
 
 		<div class="prefetch">
-			<img src="/_dev/img/sprite.png" alt="">
+			<img src="/_dev/img/sprite.png" width="1041" height="506" alt="">
 		</div>
 
 		<div class="error" id="too-small">
@@ -65,9 +65,9 @@
 		<div id="ui" class="ui">
 
 			<a class="box level" id="box-current-level" data-action="toggleLevelList">
-				<div class="field" id="current-level"></div>
-				<div class="txt">Level</div>
-				<div class="new"></div>
+				<span class="field" id="current-level"></span>
+				<span class="txt">Level</span>
+				<span class="new"></span>
 			</a>
 
 			<div class="box moves">
@@ -159,7 +159,7 @@
 
 	</div>
 
-	<!-- build:js assets/js/block.min.js -->
+	<!-- build:js assets/js/block.min-{{version}}.js -->
 	<script type="text/javascript" src="/_dev/js/lib.js"></script>
 	<script type="text/javascript" src="/_dev/js/audiosprite.js"></script>
 	<script type="text/javascript" src="/_dev/js/board.js"></script>
