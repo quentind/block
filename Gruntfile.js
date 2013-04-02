@@ -13,6 +13,8 @@ module.exports = function(grunt) {
               ' */'
     },
 
+    // JSHINT
+    // https://npmjs.org/package/grunt-contrib-jshint
     jshint: {
         options: {
           browser: true,
@@ -57,16 +59,17 @@ module.exports = function(grunt) {
             '_dev/css/block.css',
             '_dev/css/ui.css'
         ],
-        dest: 'public/assets/css/<%= pkg.name %>.css'
+        dest: 'public/assets/css/<%= pkg.name %>-<%= pkg.version %>.css'
       }
     },
     
     // JS MIN
+    // https://npmjs.org/package/grunt-contrib-uglify
     uglify: {
       dist: {
         // Use banner and concatenated JS file
         src: 'public/assets/js/<%= pkg.name %>.js',
-        dest: 'public/assets/js/<%= pkg.name %>.min.js'
+        dest: 'public/assets/js/<%= pkg.name %>.min-<%= pkg.version %>.js'
       }
     },
 
@@ -75,7 +78,7 @@ module.exports = function(grunt) {
     cssmin: {
       compress: {
         files: {
-          'public/assets/css/<%= pkg.name %>.min.css': ['public/assets/css/<%= pkg.name %>.css']
+          'public/assets/css/<%= pkg.name %>.min-<%= pkg.version %>.css': ['public/assets/css/<%= pkg.name %>.css']
         }
       }
     },
@@ -89,14 +92,28 @@ module.exports = function(grunt) {
       }
     },
 
-    // Copy HTML to public dir
+    // COPY
+    // https://npmjs.org/package/grunt-contrib-copy
     copy: {
+
+      // Copy HTML file to public directory
+      // replace version tag and path of inline images
       html: {
+        options: {
+          processContent: function (content, srcpath) {
+            var pkg = grunt.config('pkg');
+            var ver = grunt.template.process("<%= pkg.version %>", pkg );
+
+            return content.replace(/{{version}}/g , ver ).replace(/\/_dev\/img\//g, 'assets/img/');
+          } 
+        },
         files: [{
           src: '_dev/index.html',
           dest: 'public/index.html'
         }]
       },
+
+      // Copy audio files in public directory
       audio: {
         files: [{
           flatten: true,
@@ -104,15 +121,46 @@ module.exports = function(grunt) {
           src: '_dev/audio/*',
           dest: 'public/assets/audio/'
         }]
+      },
+
+      // Copy chrome manifest and populate with data from package.json
+      manifest: {
+        options: {
+          processContent: function (content, srcpath) {
+            
+            var data = JSON.parse( content );
+            var pkg = grunt.config('pkg');
+            
+            data.name = grunt.template.process("<%= pkg.title %>", pkg );
+            data.description = grunt.template.process("<%= pkg.description %>", pkg );
+            data.version = grunt.template.process("<%= pkg.version %>", pkg );
+            
+            data.app = {};
+            data.app.launch = {};
+
+            data.app.launch.web_url = grunt.template.process("<%= pkg.homepage %>", pkg );
+            data.app.urls = [ grunt.template.process("<%= pkg.domain %>", pkg ) ];
+
+            return JSON.stringify( data );
+          }
+        },
+        files: [
+          {
+            src: '_dev/chrome-manifest.json',
+            dest: 'stores/chrome/manifest.json'
+          }
+        ]
       }
     },
 
-    // Changes path to assets
+    // USEMIN
+    // https://npmjs.org/package/grunt-usemin
     usemin: {
       html: ['public/index.html']
     },
 
-    // Minifies HTML
+    // Minify HTML
+    // https://npmjs.org/package/grunt-contrib-htmlmin
     htmlmin: {
       public: {
         options: {
@@ -125,6 +173,31 @@ module.exports = function(grunt) {
           'public/index.html': 'public/index.html'
         }
       }
+    },
+
+    // COMPRESS
+    // https://npmjs.org/package/grunt-contrib-compress
+    compress: {
+      chromestore: {
+        options: {
+          archive: 'stores/chrome.zip',
+          mode: 'zip'
+        },
+        expand: true,
+        cwd: 'stores/',
+        src: ['chrome/**'],
+        dest: '/'
+      }
+    },
+
+    // Bumpx
+    // Bump version in package.json
+    // https://npmjs.org/package/grunt-bumpx
+    bump: {
+      options: {
+        part: 'patch'
+      },
+      files: [ 'package.json' ]
     },
     
     // WATCH
@@ -142,17 +215,19 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-compress');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-smushit');
   grunt.loadNpmTasks('grunt-usemin');
+  grunt.loadNpmTasks('grunt-bumpx');
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin']);
 
-  // Release taks (Default task  + Smushit + minify HTML)
+  // Release taks (Default task + Smushit + minify HTML + copy files)
   grunt.registerTask('release', ['jshint', 'concat', 'uglify', 'cssmin', 'copy:html', 'usemin:html', 'htmlmin', 'smushit', 'copy:audio']);
 
-  // Deploy (Release task + versioning + ftp deploy)
-  grunt.registerTask('deploy', ['jshint' ,'concat', 'uglify', 'cssmin', 'htmlmin', 'smushit', '']);
+  // Build manifest for chrome store
+  grunt.registerTask('chromestore', ['bump', 'copy:manifest', 'compress:chromestore']);
 
 };
