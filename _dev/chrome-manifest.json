@@ -1,0 +1,15 @@
+{
+  "name": "",
+  "description": "",
+  "version": "",
+  "icons": {
+    "128": "icon-chrome.png"
+  },
+  "app": {
+    "urls": "",
+    "launch": {
+      "web_url": ""
+    }
+  },
+  "manifest_version": 2
+}
