@@ -7,5 +7,7 @@
 
 *.zip
 
+public/
+
 #node modules folder
 node_modules/*
