@@ -159,15 +159,21 @@
 
 	</div>
 
+	<script>
+		// Localhost doesn't contains any dot.
+		window.isLocal = window.location.hostname.indexOf('.') === -1 ? true : false;
+		console.log( window.isLocal );
+	</script>
+
 	<!-- build:js assets/js/block.min-{{version}}.js -->
-	<script type="text/javascript" src="/_dev/js/lib.js"></script>
-	<script type="text/javascript" src="/_dev/js/audiosprite.js"></script>
-	<script type="text/javascript" src="/_dev/js/board.js"></script>
-	<script type="text/javascript" src="/_dev/js/block.js"></script>
-	<script type="text/javascript" src="/_dev/js/puzzle.js"></script>
-	<script type="text/javascript" src="/_dev/js/block.move.js"></script>
-	<script type="text/javascript" src="/_dev/js/game.js"></script>
-	<script type="text/javascript" src="/_dev/js/ui.js"></script>
+	<script src="/_dev/js/lib.js"></script>
+	<script src="/_dev/js/audiosprite.js"></script>
+	<script src="/_dev/js/board.js"></script>
+	<script src="/_dev/js/block.js"></script>
+	<script src="/_dev/js/puzzle.js"></script>
+	<script src="/_dev/js/block.move.js"></script>
+	<script src="/_dev/js/game.js"></script>
+	<script src="/_dev/js/ui.js"></script>
 	<!-- endbuild -->
 	
 </body>
