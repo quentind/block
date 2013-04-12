@@ -253,26 +253,6 @@
 		// 15
 		// Hard puzzles begin
 		{
-			parMoves: 32,
-			blocks: [
-				new Block( 2, 1, 2, 'h', true )
-			  , new Block( 0, 0, 2, 'h', false )
-			  , new Block( 0, 2, 2, 'v', false )
-			  , new Block( 0, 4, 2, 'h', false )
-			  , new Block( 1, 0, 2, 'h', false )
-			  , new Block( 1, 5, 3, 'v', false )
-			  , new Block( 2, 0, 3, 'v', false )
-			  , new Block( 2, 4, 2, 'v', false )
-			  , new Block( 3, 1, 3, 'h', false )
-			  , new Block( 4, 1, 2, 'v', false )
-			  , new Block( 4, 3, 2, 'v', false )
-			  , new Block( 4, 4, 2, 'h', false )
-			  , new Block( 5, 4, 2, 'h', false )
-			]
-		},
-
-		// 16
-		{
 			parMoves: 25,
 			blocks: [
 				new Block( 2, 0, 2, 'h', true )
@@ -291,7 +271,7 @@
 			]
 		},
 
-		// 17
+		// 16
 		{
 			parMoves: 25,
 			blocks: [
@@ -311,7 +291,7 @@
 			]
 		},
 
-		// 18
+		// 17
 		{
 			parMoves: 47,
 			blocks: [
@@ -327,6 +307,26 @@
 			  , new Block( 4, 3, 2, 'v', false )
 			  , new Block( 4, 4, 2, 'h', false )
 			  , new Block( 5, 0, 2, 'h', false )
+			  , new Block( 5, 4, 2, 'h', false )
+			]
+		},
+
+		// 18
+		{
+			parMoves: 32,
+			blocks: [
+				new Block( 2, 1, 2, 'h', true )
+			  , new Block( 0, 0, 2, 'h', false )
+			  , new Block( 0, 2, 2, 'v', false )
+			  , new Block( 0, 4, 2, 'h', false )
+			  , new Block( 1, 0, 2, 'h', false )
+			  , new Block( 1, 5, 3, 'v', false )
+			  , new Block( 2, 0, 3, 'v', false )
+			  , new Block( 2, 4, 2, 'v', false )
+			  , new Block( 3, 1, 3, 'h', false )
+			  , new Block( 4, 1, 2, 'v', false )
+			  , new Block( 4, 3, 2, 'v', false )
+			  , new Block( 4, 4, 2, 'h', false )
 			  , new Block( 5, 4, 2, 'h', false )
 			]
 		},

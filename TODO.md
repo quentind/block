@@ -13,7 +13,6 @@
 - Audio: play silence on mouseover to prevent delay on first sound effect in FF when laggy (?)
 - Hide reset level button on local mode
 - Separate version number from app (chrome or FF) version number
-- Better level order
 
 ## Design
 - Retina graphics + retina icons
