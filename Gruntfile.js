@@ -69,7 +69,7 @@ module.exports = function(grunt) {
       dist: {
         // Use banner and concatenated JS file
         src: 'public/assets/js/<%= pkg.name %>.js',
-        dest: 'public/assets/js/<%= pkg.name %>.min-<%= pkg.version %>.js'
+        dest: 'public/assets/js/<%= pkg.name %>-<%= pkg.version %>.min.js'
       }
     },
 
@@ -78,7 +78,7 @@ module.exports = function(grunt) {
     cssmin: {
       compress: {
         files: {
-          'public/assets/css/<%= pkg.name %>.min-<%= pkg.version %>.css': ['public/assets/css/<%= pkg.name %>.css']
+          'public/assets/css/<%= pkg.name %>-<%= pkg.version %>.min.css': ['public/assets/css/<%= pkg.name %>-<%= pkg.version %>.css']
         }
       }
     },
@@ -97,14 +97,15 @@ module.exports = function(grunt) {
     copy: {
 
       // Copy HTML file to public directory
-      // replace version tag and path of inline images
+      //   - replace version tag and path of inline images
+      //   - add manifest attribute to <html> tag
       html: {
         options: {
           processContent: function (content, srcpath) {
             var pkg = grunt.config('pkg');
             var ver = grunt.template.process("<%= pkg.version %>", pkg );
 
-            return content.replace(/{{version}}/g , ver ).replace(/\/_dev\/img\//g, 'assets/img/');
+            return content.replace(/{{version}}/g , ver ).replace(/\/_dev\/img\//g, 'assets/img/').replace(/<html>/, '<html manifest="manifest.appcache">');
           } 
         },
         files: [{
@@ -190,14 +191,38 @@ module.exports = function(grunt) {
       }
     },
 
-    // Bumpx
-    // Bump version in package.json
+    // BUMPX
     // https://npmjs.org/package/grunt-bumpx
     bump: {
       options: {
         part: 'patch'
       },
+      // Bump version in package.json
       files: [ 'package.json' ]
+    },
+
+    // MANIFEST
+    // https://npmjs.org/package/grunt-manifest
+    manifest: {
+      generate: {
+        options: {
+          basePath: 'public/',
+          network: [
+            '*',
+            'http://*',
+            'https://*'
+          ],
+          verbose: false,
+          timestamp: true
+        },
+        src: [
+          'index.html',
+          'assets/js/*.min.js',
+          'assets/css/*.min.css',
+          'assets/img/sprite.png'
+        ],
+        dest: 'public/manifest.appcache'
+      }
     },
     
     // WATCH
@@ -217,6 +242,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-compress');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-manifest');
   grunt.loadNpmTasks('grunt-smushit');
   grunt.loadNpmTasks('grunt-usemin');
   grunt.loadNpmTasks('grunt-bumpx');
