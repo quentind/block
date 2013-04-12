@@ -125,7 +125,7 @@ module.exports = function(grunt) {
       },
 
       // Copy chrome manifest and populate with data from package.json
-      manifest: {
+      chromestore: {
         options: {
           processContent: function (content, srcpath) {
             
@@ -134,7 +134,6 @@ module.exports = function(grunt) {
             
             data.name = grunt.template.process("<%= pkg.title %>", pkg );
             data.description = grunt.template.process("<%= pkg.description %>", pkg );
-            data.version = grunt.template.process("<%= pkg.version %>", pkg );
             
             data.app = {};
             data.app.launch = {};
@@ -194,11 +193,26 @@ module.exports = function(grunt) {
     // BUMPX
     // https://npmjs.org/package/grunt-bumpx
     bump: {
-      options: {
-        part: 'patch'
+      // Bump Chrome store manifest version
+      chromestore: {
+        options: {
+          part: 'patch'
+        },
+        src: [
+          '_dev/chrome-manifest.json'
+        ]
       },
+
       // Bump version in package.json
-      files: [ 'package.json' ]
+      // Used in links to assets
+      ver : {
+        options: {
+          part: 'patch'
+        },
+        src: [
+          'package.json'
+        ]
+      }
     },
 
     // MANIFEST
@@ -254,6 +268,6 @@ module.exports = function(grunt) {
   grunt.registerTask('release', ['jshint', 'concat', 'uglify', 'cssmin', 'copy:html', 'usemin:html', 'htmlmin', 'smushit', 'copy:audio', 'manifest']);
 
   // Build manifest for chrome store
-  grunt.registerTask('chromestore', ['bump', 'copy:manifest', 'compress:chromestore']);
+  grunt.registerTask('chromestore', ['bump:chromestore', 'copy:chromestore', 'compress:chromestore']);
 
 };
