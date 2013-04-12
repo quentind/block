@@ -9,7 +9,6 @@
 
 - iOS: currentTime audio bug: need to catch (http://remysharp.com/2010/12/23/audio-sprites/)
 - iOS: click/hover on locked lvl create error
-- Automatic appcache generation with grunt-contrib-manifest
 - Audio: play silence on mouseover to prevent delay on first sound effect in FF when laggy (?)
 - Hide reset level button on local mode
 - Separate version number from app (chrome or FF) version number
