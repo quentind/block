@@ -37,11 +37,11 @@
 
 		var resource = [
 				{
-					src: window.isLocal ? '/_dev/img/sprite.png' : 'assets/img/sprite.png',
+					src: window.isLocal ? 'img/sprite.png' : 'assets/img/sprite.png',
 					type: 'image'
 				},
 				{
-					src: window.isLocal ? '/_dev/audio/sprite.' : 'assets/audio/sprite.',
+					src: window.isLocal ? 'audio/sprite.' : 'assets/audio/sprite.',
 					type: 'audio'
 				}
 			]

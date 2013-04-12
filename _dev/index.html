@@ -160,8 +160,8 @@
 	</div>
 
 	<script>
-		// Localhost doesn't contains any dot.
-		window.isLocal = window.location.hostname.indexOf('.') === -1 ? true : false;
+		// Localhost if URL doesn't contains any dot and isn't in /public/ directory
+		window.isLocal = ( window.location.hostname.indexOf('.') === -1 && window.location.href.indexOf('/public/') === -1 ) ? true : false;
 	</script>
 
 	<!-- build:js assets/js/block-{{version}}.min.js -->
