@@ -9,17 +9,21 @@
 
 - iOS: currentTime audio bug: need to catch (http://remysharp.com/2010/12/23/audio-sprites/)
 - iOS: click/hover on locked lvl create error
+- Automatic appcache generation with grunt-contrib-manifest
+- Audio: play silence on mouseover to prevent delay on first sound effect in FF when laggy (?)
+- Hide reset level button on local mode
+- Separate version number from app (chrome or FF) version number
+- Better level order
 
 ## Design
-- Credit/end game screen: list level without perfect score
-- Retina graphics + retirna icons
+- Retina graphics + retina icons
     - CSS Image Set (http://www.mobilexweb.com/blog/iphone-5-ios-6-html5-developers) new webkit css property
 
 ## Marketplace
 - Windows 8
     - http://www.buildmypinnedsite.com/
+    - source code: http://www.beautyoftheweb.com/#/highlights/seamless-with-windows-7
 - Firefox Marketplace
-    - Vibrate on lvl win (FF OS)
     - https://marketplace.firefox.com/developers/docs/quick_start
     - Install button: https://github.com/mozilla/mortar-app-stub/blob/master/www/js/install-button.js
     - https://developer.mozilla.org/fr/docs/Applications/Manifeste#Serving_from_GitHub
