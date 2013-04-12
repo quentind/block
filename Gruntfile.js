@@ -251,7 +251,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin']);
 
   // Release taks (Default task + Smushit + minify HTML + copy files)
-  grunt.registerTask('release', ['jshint', 'concat', 'uglify', 'cssmin', 'copy:html', 'usemin:html', 'htmlmin', 'smushit', 'copy:audio']);
+  grunt.registerTask('release', ['jshint', 'concat', 'uglify', 'cssmin', 'copy:html', 'usemin:html', 'htmlmin', 'smushit', 'copy:audio', 'manifest']);
 
   // Build manifest for chrome store
   grunt.registerTask('chromestore', ['bump', 'copy:manifest', 'compress:chromestore']);
