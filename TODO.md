@@ -7,11 +7,10 @@
     - http://blogs.msdn.com/b/ie/archive/2012/04/20/guidelines-for-building-touch-friendly-sites.aspx
     - http://blogs.msdn.com/b/ie/archive/2011/09/20/touch-input-for-ie10-and-metro-style-apps.aspx
 
-- iOS: currentTime audio bug: need to catch (http://remysharp.com/2010/12/23/audio-sprites/)
-- iOS: click/hover on locked lvl create error
-- Audio: play silence on mouseover to prevent delay on first sound effect in FF when laggy (?)
-- Hide reset level button on local mode
-- Separate version number from app (chrome or FF) version number
+- iOS pre 6: currentTime audio bug: need to catch (http://remysharp.com/2010/12/23/audio-sprites/)
+- iOS pre 6: click/hover on locked lvl create error
+- Fix iOS mess with offline audio
+- Google analytics
 
 ## Design
 - Retina graphics + retina icons
