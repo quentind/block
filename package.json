@@ -2,9 +2,9 @@
   "name": "block",
   "title": "Block Puzzle Game",
   "description": "Clear the level by moving blocks either horizontally or vertically in order to open up a pathway for the red block.",
-  "version": "1.0.21",
-  "homepage": "http://b.quentind.be/_dev/",
-  "domain": "http://b.quentind.be/",
+  "version": "1.0.30",
+  "homepage": "http://block-challenge.com/",
+  "domain": "http://block-challenge.com/",
   "author": {
     "name": "Quentin De Smedt"
   },
