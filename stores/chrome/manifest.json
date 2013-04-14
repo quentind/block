@@ -1,0 +1,1 @@
+{"name":"Block Puzzle Game","description":"Clear the level by moving blocks either horizontally or vertically in order to open up a pathway for the red block.","version":"1.0.2","icons":{"128":"icon-chrome.png"},"app":{"launch":{"web_url":"http://b.quentind.be/_dev/"},"urls":["http://b.quentind.be/"]},"manifest_version":2}
