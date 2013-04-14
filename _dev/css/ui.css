@@ -467,6 +467,15 @@
 	display:none;
 }
 
+/* Debug button */
+.buttons .debug {
+	display:none !important;
+}
+
+.debug .buttons .debug {
+	display:block;
+}
+
 /*** NEW RECORD Alert ***/
 .new {
 
