@@ -46,7 +46,7 @@ module.exports = function(grunt) {
             '_dev/js/game.js',
             '_dev/js/ui.js'
           ],
-        dest: 'public/assets/js/<%= pkg.name %>.js'
+        dest: 'public/assets/js/<%= pkg.name %>-<%= pkg.version %>.js'
       },
       css: {
         options: {
@@ -68,7 +68,7 @@ module.exports = function(grunt) {
     uglify: {
       dist: {
         // Use banner and concatenated JS file
-        src: 'public/assets/js/<%= pkg.name %>.js',
+        src: 'public/assets/js/<%= pkg.name %>-<%= pkg.version %>.js',
         dest: 'public/assets/js/<%= pkg.name %>-<%= pkg.version %>.min.js'
       }
     },
@@ -265,7 +265,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin']);
 
   // Release taks (Default task + Smushit + minify HTML + copy files)
-  grunt.registerTask('release', ['jshint', 'concat', 'uglify', 'cssmin', 'copy:html', 'usemin:html', 'htmlmin', 'copy:audio', /*'manifest',*/ 'smushit']);
+  grunt.registerTask('release', ['jshint', 'bump:ver', 'concat', 'uglify', 'cssmin', 'copy:html', 'usemin:html', 'htmlmin', 'copy:audio', /*'manifest',*/ 'smushit']);
 
   // Build manifest for chrome store
   grunt.registerTask('chromestore', ['bump:chromestore', 'copy:chromestore', 'compress:chromestore']);
