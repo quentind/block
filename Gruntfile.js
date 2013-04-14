@@ -105,7 +105,7 @@ module.exports = function(grunt) {
             var pkg = grunt.config('pkg');
             var ver = grunt.template.process("<%= pkg.version %>", pkg );
 
-            return content.replace(/{{version}}/g , ver ).replace(/\/_dev\/img\//g, 'assets/img/').replace(/<html>/, '<html manifest="manifest.appcache">');
+            return content.replace(/{{version}}/g , ver ).replace(/\/_dev\/img\//g, 'assets/img/')/*.replace(/<html>/, '<html manifest="manifest.appcache">')*/;
           } 
         },
         files: [{
@@ -265,7 +265,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin']);
 
   // Release taks (Default task + Smushit + minify HTML + copy files)
-  grunt.registerTask('release', ['jshint', 'concat', 'uglify', 'cssmin', 'copy:html', 'usemin:html', 'htmlmin', 'copy:audio', 'manifest', 'smushit']);
+  grunt.registerTask('release', ['jshint', 'concat', 'uglify', 'cssmin', 'copy:html', 'usemin:html', 'htmlmin', 'copy:audio', /*'manifest',*/ 'smushit']);
 
   // Build manifest for chrome store
   grunt.registerTask('chromestore', ['bump:chromestore', 'copy:chromestore', 'compress:chromestore']);
