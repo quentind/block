@@ -133,6 +133,7 @@
 			game.$.play[0].appendChild( frag );
 
 			UI.endScreen.disable();
+
 		},
 
 		/**
@@ -165,6 +166,13 @@
 			}
 			
 			UI.score.update.bestMoves();
+
+			/***
+			 * Track action in Google Analytics
+			 * -
+			 * Cleared level X with N moves
+			 */
+			ga('send', 'event', 'win', parseInt( currentLevel, 10 ) + 1, currentMoves );
 
 		},
 
@@ -237,6 +245,14 @@
 							callback: inCallback
 						});
 					}, 200); // => setTimeout required to ensure puzzle have been inserted before we animate blocks in
+
+					/***
+					 * Track action in Google Analytics
+					 * -
+					 * Insert level n
+					 */
+					ga('send', 'event', 'game', 'insert-level', nextPuzzle );
+
 				} else {
 					
 					/*
@@ -287,9 +303,16 @@
 				$.storage.bestMoves = JSON.stringify([]);
 			}
 
+			/***
+			 * Track action in Google Analytics
+			 * -
+			 * Insert level n
+			 */
+			ga('send', 'event', 'game', 'insert-level', lvl );
+
 			// Insert first unachieved puzzle
 			game.puzzle.insert( puzzle[ $.storage.lvl ] );
-			
+
 			$(window).trigger('levelUpdate');
 		}
 	};

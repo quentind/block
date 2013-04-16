@@ -10,7 +10,6 @@
 - iOS pre 6: currentTime audio bug: need to catch (http://remysharp.com/2010/12/23/audio-sprites/)
 - iOS pre 6: click/hover on locked lvl create error
 - Fix iOS mess with offline audio
-- Google analytics custom metric (game played, game won, game reset)
 
 ## Design
 - Retina graphics + retina icons

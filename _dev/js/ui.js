@@ -141,7 +141,15 @@
 						where: 'out',
 						direction: 'top'
 					});
+
+					/***
+					 * Track action in Google Analytics
+					 * -
+					 * open level list
+					 */
+					ga('send', 'event', 'ui_action', 'level-list');
 				}
+
 			},
 
 			/**
@@ -155,6 +163,14 @@
 
 					if ( UI.status.fullscreen === false ) {
 						fs.enable();
+						
+						/***
+						 * Track action in Google Analytics
+						 * -
+						 * enable fullscreen
+						 */
+						ga('send', 'event', 'ui_action', 'fullscreen');
+
 					} else {
 						fs.cancel();
 					}
@@ -170,6 +186,14 @@
 				if ( UI.status.muted === false ) {
 					UI.status.update('muted', true );
 					$(this).addClass('muted');
+
+					/***
+					 * Track action in Google Analytics
+					 * -
+					 * mute game
+					 */
+					ga('send', 'event', 'ui_action', 'mute');
+
 				} else {
 					UI.status.update('muted', false );
 					$(this).removeClass('muted');
@@ -206,6 +230,13 @@
 
 					}
 				});
+
+				/***
+				 * Track action in Google Analytics
+				 * -
+				 * enable fullscreen
+				 */
+				ga('send', 'event', 'ui_action', 'reset-level');
 
 			},
 
@@ -288,6 +319,13 @@
 
 				// Close level list
 				UI.level.hideList();
+
+				/***
+				 * Track action in Google Analytics
+				 * -
+				 * Insert level n
+				 */
+				ga('send', 'event', 'ui_action', 'load-level', n );
 			}
 		},
 		
