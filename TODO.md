@@ -17,6 +17,7 @@
     - CSS Image Set (http://www.mobilexweb.com/blog/iphone-5-ios-6-html5-developers) new webkit css property
 
 ## Marketplace
+- Chrome: submit
 - Windows 8
     - http://www.buildmypinnedsite.com/
     - source code: http://www.beautyoftheweb.com/#/highlights/seamless-with-windows-7
