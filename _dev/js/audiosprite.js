@@ -4,6 +4,8 @@
 (function () {
 	'use strict';
 
+	var iOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false;
+
 	/***
 	 * AudioSprite Constructor
 	 * -
@@ -35,7 +37,6 @@
 	AudioSprite.prototype.load = function ( loadedCallback ) {
 
 		var self = this
-		  , iOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false
 		  , ext
 		;
 
@@ -118,27 +119,37 @@
 		if ( UI.status.muted === false ) {
 			
 			this.audio.volume = volume || 1;
-		
-			this.audio.pause();
-			this.audio.currentTime = this.registry[ trackName ].start;
-			this.audio.play();
+			
+			// If not iOS or iOS with connection, we are fine, just play sounds as usual
+			if ( ! iOS || iOS && window.navigator.onLine === true ) {
+			
+				this.audio.pause();
+				this.audio.currentTime = this.registry[ trackName ].start;
+				this.audio.play();
 
-			this.timer = null;
+				this.timer = null;
 
-			var self = this;
+				var self = this;
 
-			clearTimeout( this.timer );
+				clearTimeout( this.timer );
 
-			var timerFn = function () {
-				if ( self.audio.currentTime >= self.registry[ trackName ].end ) {
-					self.audio.pause();
-					clearTimeout( self.timer );
-				} else {
-					setTimeout( timerFn, 10);	
-				}
-			};
+				var timerFn = function () {
+					if ( self.audio.currentTime >= self.registry[ trackName ].end ) {
+						self.audio.pause();
+						clearTimeout( self.timer );
+					} else {
+						setTimeout( timerFn, 10);	
+					}
+				};
 
-			this.timer = setTimeout(timerFn, 10);
+				this.timer = setTimeout(timerFn, 10);
+
+			} else {
+
+				// iOS and no connection => do hack
+				// addiotional verification with window.navigator.standalone ?
+
+			}
 		
 		}
 
