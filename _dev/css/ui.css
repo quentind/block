@@ -1073,4 +1073,13 @@
 
 }
 
+@media all and ( max-width:800px ) and ( max-height:768px ) {
 
+	#play {
+		margin-top:-190px;
+	}
+
+	#board {
+		margin-top:-203px;
+	}
+}
