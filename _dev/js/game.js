@@ -308,7 +308,7 @@
 			 * -
 			 * Insert level n
 			 */
-			ga('send', 'event', 'game', 'insert-level', lvl );
+			ga('send', 'event', 'game', 'insert-level', parseInt(lvl, 10) + 1 );
 
 			// Insert first unachieved puzzle
 			game.puzzle.insert( puzzle[ $.storage.lvl ] );
