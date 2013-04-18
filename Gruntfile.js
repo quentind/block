@@ -105,7 +105,7 @@ module.exports = function(grunt) {
             var pkg = grunt.config('pkg');
             var ver = grunt.template.process("<%= pkg.version %>", pkg );
 
-            return content.replace(/{{version}}/g , ver ).replace(/\/_dev\/img\//g, 'assets/img/')/*.replace(/<html>/, '<html manifest="manifest.appcache">')*/;
+            return content.replace(/{{version}}/g , ver ).replace(/\/_dev\/img\//g, 'assets/img/').replace(/<html>/, '<html manifest="manifest.appcache">');
           } 
         },
         files: [{
@@ -239,6 +239,17 @@ module.exports = function(grunt) {
       }
     },
     
+    // CLEAN
+    // https://npmjs.org/package/grunt-contrib-clean
+    clean: {
+      build: {
+        src: [
+          'public/assets/css',
+          'public/assets/js'
+        ]
+      }
+    },    
+
     // WATCH
     // https://npmjs.org/package/grunt-contrib-watch
     watch: {
@@ -256,16 +267,17 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-compress');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-manifest');
   grunt.loadNpmTasks('grunt-smushit');
   grunt.loadNpmTasks('grunt-usemin');
   grunt.loadNpmTasks('grunt-bumpx');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin']);
+  grunt.registerTask('default', ['jshint', 'clean', 'concat', 'uglify', 'cssmin']);
 
   // Release taks (Default task + Smushit + minify HTML + copy files)
-  grunt.registerTask('release', ['jshint', 'bump:ver', 'concat', 'uglify', 'cssmin', 'copy:html', 'usemin:html', 'htmlmin', 'copy:audio', /*'manifest',*/ 'smushit']);
+  grunt.registerTask('release', ['jshint', 'clean', 'bump:ver', 'concat', 'uglify', 'cssmin', 'copy:html', 'usemin:html', 'htmlmin', 'copy:audio', 'manifest', 'smushit']);
 
   // Build manifest for chrome store
   grunt.registerTask('chromestore', ['bump:chromestore', 'copy:chromestore', 'compress:chromestore']);
