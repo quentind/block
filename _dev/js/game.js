@@ -251,7 +251,7 @@
 					 * -
 					 * Insert level n
 					 */
-					ga('send', 'event', 'game', 'insert-level', nextPuzzle );
+					ga('send', 'event', 'game', 'insert-level', parseInt(nextPuzzle, 10) + 1 );
 
 				} else {
 					
