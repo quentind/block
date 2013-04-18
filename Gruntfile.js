@@ -70,6 +70,11 @@ module.exports = function(grunt) {
         // Use banner and concatenated JS file
         src: 'public/assets/js/<%= pkg.name %>-<%= pkg.version %>.js',
         dest: 'public/assets/js/<%= pkg.name %>-<%= pkg.version %>.min.js'
+      },
+      ios: {
+        files: {
+           'public/assets/js/ios_sounds.min.js' : '_dev/js/ios_sounds.js'
+        }
       }
     },
 
@@ -245,7 +250,8 @@ module.exports = function(grunt) {
           'assets/js/*.min.js',
           'assets/css/*.min.css',
           'assets/img/sprite.png',
-          'assets/fonts/*'
+          'assets/fonts/*',
+          'assets/audio/*'
         ],
         dest: 'public/manifest.appcache'
       }
