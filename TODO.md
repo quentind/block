@@ -9,7 +9,10 @@
 
 - iOS pre 6: currentTime audio bug: need to catch (http://remysharp.com/2010/12/23/audio-sprites/)
 - iOS pre 6: click/hover on locked lvl create error
+- Use local font-face not Google Fonts
 - Fix iOS mess with offline audio
+    - Actually play sounds: http://html5doctor.com/taking-web-audio-offline-in-ios-6-safari/ (maybe)
+    - Or remove mute/unmute icon
 
 ## Design
 - Retina graphics + retina icons
