@@ -98,6 +98,7 @@ module.exports = function(grunt) {
 
       // Copy HTML file to public directory
       //   - replace version tag and path of inline images
+      //   - replace path to font in @font-face
       //   - add manifest attribute to <html> tag
       html: {
         options: {
@@ -105,7 +106,7 @@ module.exports = function(grunt) {
             var pkg = grunt.config('pkg');
             var ver = grunt.template.process("<%= pkg.version %>", pkg );
 
-            return content.replace(/{{version}}/g , ver ).replace(/\/_dev\/img\//g, 'assets/img/').replace(/<html>/, '<html manifest="manifest.appcache">');
+            return content.replace(/{{version}}/g , ver ).replace(/\/_dev\/img\//g, 'assets/img/').replace(/\/_dev\/fonts\//g, 'assets/fonts/').replace(/<html>/, '<html manifest="manifest.appcache">');
           } 
         },
         files: [{
@@ -121,6 +122,16 @@ module.exports = function(grunt) {
           expand: true,
           src: '_dev/audio/*',
           dest: 'public/assets/audio/'
+        }]
+      },
+
+      // fonts
+      fonts: {
+        files: [{
+          flatten: true,
+          expand: true,
+          src: '_dev/fonts/*',
+          dest: 'public/assets/fonts/'
         }]
       },
 
@@ -233,7 +244,8 @@ module.exports = function(grunt) {
           'index.html',
           'assets/js/*.min.js',
           'assets/css/*.min.css',
-          'assets/img/sprite.png'
+          'assets/img/sprite.png',
+          'assets/fonts/*'
         ],
         dest: 'public/manifest.appcache'
       }
