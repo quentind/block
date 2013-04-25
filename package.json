@@ -1,8 +1,8 @@
 {
   "name": "block",
-  "title": "Block Puzzle Game",
+  "title": "Block Challenge",
   "description": "Clear the level by moving blocks either horizontally or vertically in order to open up a pathway for the red block.",
-  "version": "1.0.38",
+  "version": "1.0.102",
   "homepage": "http://block-challenge.com/",
   "domain": "http://block-challenge.com/",
   "author": {
