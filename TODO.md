@@ -18,7 +18,6 @@
 ## Marketplace
 - Chrome: submit
 - Windows 8
-    - http://www.buildmypinnedsite.com/
     - source code: http://www.beautyoftheweb.com/#/highlights/seamless-with-windows-7
 - Firefox Marketplace
     - https://marketplace.firefox.com/developers/docs/quick_start
