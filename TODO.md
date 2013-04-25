@@ -9,8 +9,7 @@
 
 - iOS pre 6: currentTime audio bug: need to catch (http://remysharp.com/2010/12/23/audio-sprites/)
 - iOS pre 6: click/hover on locked lvl create error
-- Fix iOS mess with offline audio
-    - Done, but crashes when app is opened without clearing background app
+- iOS: check if next iOS version fixes Web Audio issues on fullscreen apps
 
 ## Design
 - Retina graphics + retina icons
