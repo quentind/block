@@ -1,7 +1,7 @@
 {
   "name": "",
   "description": "",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "icons": {
     "128": "icon-chrome.png"
   },
@@ -11,5 +11,6 @@
       "web_url": ""
     }
   },
+  "offline_enabled": true,
   "manifest_version": 2
 }
