@@ -64,8 +64,8 @@
 		preload = function ( src, type ) {
 
 			if ( type === 'audio' ) {
-
-				if ( $.support.audio ) {
+				
+				if ( $.support.audio || ( window.AudioContext || window.webkitAudioContext ) ) {
 
 					window.sounds = new AudioSprite( src );
 

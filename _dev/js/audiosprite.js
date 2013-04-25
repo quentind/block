@@ -4,8 +4,10 @@
 (function () {
 	'use strict';
 
-	var iOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false;
-
+	var iOS = navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ? true : false
+	  ,  ctx
+	;
+	
 	/***
 	 * AudioSprite Constructor
 	 * -
@@ -43,7 +45,7 @@
 		/**
 		 * For non iOS device or iOS devices connected to network (we assume there is an internet connection)
 		 */
-		if ( ! iOS || iOS && window.navigator.onLine === true ) {
+		if ( ! window.AudioContext && ! window.webkitAudioContext && ( ! iOS || (iOS && window.navigator.onLine === true) ) ) {
 
 			// Determine supported Audio type
 			if ( this.audio.canPlayType('audio/ogg; codecs="vorbis"') ) {
@@ -94,9 +96,13 @@
 			}
 
 		} else {
+
+			ctx = new webkitAudioContext() || new AudioContext();
+			
 			if ( typeof loadedCallback === 'function' ) {
 				loadedCallback();
 			}
+		
 		}
 
 		return this;
@@ -111,31 +117,35 @@
 		var self = this;
 
 		/**
-		 * For non iOS device or iOS devices connected to network (we assume there is an internet connection)
+		 * Devices / browsers that support Web Audio API
+		 * -
 		 */
-		if ( ! iOS || iOS && window.navigator.onLine === true ) {
+		if ( window.AudioContext || window.webkitAudioContext ) {
+
+			var arrayBuff = Base64Binary.decodeArrayBuffer( window.iOS_sounds[ trackName ] );
+			self.registry[ trackName ] = {};
+			self.registry[ trackName ].ab = arrayBuff;
+
+			ctx.decodeAudioData( self.registry[ trackName ].ab, function( audioData ) {
+				
+				self.registry[ trackName ].audioData = audioData;
+
+			});
+
+		}
+		/**
+		 * For devices/browsers that dont support WebAudio
+		 * - 
+		 * Exception of iOS, dont play sounds with HTML5 Audio when offline (Safari isn't able to play Audio from appcache)
+		 */
+		else if ( ! iOS || (iOS && window.navigator.onLine === true ) ) {
 
 			this.registry[ trackName ] = {
 				start: start,
 				end: end
 			};
 
-		}
-
-		/**
-		 * iOS devices that support Web Audio API
-		 * -
-		 * iOS has a bug preventing playing sounds using HTML5 <audio> when offline
-		 * so we use Web Audio API if available
-		 */
-		else if ( 'AudioContext' in window || 'webkitAudioContext' in window ) {
-		
-			var arrayBuff = Base64Binary.decodeArrayBuffer( window.iOS_sounds[ trackName ] );
-			self.ctx = new webkitAudioContext() || new AudioContext();
-			self.volume = self.ctx.createGainNode();
-			self.registry[ trackName ] = arrayBuff;
-
-		}
+		}	
 
 		return this;
 
@@ -156,9 +166,36 @@
 		if ( UI.status.muted === false ) {
 			
 			/**
-			 * For non iOS device or iOS devices connected to network (we assume there is an internet connection)
+			 * Devices / browsers that support Web Audio API
+			 * -
 			 */
-			if ( ! iOS || iOS && window.navigator.onLine === true ) {
+			if ( window.AudioContext || window.webkitAudioContext ) {
+
+				var source = ctx.createBufferSource();
+				var vol = ctx.createGainNode();
+
+				source.buffer = ctx.createBuffer( self.registry[ trackName ].ab, false );
+				source.connect( vol );
+
+				vol.connect( ctx.destination );
+				vol.gain.value = volume || 1;
+
+				if ( 'webkitAudioContext' in window ) {
+					source.noteOn(0);
+				} else if ( 'AudioContext' in window ) {
+					source.start(0);
+				}
+
+				source = null;
+				vol = null;
+				
+			}
+			/**
+			 * For devices/browsers that dont support WebAudio
+			 * - 
+			 * Exception of iOS, dont play sounds with HTML5 Audio when offline (Safari isn't able to play Audio from appcache)
+			 */
+			else if ( ! iOS || (iOS && window.navigator.onLine === true ) ) {
 			
 				this.audio.volume = volume || 1;
 
@@ -182,33 +219,7 @@
 				this.timer = setTimeout(timerFn, 10);
 
 			}
-			/**
-			 * iOS devices that support Web Audio API
-			 * -
-			 * iOS has a bug preventing playing sounds using HTML5 <audio> when offline
-			 * so we use Web Audio API if available
-			 */
-			else if ( 'AudioContext' in window || 'webkitAudioContext' in window ) {
-
-				self.ctx.decodeAudioData( self.registry[ trackName ], function( audioData ) {
-				
-					var source = self.ctx.createBufferSource();
-					source.buffer = audioData;
-					source.connect( self.volume );
-
-					self.volume.connect(self.ctx.destination);
-					self.volume.gain.value = volume;
-					//console.log( self.volume.gain.value );
-
-					if ('AudioContext' in window) {
-						source.start(0);
-					} else if ('webkitAudioContext' in window) {
-						source.noteOn(0);
-					} 
-
-				});
-
-			}
+			
 		
 		}
 
