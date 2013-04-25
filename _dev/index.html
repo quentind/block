@@ -16,7 +16,11 @@
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="icon-72.png">
 	<link rel="apple-touch-icon-precomposed" href="icon-57.png">
 
-	<meta name="apple-mobile-web-app-capable" content="yes">
+	<!-- 
+		Cause huge bug with WebAudio in Safari :(
+		http://stackoverflow.com/questions/15420332/apple-mobile-web-app-using-web-audio-api-system-unresponsive-when-app-state-retu
+	-->
+	<!--<meta name="apple-mobile-web-app-capable" content="yes">-->
 
 	<!-- build:css assets/css/block-{{version}}.min.css -->
 	<link rel="stylesheet" href="/_dev/css/reset.css" type="text/css" />
@@ -178,8 +182,8 @@
 	</script>
 
 	<script>
-		if ( navigator.userAgent.match(/(iPad|iPhone|iPod)/i) && ( 'AudioContext' in window || 'webkitAudioContext' in window ) ) {
-			document.write('<script src="' + (window.isLocal ? '/_dev' : 'assets') + '/js/ios_sounds.min.js' + '""><\/script>');	
+		if ( ( window.AudioContext || window.webkitAudioContext ) ) {
+			document.write('<script src="' + ( window.isLocal ? '/_dev' : 'assets' ) + '/js/webAudio' + ( window.isLocal ? '' : '.min' )  + '.js' + '""><\/script>');	
 		}
 	</script>
 
