@@ -73,7 +73,7 @@ module.exports = function(grunt) {
       },
       ios: {
         files: {
-           'public/assets/js/ios_sounds.min.js' : '_dev/js/ios_sounds.js'
+           'public/assets/js/webAudio.min.js' : '_dev/js/webAudio.js'
         }
       }
     },
