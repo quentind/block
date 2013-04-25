@@ -402,6 +402,8 @@
 			window.board.offset.top  = game.$.play[0].offsetTop;
 		};
 
+		updateOffsets();
+
 		/***
 		 * Resize window event handler
 		 */
