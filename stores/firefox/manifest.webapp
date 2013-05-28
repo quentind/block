@@ -1,0 +1,16 @@
+{
+    "version": "0.1",
+    "name": "Block Challenge",
+    "description": "Clear the level by moving blocks either horizontally or vertically in order to open up a pathway for the red block.",
+    "launch_path": "/index.html",
+    "icons": {
+        "16": "/favicon.png",
+        "128": "/icon-128.png"
+    },
+    "developer": {
+        "name": "quentind",
+        "url": "http://quentind.be"
+    },
+    "installs_allowed_from": ["*"],
+    "default_locale": "en"
+}   
