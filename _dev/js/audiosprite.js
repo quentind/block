@@ -45,7 +45,7 @@
 		/**
 		 * For non iOS device or iOS devices connected to network (we assume there is an internet connection)
 		 */
-		if ( ! window.AudioContext && ! window.webkitAudioContext && ( ! iOS || (iOS && window.navigator.onLine === true) ) ) {
+		if ( /*! window.AudioContext &&*/ ! window.webkitAudioContext && ( ! iOS || (iOS && window.navigator.onLine === true) ) ) {
 
 			// Determine supported Audio type
 			if ( this.audio.canPlayType('audio/ogg; codecs="vorbis"') ) {
@@ -99,9 +99,9 @@
 
 			if ( window.webkitAudioContext ) {
 				ctx = new webkitAudioContext();
-			} else if ( window.AudioContext ) {
-				ctx = new AudioContext();
-			}
+			} /*else if ( window.AudioContext ) {
+				ctx = new AudioContext()
+			}*/
 			
 			if ( typeof loadedCallback === 'function' ) {
 				loadedCallback();
@@ -124,7 +124,7 @@
 		 * Devices / browsers that support Web Audio API
 		 * -
 		 */
-		if ( window.AudioContext || window.webkitAudioContext ) {
+		if ( /*window.AudioContext ||*/ window.webkitAudioContext ) {
 
 			var arrayBuff = Base64Binary.decodeArrayBuffer( window.iOS_sounds[ trackName ] );
 			self.registry[ trackName ] = {};
@@ -173,7 +173,7 @@
 			 * Devices / browsers that support Web Audio API
 			 * -
 			 */
-			if ( window.AudioContext || window.webkitAudioContext ) {
+			if ( /*window.AudioContext ||*/ window.webkitAudioContext ) {
 
 				var source = ctx.createBufferSource();
 				var vol = ctx.createGainNode();
