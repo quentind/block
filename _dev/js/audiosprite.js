@@ -97,7 +97,11 @@
 
 		} else {
 
-			ctx = new webkitAudioContext() || new AudioContext();
+			if ( window.webkitAudioContext ) {
+				ctx = new webkitAudioContext();
+			} else if ( window.AudioContext ) {
+				ctx = new AudioContext()
+			}
 			
 			if ( typeof loadedCallback === 'function' ) {
 				loadedCallback();
